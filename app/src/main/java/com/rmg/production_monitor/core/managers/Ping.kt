@@ -1,0 +1,12 @@
+package com.faisal.quc.core.managers
+
+
+
+data class Ping (
+    var net : String = "NO_CONNECTION",
+    var host : String = "",
+    var ip: String  = "",
+    var dns : Long = Long.MAX_VALUE,
+    var cnt : Long= Long.MAX_VALUE
+)
+
