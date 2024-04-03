@@ -1,4 +1,4 @@
-package com.faisal.quc.core.data
+package com.rmg.production_monitor.core.data
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject

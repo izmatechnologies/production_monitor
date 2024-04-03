@@ -1,10 +1,7 @@
-package com.faisal.quc.core.managers.session
+package com.rmg.production_monitor.core.managers.session
 
-import android.content.Context
-import android.content.SharedPreferences
-import com.faisal.quc.core.Constants
-import com.faisal.quc.core.managers.preference.AppPreference
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.rmg.production_monitor.core.Constants
+import com.rmg.production_monitor.core.managers.preference.AppPreference
 import javax.inject.Inject
 import javax.inject.Singleton
 

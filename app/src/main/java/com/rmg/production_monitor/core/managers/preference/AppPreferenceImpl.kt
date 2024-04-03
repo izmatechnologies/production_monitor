@@ -1,9 +1,9 @@
-package com.faisal.quc.core.managers.preference
+package com.rmg.production_monitor.core.managers.preference
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
-import com.faisal.quc.core.Config
+import com.rmg.production_monitor.core.Config
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.faisal.quc.core.data
+package com.rmg.production_monitor.core.data
 
 sealed class NetworkResult<T>(val data: T? = null, val message: String? = null) {
 

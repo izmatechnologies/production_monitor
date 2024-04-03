@@ -1,7 +1,6 @@
-package com.faisal.quc.core.managers
+package com.rmg.production_monitor.core.managers
 
-import com.faisal.quc.core.extention.log
-import com.faisal.quc.core.managers.preference.AppPreference
+import com.rmg.production_monitor.core.extention.log
 import java.net.InetAddress
 import java.net.Socket
 import java.net.URL
@@ -9,7 +8,7 @@ import javax.inject.Inject
 
 class PingManagerImp  @Inject constructor(
     private val networkManager: NetworkManager
-) :PingManager {
+) : PingManager {
 
 
     override fun doPing(url: URL): Ping {

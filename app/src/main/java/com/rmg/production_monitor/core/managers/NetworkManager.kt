@@ -1,4 +1,4 @@
-package com.faisal.quc.core.managers
+package com.rmg.production_monitor.core.managers
 
 interface NetworkManager {
 

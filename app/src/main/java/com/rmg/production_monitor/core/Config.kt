@@ -1,6 +1,6 @@
-package com.faisal.quc.core
+package com.rmg.production_monitor.core
 
-import com.faisal.quc.BuildConfig
+
 
 object  Config {
 
@@ -28,5 +28,5 @@ object  Config {
 
     }
 
-    const val CORE_OPERATION_MODE =OperationModes.QC_OPERATION_MODE
+    const val CORE_OPERATION_MODE = OperationModes.QC_OPERATION_MODE
 }

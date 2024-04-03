@@ -1,8 +1,8 @@
-package com.faisal.quc.core.extention
+package com.rmg.production_monitor.core.extention
 
 
 import android.util.Log
-import com.faisal.quc.BuildConfig
+
 
 
 

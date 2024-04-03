@@ -1,4 +1,4 @@
-package com.faisal.quc.core.managers.preference
+package com.rmg.production_monitor.core.managers.preference
 
 interface AppPreference {
 

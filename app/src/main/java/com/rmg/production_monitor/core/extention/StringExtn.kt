@@ -1,10 +1,10 @@
-package com.faisal.quc.core.extention
+package com.rmg.production_monitor.core.extention
 
 import android.content.Context
 import android.widget.Toast
-import com.faisal.quc.core.QCApplication
 
 
-fun String.toast(context:Context = QCApplication.getContext()) {
+
+fun String.toast(context:Context = ProductionMonitorApplication.getContext()) {
             Toast.makeText(context, this, Toast.LENGTH_SHORT).show()
     }

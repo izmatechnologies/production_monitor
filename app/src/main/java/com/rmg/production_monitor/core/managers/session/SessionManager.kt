@@ -1,4 +1,4 @@
-package com.faisal.quc.core.managers.session
+package com.rmg.production_monitor.core.managers.session
 
 
 interface SessionManager {

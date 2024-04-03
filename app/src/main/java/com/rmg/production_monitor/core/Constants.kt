@@ -1,4 +1,4 @@
-package com.faisal.quc.core
+package com.rmg.production_monitor.core
 
 object Constants {
 

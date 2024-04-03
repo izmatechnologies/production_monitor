@@ -1,12 +1,9 @@
-package com.faisal.quc.core.db
+package com.rmg.production_monitor.core.db
 
 import android.content.Context
 import androidx.room.*
-import com.faisal.quc.core.Config
-import com.faisal.quc.models.local.dao.QcIssueDao
-import com.faisal.quc.models.local.entity.QcOperationEntity
-import com.faisal.quc.models.local.dao.QcOperationDao
-import com.faisal.quc.models.local.entity.QcIssueEntity
+import com.rmg.production_monitor.core.Config
+
 
 
 @Database(

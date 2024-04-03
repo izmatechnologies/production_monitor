@@ -1,10 +1,10 @@
-package com.faisal.quc.core.extention
+package com.rmg.production_monitor.core.extention
 
 import androidx.lifecycle.MutableLiveData
-import com.faisal.quc.ApiDispatcherCaller
-import com.faisal.quc.core.data.DataResource
-import com.faisal.quc.core.data.ErrorResponse
-import com.faisal.quc.core.data.ErrorType
+import com.rmg.production_monitor.core.ApiDispatcherCaller
+import com.rmg.production_monitor.core.data.DataResource
+import com.rmg.production_monitor.core.data.ErrorResponse
+import com.rmg.production_monitor.core.data.ErrorType
 
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher

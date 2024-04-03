@@ -1,9 +1,9 @@
-package com.faisal.quc
+package com.rmg.production_monitor.core
 
-import com.faisal.quc.core.data.DataResource
-import com.faisal.quc.core.data.ErrorType
-import com.faisal.quc.core.extention.errorMessage
-import com.faisal.quc.core.extention.log
+import com.rmg.production_monitor.core.data.DataResource
+import com.rmg.production_monitor.core.data.ErrorType
+import com.rmg.production_monitor.core.extention.errorMessage
+import com.rmg.production_monitor.core.extention.log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okio.IOException

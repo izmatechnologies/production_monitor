@@ -1,8 +1,5 @@
-package com.faisal.quc.core.di
-import androidx.databinding.library.BuildConfig
-import com.faisal.quc.core.Config
-import com.faisal.quc.core.service.ApiService
-import com.faisal.quc.core.service.AuthInterceptor
+package com.rmg.production_monitor.core.di
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

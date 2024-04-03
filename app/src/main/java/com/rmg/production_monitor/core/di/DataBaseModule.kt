@@ -1,7 +1,7 @@
-package com.faisal.quc.core.di
+package com.rmg.production_monitor.core.di
 
 import android.app.Application
-import com.faisal.quc.core.db.AppDatabase
+import com.rmg.production_monitor.core.db.AppDatabase
 import com.faisal.quc.models.local.dao.QcIssueDao
 import com.faisal.quc.models.local.dao.QcOperationDao
 

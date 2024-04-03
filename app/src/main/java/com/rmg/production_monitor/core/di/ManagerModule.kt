@@ -1,15 +1,8 @@
-package com.faisal.quc.core.di
+package com.rmg.production_monitor.core.di
 
-import com.faisal.quc.core.managers.NetworkManager
-import com.faisal.quc.core.managers.NetworkManagerImpl
-import com.faisal.quc.core.managers.preference.AppPreference
-import com.faisal.quc.core.managers.preference.AppPreferenceImpl
-import com.faisal.quc.repository.MarkingImageRepository
-import com.faisal.quc.repository.MarkingImageRepositoryImpl
-import com.faisal.quc.repository.AuthenticationRepository
-import com.faisal.quc.repository.AuthenticationRepositoryImpl
-import com.faisal.quc.core.managers.session.SessionManager
-import com.faisal.quc.core.managers.session.SessionManagerImpl
+
+
+
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

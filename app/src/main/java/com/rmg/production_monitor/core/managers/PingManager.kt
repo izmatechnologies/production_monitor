@@ -1,8 +1,8 @@
-package com.faisal.quc.core.managers
+package com.rmg.production_monitor.core.managers
 
-import android.content.Context
+import com.rmg.production_monitor.core.managers.Ping
 import java.net.URL
 
 interface PingManager {
-   fun   doPing(url: URL):Ping
+   fun   doPing(url: URL): Ping
 }

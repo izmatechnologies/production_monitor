@@ -1,15 +1,9 @@
-package com.faisal.quc.core.extention
+package com.rmg.production_monitor.core.extention
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.faisal.quc.R
-import com.faisal.quc.core.Constants
-import com.faisal.quc.models.local.entity.QcIssueEntity
-import com.faisal.quc.models.local.entity.QcOperationEntity
-import com.faisal.quc.view.bottom_sheet.QcIssuesBottomSheet
-import com.faisal.quc.view.bottom_sheet.QcOperationBottomSheet
-import com.faisal.quc.view.dialog.LogoutDialog
-import com.faisal.quc.view.dialog.NoInternetConnectionDialog
+
+import com.rmg.production_monitor.core.Constants
 
 
 fun Fragment.showLogoutDialog(

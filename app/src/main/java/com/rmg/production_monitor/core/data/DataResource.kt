@@ -1,4 +1,4 @@
-package com.faisal.quc.core.data
+package com.rmg.production_monitor.core.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer

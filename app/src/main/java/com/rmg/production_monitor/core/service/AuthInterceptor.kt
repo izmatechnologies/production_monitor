@@ -1,12 +1,9 @@
-package com.faisal.quc.core.service
+package com.rmg.production_monitor.core.service
 
 
-import com.faisal.quc.BuildConfig
-import com.faisal.quc.core.managers.session.SessionManager
+import com.rmg.production_monitor.core.managers.session.SessionManager
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import okhttp3.Response
-import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
