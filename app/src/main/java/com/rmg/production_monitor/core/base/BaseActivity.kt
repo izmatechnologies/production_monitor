@@ -2,10 +2,12 @@ package com.rmg.production_monitor.core.base
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.rmg.production_monitor.MainActivity
@@ -17,7 +19,7 @@ import com.rmg.production_monitor.core.managers.network.NetworkManager
 
 import javax.inject.Inject
 
-abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
+abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderController {
 
 
     private  var loaderDialog: Dialog?=null
@@ -45,48 +47,41 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
     protected open fun setUpAdapter() {}
     protected open fun backPressButtonPressed() {}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            argumentOfFragment=it
-        }
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        _binding = getViewBinding(layoutInflater)
+        setContentView(binding.root)
 
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                backPressButtonPressed()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = getViewBinding(inflater)
-        return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initializeData()
-
-        setUpRecycleView()
 
         setListener()
 
-        setupObserver()
+        setUpRecycleView()
 
         callInitialApi()
 
+        setupObserver()
+
         setDrawerLocked()
-
-
-
     }
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        arguments?.let {
+//            argumentOfFragment=it
+//        }
+//
+//        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                backPressButtonPressed()
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+//    }
+
+
+
+
 
 
    fun networkChecker(getData: () -> Unit) {

@@ -1,37 +1,48 @@
 package com.rmg.production_monitor
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.viewpager2.widget.ViewPager2
+import android.view.LayoutInflater
+import androidx.fragment.app.Fragment
+import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
+import com.rmg.production_monitor.core.base.BaseActivity
+import com.rmg.production_monitor.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var viewPager: ViewPager2
+
     private var currentPage = 0
     private val delayMS: Long = 5000 // 5 seconds delay
-    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var handler: Handler
     private lateinit var runnable: Runnable
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    private var fragmentList: List<Fragment> = ArrayList<Fragment>()
+    override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
 
-        viewPager = findViewById(R.id.pager)
 
-        val fragmentList = listOf(QualityFragment(), PCBFragment())
-
-        val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager, lifecycle, fragmentList)
-        viewPager.adapter = pagerAdapter
-
+    override fun onResume() {
+        super.onResume()
         // Start auto-scrolling
         startAutoScroll()
     }
 
+    override fun initializeData() {
+        super.initializeData()
+        fragmentList = listOf(QualityFragment(), PCBFragment())
+        handler = Handler(Looper.getMainLooper())
+    }
+
+    override fun setUpAdapter() {
+        super.setUpAdapter()
+        val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager, lifecycle, fragmentList)
+        binding.viewPager.adapter = pagerAdapter
+    }
+
     private fun startAutoScroll() {
         runnable = Runnable {
-            viewPager.currentItem = currentPage % viewPager.adapter!!.itemCount
+            binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
             currentPage++
             handler.postDelayed(runnable, delayMS)
         }

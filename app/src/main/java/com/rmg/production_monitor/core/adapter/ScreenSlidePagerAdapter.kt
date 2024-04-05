@@ -1,4 +1,4 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.core.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
