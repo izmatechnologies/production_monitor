@@ -2,6 +2,8 @@ package com.rmg.production_monitor.core.db
 
 import android.content.Context
 import androidx.room.*
+import com.faisal.quc.models.local.dao.QcOperationDao
+import com.faisal.quc.models.local.entity.QcOperationEntity
 import com.rmg.production_monitor.core.Config
 
 
@@ -9,9 +11,7 @@ import com.rmg.production_monitor.core.Config
 @Database(
     entities = [
         QcOperationEntity::class,
-        QcIssueEntity::class,
-
-    ],
+               ],
     version = Config.Storage.APPLICATION_DATABASE_VERSION,
     exportSchema = false
 )
@@ -19,7 +19,7 @@ import com.rmg.production_monitor.core.Config
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getQcOperationDao(): QcOperationDao
-    abstract fun getQcIssueDao(): QcIssueDao
+
 
 
 

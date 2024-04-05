@@ -2,8 +2,7 @@ package com.rmg.production_monitor.core.extention
 
 
 import android.util.Log
-
-
+import com.rmg.production_monitor.BuildConfig
 
 
 fun String.log(tag:String="dim") {

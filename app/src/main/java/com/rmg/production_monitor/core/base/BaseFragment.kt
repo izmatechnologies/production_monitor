@@ -10,7 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.rmg.production_monitor.MainActivity
-import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
+//import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.listener.ToolBarController
@@ -97,11 +97,11 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, Too
             getData()
         } else {
 
-            showNoInternetConnectionDialog(requireContext(),
-                onRetryButtonClick = {
-                    networkChecker { getData() }
-                }
-                )
+//            showNoInternetConnectionDialog(requireContext(),
+//                onRetryButtonClick = {
+//                    networkChecker { getData() }
+//                }
+//                )
 
 
         }

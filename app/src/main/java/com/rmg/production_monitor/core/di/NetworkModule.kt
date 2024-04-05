@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.core.di
 
+import com.rmg.production_monitor.core.service.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +14,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import com.rmg.production_monitor.core.Config
+import com.rmg.production_monitor.core.service.ApiService
+
 private const val TIME_OUT = 60L
 private const val CONNECTION_TIME_OUT = 30L
 @InstallIn(SingletonComponent::class)

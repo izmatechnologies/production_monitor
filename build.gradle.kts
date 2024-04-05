@@ -6,6 +6,7 @@ plugins {
     /**
      * @see <a href="https://stackoverflow.com/a/77720024/3152877">Unable to load class 'org.jetbrains.kotlin.config.LanguageVersion'</a>
      */
-    id("com.google.devtools.ksp") version "1.8.21-1.0.11" apply false
+    //id("com.google.devtools.ksp") version "1.8.21-1.0.11" apply false
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14" apply false
 
 }

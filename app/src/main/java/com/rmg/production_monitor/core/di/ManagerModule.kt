@@ -3,6 +3,12 @@ package com.rmg.production_monitor.core.di
 
 
 
+import com.rmg.production_monitor.core.managers.NetworkManager
+import com.rmg.production_monitor.core.managers.NetworkManagerImpl
+import com.rmg.production_monitor.core.managers.preference.AppPreference
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
+import com.rmg.production_monitor.core.managers.session.SessionManager
+import com.rmg.production_monitor.core.managers.session.SessionManagerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

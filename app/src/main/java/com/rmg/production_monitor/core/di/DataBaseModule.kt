@@ -32,11 +32,7 @@ class DataBaseModule {
         return appDatabase.getQcOperationDao()
     }
 
-    @Provides
-    @Singleton
-    fun provideQcIssueDao(appDatabase: AppDatabase): QcIssueDao {
-        return appDatabase.getQcIssueDao()
-    }
+
 
 
 

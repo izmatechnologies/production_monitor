@@ -20,8 +20,6 @@ interface QcOperationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertQcOperation(model: QcOperationEntity):Long
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertQcOperationsList(products: List<QcOperationEntity>)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateQcOperation(model: QcOperationEntity)

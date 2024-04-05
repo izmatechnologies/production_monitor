@@ -27,25 +27,26 @@ import android.content.Context
 //        cancelButton.setOnClickListener { builder.dismiss() }
 //    }
 //}
+// todo new  lout out button
 
-fun Activity.showLogoutDialog(
-    context: Context,
-    onYesButtonClick: () -> Unit,
-    onNoButtonClick: (() -> Unit)? = null
-) {
-
-    val dialog = LogoutDialog(
-        context, R.style.CustomAlertDialog,
-        onYesButtonClick, onNoButtonClick
-    )
-
-    dialog.setCanceledOnTouchOutside(false)
-    try {
-        dialog.show()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        e.toString().log("dialog")
-    }
-}
+//fun Activity.showLogoutDialog(
+//    context: Context,
+//    onYesButtonClick: () -> Unit,
+//    onNoButtonClick: (() -> Unit)? = null
+//) {
+//
+//    val dialog = LogoutDialog(
+//        context, R.style.CustomAlertDialog,
+//        onYesButtonClick, onNoButtonClick
+//    )
+//
+//    dialog.setCanceledOnTouchOutside(false)
+//    try {
+//        dialog.show()
+//    } catch (e: Exception) {
+//        e.printStackTrace()
+//        e.toString().log("dialog")
+//    }
+//}
 
 

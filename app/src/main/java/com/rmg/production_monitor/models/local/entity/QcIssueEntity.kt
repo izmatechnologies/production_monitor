@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.faisal.quc.models.remote.SewingQcIssueModel
+//import com.faisal.quc.models.remote.SewingQcIssueModel
 import com.google.gson.annotations.SerializedName
 
 
@@ -37,13 +37,13 @@ data class QcIssueEntity (
 /**
  *  A Extension function that convert response to entity
  */
-fun SewingQcIssueModel.toQcIssueEntity(
-
-):QcIssueEntity{
-    return QcIssueEntity(
-        id = this.id,
-        sewingOperationID = this.sewingOperationID,
-        issueName = this.issueName,
-        issueDescription= this.issueDescription
-    )
-}
+//fun SewingQcIssueModel.toQcIssueEntity(
+//
+//):QcIssueEntity{
+//    return QcIssueEntity(
+//        id = this.id,
+//        sewingOperationID = this.sewingOperationID,
+//        issueName = this.issueName,
+//        issueDescription= this.issueDescription
+//    )
+//}
