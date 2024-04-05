@@ -1,6 +1,7 @@
-package com.rmg.production_monitor.core.managers
+package com.rmg.production_monitor.core.managers.network
 
 import com.rmg.production_monitor.core.extention.log
+import com.rmg.production_monitor.core.data.Ping
 import java.net.InetAddress
 import java.net.Socket
 import java.net.URL

@@ -1,4 +1,4 @@
-package com.rmg.production_monitor.core.managers
+package com.rmg.production_monitor.core.managers.network
 
 interface NetworkManager {
 

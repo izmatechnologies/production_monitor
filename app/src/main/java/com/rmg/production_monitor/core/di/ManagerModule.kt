@@ -3,8 +3,8 @@ package com.rmg.production_monitor.core.di
 
 
 
-import com.rmg.production_monitor.core.managers.NetworkManager
-import com.rmg.production_monitor.core.managers.NetworkManagerImpl
+import com.rmg.production_monitor.core.managers.network.NetworkManager
+import com.rmg.production_monitor.core.managers.network.NetworkManagerImpl
 import com.rmg.production_monitor.core.managers.preference.AppPreference
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.core.managers.session.SessionManager

@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.rmg.production_monitor.MainActivity
 //import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
-import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.listener.ToolBarController
-import com.rmg.production_monitor.core.managers.NetworkManager
+import com.rmg.production_monitor.core.managers.network.NetworkManager
 
 
 import javax.inject.Inject
