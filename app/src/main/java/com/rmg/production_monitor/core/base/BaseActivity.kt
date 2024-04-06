@@ -47,8 +47,8 @@ abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderContro
     protected open fun setUpAdapter() {}
     protected open fun backPressButtonPressed() {}
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         _binding = getViewBinding(layoutInflater)
         setContentView(binding.root)
 
@@ -57,6 +57,8 @@ abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderContro
         setListener()
 
         setUpRecycleView()
+
+        setUpAdapter()
 
         callInitialApi()
 
