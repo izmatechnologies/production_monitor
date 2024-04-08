@@ -223,6 +223,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="7"
+            
             tools:listitem="@layout/test_row_item" />
 
 
