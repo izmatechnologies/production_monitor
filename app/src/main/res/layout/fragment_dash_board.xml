@@ -103,65 +103,48 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="Style  -"
-            android:gravity="start||center"
-            android:textColor="#FFBF00"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="Color  -"
-            android:gravity="start||center"
-            android:textColor="#FFBF00"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="Buyer  -"
-            android:textColor="#FFBF00"
-            android:gravity="start||center"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="PO  -"
-            android:textColor="#FFBF00"
-            android:gravity="start||center"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="-"
-            android:gravity="start||center"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingStart="10dp"
             android:text="Hour 8Hr"
-            android:gravity="start||center"
-            android:textColor="#FFBF00"
-            android:textSize="20dp" />
+            style="@style/yellowText" />
     </LinearLayout>
 
     <LinearLayout
@@ -184,11 +167,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start||center"
-                android:paddingLeft="10dp"
                 android:text="PRODUCTION"
-                android:textColor="@color/white"
-                android:textSize="25dp" />
+                style="@style/whiteText25" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -208,6 +188,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start||center"
                         android:text="Target"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/white"
                         android:textSize="25dp"
                         app:layout_constraintEnd_toStartOf="@+id/textTargetValue"
@@ -218,8 +199,8 @@
                         android:id="@+id/textTargetValue"
                         android:layout_width="0dp"
                         android:gravity="center"
-                        tools:text="0"
-
+                        android:paddingLeft="10dp"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="45dp"
                         android:layout_height="match_parent"
@@ -240,6 +221,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start||center"
                         android:text="Actual"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/white"
                         android:textSize="25dp"
                         app:layout_constraintEnd_toStartOf="@+id/textActualValue"
@@ -272,6 +254,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start||center"
                         android:text="Variance"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/white"
                         android:textSize="25dp"
                         app:layout_constraintEnd_toStartOf="@+id/textVarianceValue"
@@ -315,11 +298,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start||center"
-                    android:paddingLeft="10dp"
                     android:text="TREND"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
+                    style="@style/whiteText25" />
 
 
                 <TextView
@@ -350,11 +330,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="start||center"
+                    style="@style/whiteText25"
                     android:paddingLeft="10dp"
-                    android:text="TREND"
-                    android:textColor="@color/white"
-                    android:textSize="25dp" />
+                    android:text="DHU%" />
 
 
                 <TextView
@@ -389,11 +367,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start||center"
-                android:paddingLeft="10dp"
-                android:text="EFFICIENCY"
-                android:textColor="@color/white"
-                android:textSize="25dp" />
+                style="@style/whiteText25"
+                android:text="EFFICIENCY"/>
             <LinearLayout
                 android:weightSum="2"
                 android:orientation="vertical"
@@ -484,11 +459,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start||center"
-                android:paddingLeft="10dp"
-                android:text="TREND"
-                android:textColor="@color/white"
-                android:textSize="25dp" />
+                style="@style/whiteText25"
+                android:text="DAY TERGET"
+           />
 
 
             <TextView
@@ -505,7 +478,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:background="@drawable/style_color_bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -514,11 +487,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start||center"
-                android:paddingLeft="10dp"
                 android:text="MAIN POWER"
-                android:textColor="@color/white"
-                android:textSize="25dp" />
+                style="@style/whiteText25"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -549,7 +519,7 @@
                         android:id="@+id/textOperation"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:gravity="start||center"
+                        android:gravity="center"
                         android:text="Operations"
                         android:textColor="@color/white"
                         android:textSize="25dp"
@@ -584,7 +554,7 @@
                         android:id="@+id/textHelpers"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:gravity="start||center"
+                        android:gravity="center"
                         android:text="Helpers"
                         android:textColor="@color/white"
                         android:textSize="25dp"
@@ -616,7 +586,7 @@
                         android:id="@+id/textIronman"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:gravity="start||center"
+                        android:gravity="center"
                         android:text="Ironman"
                         android:textColor="@color/white"
                         android:textSize="25dp"
@@ -644,7 +614,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start||center"
                 android:paddingLeft="10dp"
-                android:text="TREND"
+                android:text="WIP TOTALE"
                 android:textColor="@color/white"
                 android:textSize="25dp" />
 
