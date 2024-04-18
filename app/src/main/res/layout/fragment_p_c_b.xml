@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:gravity="center"
-            android:text="Zilingo Factory Software 4.15.2"
+            android:text="Tusuka Factory Software 0.0.1"
             android:textColor="@color/white"
             android:textSize="15dp" />
 
