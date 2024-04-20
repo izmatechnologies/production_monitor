@@ -1,6 +1,7 @@
 package com.rmg.production_monitor.core.service
 
 import com.faisal.quc.models.remote.authentication.AuthenticateModel
+import com.rmg.production_monitor.models.remote.quality.QualityModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -104,5 +105,7 @@ interface ApiService {
 //    suspend fun submitSewingQcAddWithOperationAndIssue(@Body qcRequestBody: SubmitQcRequestBody): Response<ResponsePostLineIn>
 //
 
-
+    // Heat map
+    @GET("api/HeeatMap/GetHeatmap")
+    suspend fun getHeatmap(): Response<QualityModel>
 }

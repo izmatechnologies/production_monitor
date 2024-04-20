@@ -100,6 +100,8 @@ dependencies {
     implementation ("androidx.room:room-ktx:$room_version")
     // implementation "androidx.room:room-paging:$room_version"
 
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
+
 //    val lifecycleVersion = "2.7.0"
 //    // ViewModel
 //    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")

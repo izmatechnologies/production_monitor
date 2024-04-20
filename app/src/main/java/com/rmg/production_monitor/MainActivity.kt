@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initializeData() {
         super.initializeData()
-        fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
+        fragmentList = listOf(QualityFragment(), PCBFragment())
         handler = Handler(Looper.getMainLooper())
     }
 
