@@ -43,6 +43,27 @@ android {
 }
 
 dependencies {
+// version code
+
+    //  View Pager 2
+    val view_pager2_version="1.0.0"
+
+    // Coil Compose for Image download
+    val coil_compose_version="2.4.0"
+
+    // Hilt Android
+    val hilt_android_version = "2.50"
+
+    //Hilt Compiler
+    val hilt_compiler_version = "1.2.0"
+
+    // coroutines
+    val coroutines_version = "1.7.3"
+
+    // Retrofit
+    val retrofit_version = "2.9.0"
+
+// end of version code
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -53,41 +74,86 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // ViewPager2
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.viewpager2:viewpager2:$view_pager2_version")
 
-    //image downloader
-    implementation ("io.coil-kt:coil-compose:2.4.0")
-    val hilt_version = "2.44"
-    //noinspection GradleDependency
-    implementation ("com.google.dagger:hilt-android:$hilt_version")
-    ksp ("com.google.dagger:hilt-compiler:$hilt_version")
+    // Image downloader
+    implementation ("io.coil-kt:coil-compose:$coil_compose_version")
 
-    //viewmodel
-    val viewmodelVersion = "2.6.1"
-    //noinspection GradleDependency
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodelVersion")
-    //lifecycle and viewModel
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    //coroutines
-    val coroutines_version = "1.6.0"
+//    val hilt_android_version = "2.44"
+//    val hilt_compiler_version = "2.50"
+//    //noinspection GradleDependency
+//    implementation ("com.google.dagger:hilt-android:$hilt_android_version")
+//    ksp ("com.google.dagger:hilt-compiler:$hilt_compiler_version")
+
+    // Hilt Android
+    implementation ("com.google.dagger:hilt-android:$hilt_android_version")
+    implementation ("com.google.dagger:hilt-android-compiler:$hilt_android_version")
+
+    // Hilt Compiler
+    implementation ("androidx.hilt:hilt-compiler:$hilt_compiler_version")
+
+
+    // Coroutines
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
 
-    // paging
-    val paging_version = "3.2.1"
-    implementation ("androidx.paging:paging-runtime-ktx:$paging_version")
 
-    val retrofit_version = "2.9.0"
+    // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
     // define a BOM and its version
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.3"))
     debugImplementation ("com.github.chuckerteam.chucker:library:4.0.0")
     implementation ("com.squareup.okhttp3:logging-interceptor")
     // glide for image load
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //view model
+    val view_model_version = "2.6.1"
+    //noinspection GradleDependency
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    //lifecycle and viewModel
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
+    //    val lifecycleVersion = "2.7.0"
+//    // ViewModel
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+//    // ViewModel utilities for Compose
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+//    // LiveData
+//    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+//    // Lifecycles only (without ViewModel or LiveData)
+//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+//    // Lifecycle utilities for Compose
+//    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
+//    // Saved state module for ViewModel
+//    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
+//    // Lifecycle dependencies with Java 8 API
+//    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
+//
+//    // coroutines
+//    val coroutinesVersion = "1.7.3"
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+//
+//    val navigationVersion = "2.7.7"
+//
+//    // Navigation Component
+//    implementation ("androidx.navigation:navigation-fragment-ktx:$navigationVersion")
+//    implementation ("androidx.navigation:navigation-ui-ktx:$navigationVersion")
+//
+//    //Hilt Android
+//    val hiltAndroidVersion = "2.50"
+//    implementation ("com.google.dagger:hilt-android:$hiltAndroidVersion")
+//    implementation ("com.google.dagger:hilt-android-compiler:$hiltAndroidVersion")
+//    //Hilt Compiler
+//    val hiltCompilerVersion = "1.2.0"
+//    implementation ("androidx.hilt:hilt-compiler:$hiltCompilerVersion")
+
+
+
 
 
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
@@ -145,4 +211,9 @@ dependencies {
 //
 //    val loggingInterceptorVersion = "4.12.0"
 //    implementation("com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion")
+
+    //     // pagging not need
+//    // paging
+//    val paging_version = "3.2.1"
+//    implementation ("androidx.paging:paging-runtime-ktx:$paging_version")
 }
