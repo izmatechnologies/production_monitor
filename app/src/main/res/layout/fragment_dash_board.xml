@@ -25,7 +25,7 @@
             android:background="@drawable/line"
             android:gravity="center"
             style="@style/whiteText"
-            android:text="Tusuka Factory Software "
+            android:text="Tusuka Factory Software 0.0.1 "
             android:textColor="@color/white"
             android:textSize="12dp" />
 
