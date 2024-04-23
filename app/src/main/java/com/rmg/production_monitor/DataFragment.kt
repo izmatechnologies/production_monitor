@@ -40,7 +40,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                     val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
                     val currentDate = sdf.format(Date())
                     binding.apply {
-                        texttimeHour.text = it.data?.payload?.workingHour.toString()
+                        texttimeHour.text = "${it.data?.payload?.workingHour.toString()} Hr"
                         textTotalWip.text=it.data?.payload?.totalWip.toString()
                         textlineName.text= "Line ${ it.data?.payload?.totalWip.toString() }"
                         textTime.text=currentDate.toString()
