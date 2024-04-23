@@ -1,4 +1,4 @@
-package com.faisal.quc.models.remote.authentication
+package com.rmg.production_monitor.models.remote.authentication
 import androidx.annotation.Keep
 
 import com.google.gson.annotations.SerializedName

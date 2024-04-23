@@ -66,7 +66,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">start|center</item>
         <item name="android:textColor">@color/yellow</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">15dp</item>
         <item name="paddingStart">10dp</item>
     </style>
 
@@ -74,8 +74,12 @@
     <style name="whiteText25">
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">start|center</item>
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+
         <item name="paddingStart">10dp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+
 </resources>
