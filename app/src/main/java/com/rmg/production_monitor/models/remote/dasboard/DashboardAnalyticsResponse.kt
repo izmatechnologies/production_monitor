@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.models.remote.dasboard
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 import kotlinx.serialization.Serializable
 
@@ -7,50 +8,47 @@ import kotlinx.serialization.SerialName
 
 
 @Keep
-@Serializable
 data class DashboardAnalyticsResponse(
-    @SerialName("Message")
+    @SerializedName("Message")
     val message: String,
-    @SerialName("Payload")
+    @SerializedName("Payload")
     val payload: Payload,
-    @SerialName("Success")
+    @SerializedName("Success")
     val success: Boolean
 )
 
 @Keep
-@Serializable
 data class Payload(
-    @SerialName("LineId")
+    @SerializedName("LineId")
     val lineId: Int,
-    @SerialName("TotalWip")
+    @SerializedName("TotalWip")
     val totalWip: Int,
-    @SerialName("WipPos")
+    @SerializedName("WipPos")
     val wipPos: List<WipPo>,
-    @SerialName("WorkingHour")
+    @SerializedName("WorkingHour")
     val workingHour: Int
 )
 
 @Keep
-@Serializable
 data class WipPo(
-    @SerialName("BuyerId")
+    @SerializedName("BuyerId")
     val buyerId: Int,
-    @SerialName("BuyerName")
+    @SerializedName("BuyerName")
     val buyerName: String,
-    @SerialName("ColorName")
+    @SerializedName("ColorName")
     val colorName: String,
-    @SerialName("LineCumIn")
+    @SerializedName("LineCumIn")
     val lineCumIn: Int,
-    @SerialName("LineCumOut")
+    @SerializedName("LineCumOut")
     val lineCumOut: Int,
-    @SerialName("LineWip")
+    @SerializedName("LineWip")
     val lineWip: Int,
-    @SerialName("PoId")
+    @SerializedName("PoId")
     val poId: Int,
-    @SerialName("PoNumber")
+    @SerializedName("PoNumber")
     val poNumber: String,
-    @SerialName("StyleId")
+    @SerializedName("StyleId")
     val styleId: Int,
-    @SerialName("StyleName")
+    @SerializedName("StyleName")
     val styleName: String
 )
