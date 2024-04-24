@@ -6,7 +6,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:background="@color/black"
         android:orientation="horizontal">
 
@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="1"
-            android:textSize="14dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/textBuyer"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="LPP::LLP" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="ZB5655" />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="ZB5655" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="1356456" />
 
 
@@ -68,7 +68,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="35fy6555" />
 
         <TextView
@@ -78,7 +78,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="7676" />
 
 
@@ -90,13 +90,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/yellow"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="455" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/white" />
 </LinearLayout>

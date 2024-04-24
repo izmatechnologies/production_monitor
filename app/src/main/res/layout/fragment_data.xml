@@ -46,7 +46,7 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:text="WIP" />
 
             <View
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:text="Line A" />
 
             <View
@@ -87,7 +87,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:text="8 hr" />
 
             <View
@@ -101,7 +101,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="15dp"
+                android:drawableEnd="@drawable/outline_circle_24"
+                android:textSize="12dp"
                 android:text="8:40pm" />
 
 
@@ -126,7 +127,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="20dp"
                 android:gravity="start|center"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:text="Latest 20 Styles/Purchase Order (PO,Page 1 Of 2)" />
 
             <TextView
@@ -137,7 +138,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:paddingEnd="10dp"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:text="Active Style" />
 
         </LinearLayout>
@@ -239,7 +240,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrain"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -250,10 +251,10 @@
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
             style="@style/whiteText"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="total"
+            android:text="Total"
             android:textSize="15dp"
             app:layout_constraintEnd_toStartOf="@id/textTotalWip"
             app:layout_constraintTop_toTopOf="parent" />
@@ -261,7 +262,7 @@
         <TextView
             android:id="@+id/textTotalWip"
             style="@style/whiteText"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="15dp"

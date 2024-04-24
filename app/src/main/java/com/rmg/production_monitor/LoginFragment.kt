@@ -1,26 +1,17 @@
 package com.rmg.production_monitor
 
-import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
-import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
 import com.rmg.production_monitor.core.extention.toast
-import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.databinding.FragmentLoginBinding
 import com.rmg.production_monitor.viewModel.AuthenticationViewModel
-import com.rmg.production_monitor.viewModel.DashboardViewModel
-import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,13 +83,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                 }
 
-                networkChecker {
-                    val userName = binding.inputEmail.text.toString()
-                    val password = binding.inputPassword.text.toString()
-
-                    val requestBodyJson = AuthenticationRequest(userName, password)
-                    authenticationViewModel.doAuthenticate(requestBodyJson)
-                }
+//                networkChecker {
+//                    val userName = binding.inputEmail.text.toString()
+//                    val password = binding.inputPassword.text.toString()
+//
+//                    val requestBodyJson = AuthenticationRequest(userName, password)
+//                    authenticationViewModel.doAuthenticate(requestBodyJson)
+//                }
 
 
             }

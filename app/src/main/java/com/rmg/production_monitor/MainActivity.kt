@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(){
 
      fun initializeData() {
 
-        fragmentList = listOf(QualityFragment(), PCBFragment())
+        fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
         handler = Handler(Looper.getMainLooper())
     }
 

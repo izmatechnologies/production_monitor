@@ -13,10 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="5dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingRight="5dp">
+        android:paddingEnd="5dp">
 
         <TextView
             android:layout_width="0dp"
@@ -37,7 +34,7 @@
             android:gravity="center"
             android:text="PCB"
             android:textColor="@color/white"
-            android:textSize="15dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
 
         <TextView
@@ -57,7 +54,7 @@
             android:background="@drawable/line"
             android:gravity="center"
             android:text="Line A"
-            android:textSize="15dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
 
         <TextView
@@ -77,7 +74,7 @@
             android:gravity="center"
             android:paddingEnd="10dp"
             android:text="8:04 PM"
-            android:textSize="15dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
     </LinearLayout>
 
