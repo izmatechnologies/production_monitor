@@ -6,24 +6,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    >
+    android:background="@color/black">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+
         app:layout_constraintBottom_toTopOf="@+id/constrain"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/layoutTop"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 style="@style/whiteText"
@@ -109,11 +108,15 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/layoutDivider"
+            app:layout_constraintTop_toBottomOf="@+id/layoutTop"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/white" />
 
         <LinearLayout
+            android:id="@+id/layoutActivity"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDivider"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -144,6 +147,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layoutRecyText"
+            app:layout_constraintTop_toBottomOf="@+id/layoutActivity"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/yellow"
@@ -227,15 +232,17 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@+id/layoutRecyText"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             tools:itemCount="7"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/row_monitor_data_item" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrain"
@@ -244,11 +251,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/white"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
         <TextView
             style="@style/whiteText"
             android:layout_width="150dp"
