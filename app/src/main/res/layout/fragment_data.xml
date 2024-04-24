@@ -40,6 +40,7 @@
                 android:background="@color/white" />
 
             <TextView
+                android:id="@+id/textWip"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_gravity="center"
@@ -118,6 +119,7 @@
             android:weightSum="2">
 
             <TextView
+                android:id="@+id/textTime2"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -125,7 +127,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="start|center"
                 android:textSize="15dp"
-                android:text="8:40pm" />
+                android:text="Latest 20 Styles/Purchase Order (PO,Page 1 Of 2)" />
 
             <TextView
 
@@ -224,6 +226,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:itemCount="7"
@@ -252,11 +255,11 @@
             android:gravity="center"
             android:text="total"
             android:textSize="15dp"
-            app:layout_constraintEnd_toStartOf="@id/textTotalValue"
+            app:layout_constraintEnd_toStartOf="@id/textTotalWip"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textTotalValue"
+            android:id="@+id/textTotalWip"
             style="@style/whiteText"
             android:layout_width="150dp"
             android:layout_height="match_parent"
