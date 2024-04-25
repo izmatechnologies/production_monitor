@@ -14,9 +14,9 @@ class QualityViewModel @Inject constructor(
     // Heat map
     val heatMapLiveData get() = qualityRepository.heatMapLiveData
 
-    fun getHeatmap() {
+    fun getHeatmap(lineId: Int) {
         viewModelScope.launch {
-            qualityRepository.getHeatmap()
+            qualityRepository.getHeatmap(lineId)
         }
     }
 
