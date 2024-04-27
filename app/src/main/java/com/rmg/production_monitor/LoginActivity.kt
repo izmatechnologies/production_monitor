@@ -1,4 +1,4 @@
-package com
+package com.rmg.production_monitor
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
-import com.rmg.production_monitor.MainActivity
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
