@@ -1,12 +1,21 @@
 package com.rmg.production_monitor
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.rmg.production_monitor.core.Constants
+import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
 import com.rmg.production_monitor.core.extention.toast
@@ -15,65 +24,45 @@ import com.rmg.production_monitor.viewModel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
-    lateinit var binding: ActivityLoginBinding
-    private lateinit var authenticationViewModel: AuthenticationViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 
-        setContentView(binding.root)
-        authenticationViewModel = ViewModelProvider(this).get(AuthenticationViewModel::class.java)
-
-        initializeData()
-        setListener()
-        setupObserver()
-
+    private val authenticationViewModel by viewModels<AuthenticationViewModel>()
+    override fun getViewBinding(inflater: LayoutInflater): ActivityLoginBinding {
+      return ActivityLoginBinding.inflate(inflater)
     }
 
 
-    private fun initializeData() {
+
+    override fun initializeData() {
+        super.initializeData()
 
 
-        val token = authenticationViewModel.getAuthToken()
-        val userType = authenticationViewModel.getUserType()
-
-        if (!token.isNullOrEmpty()) {
-            if (userType == Constants.UserType.SWING_LINE_IN_TYPE_USER.value) {
-
-                val intent: Intent = Intent(
-                    this,
-                    MainActivity::class.java
-                )
-                startActivity(intent)
-                //  findNavController().navigate(R.id.sewingLineFragment)
-            } else {
-
-
-            }
-        }
-
-
-//        var user_name = ""
-//        var password = ""
-//        if (BuildConfig.DEBUG){
-//            if (Config.CORE_OPERATION_MODE == Config.OperationModes.QC_OPERATION_MODE) {
-//                user_name = requireContext().resources.getString(R.string.qc_user_name)
-//                password = requireContext().resources.getString(R.string.qc_password)
+//        val token = authenticationViewModel.getAuthToken()
+//        val userType = authenticationViewModel.getUserType()
+//
+//        if (!token.isNullOrEmpty()) {
+//            if (userType == Constants.UserType.SWING_LINE_IN_TYPE_USER.value) {
+//
+//                val intent: Intent = Intent(
+//                    this,
+//                    MainActivity::class.java
+//                )
+//                startActivity(intent)
+//                //  findNavController().navigate(R.id.sewingLineFragment)
 //            } else {
-//                user_name = requireContext().resources.getString(R.string.swing_in_user_name)
-//                password = requireContext().resources.getString(R.string.swing_in_password)
+//
+//
 //            }
 //        }
-//
-//
-//
-//        binding.inputEmail.setText(user_name)
-//        binding.inputPassword.setText(password)
+
+
+        binding.inputEmail.setText(resources.getString(R.string.swing_in_user_name))
+        binding.inputPassword.setText(resources.getString(R.string.swing_in_password))
 
     }
 
-    private fun setListener() {
+    override fun setListener() {
+        super.setListener()
 
         binding.inputPassword.doAfterTextChanged {
             if (binding.inputEmail.text.toString()
@@ -83,23 +72,29 @@ class LoginActivity : AppCompatActivity() {
             } else binding.btnLogin.enable(false)
         }
         binding.btnLogin.setOnClickListener {
-            if (validation()) {
-                val userName = binding.inputEmail.text.toString()
-                val password = binding.inputPassword.text.toString()
 
-                val requestBodyJson = AuthenticationRequest(userName, password)
-                authenticationViewModel.doAuthenticate(requestBodyJson)
+            if (validation()) {
+
+                networkChecker {
+                    val userName = binding.inputEmail.text.toString()
+                    val password = binding.inputPassword.text.toString()
+
+                    val requestBodyJson = AuthenticationRequest(userName, password)
+                    authenticationViewModel.doAuthenticate(requestBodyJson)
+
+                }
 
             }
         }
     }
 
 
-    private fun setupObserver() {
+    override fun setupObserver() {
+        super.setupObserver()
         authenticationViewModel.authenticate.observe(this) {
             when (it) {
                 is NetworkResult.Success -> {
-                    //  hideLoader()
+                      hideLoader()
                     //val responseData = response.data as? AuthenticateModel ?: return
                     val token = it.data?.authenticatePayload?.accessToken
                     if (!token.isNullOrEmpty()) {
@@ -115,13 +110,14 @@ class LoginActivity : AppCompatActivity() {
 
                         // todo user type call constant value
                         if (userTypeName == "UT_03") {
+                            showAlertDialog()
 
-                            val intent: Intent = Intent(
-                                this,
-                                MainActivity::class.java
-                            )
-                            startActivity(intent)
-                            //   findNavController().navigate(R.id.sewingLineFragment)
+
+//                            val intent: Intent = Intent(
+//                                this,
+//                                MainActivity::class.java
+//                            )
+//                            startActivity(intent)
                         } else {
                             //'   findNavController().popBackStack()
                             //   findNavController().navigate(R.id.newSelectPOFragment)
@@ -131,11 +127,11 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 is NetworkResult.Error -> {
-                    //  hideLoader()
+                      hideLoader()
                 }
 
                 is NetworkResult.Loading -> {
-                    //  showLoader()
+                     showLoader()
                 }
 
                 is NetworkResult.SessionOut -> {
@@ -168,6 +164,28 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
+    private fun showAlertDialog() {
+
+        val builder = AlertDialog.Builder(this)
+            .create()
+        val view = layoutInflater.inflate(R.layout.dialog_unit_plant,null)
+      //  val  cancelBtn = view.findViewById<Button>(R.id.btn_cancel)
+        val  okBtn = view.findViewById<Button>(R.id.btn_complete)
+
+//        val  title = view.findViewById<TextView>(R.id.subtitle)
+//        title.text=text
+        builder.setView(view)
+//        builder.setView(view)
+//        cancelBtn.setOnClickListener {
+//            builder.dismiss()
+//        }
+        okBtn.setOnClickListener {
+            builder.dismiss()
+
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+    }
 
 }
 

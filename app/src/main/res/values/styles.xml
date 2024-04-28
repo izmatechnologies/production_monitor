@@ -83,5 +83,7 @@
 
         <item name="android:textColor">#ffffff</item>
     </style>
-
+    <style name="NetworkConnectivityAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_round_corner_white</item>
+    </style>
 </resources>
