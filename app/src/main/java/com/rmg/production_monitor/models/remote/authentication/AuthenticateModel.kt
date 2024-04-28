@@ -44,9 +44,9 @@ data class AuthenticatePayload(
     @SerializedName("UserName")
     val userName: String? = null,
     @SerializedName("UserPlantUnits")
-    val userPlantUnits: List<UserPlantUnit?>? = listOf(),
+    val userPlantUnits: ArrayList<UserPlantUnit>,
     @SerializedName("UserPlants")
-    val userPlants: List<UserPlant?>? = listOf(),
+    val userPlants: List<UserPlant>,
     @SerializedName("UserTypeName")
     val userTypeName: String? = null
 )

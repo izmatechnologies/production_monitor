@@ -1,20 +1,11 @@
 package com.rmg.production_monitor
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModelProvider
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
-import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
@@ -110,12 +101,18 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 
                         // todo user type call constant value
                         if (userTypeName == "UT_03") {
-                            showAlertDialog()
+                            val intent = Intent(this, UnitPlantActivity::class.java)
+                            val bundle = Bundle()
+                            bundle.putParcelableArrayList("data",  it.data.authenticatePayload?.userPlantUnits!!)
+                            intent.putStringArrayListExtra("key", it.data.authenticatePayload?.userPlantUnits )
 
+                            bundle.putParcelableArrayList("UNIT", it.data.authenticatePayload.userPlantUnits )
+                            intent.putExtras(bundle)
+                            startActivity(intent)
 
 //                            val intent: Intent = Intent(
 //                                this,
-//                                MainActivity::class.java
+//                                UnitPlantActivity::class.java
 //                            )
 //                            startActivity(intent)
                         } else {
@@ -164,28 +161,7 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         return true
     }
 
-    private fun showAlertDialog() {
 
-        val builder = AlertDialog.Builder(this)
-            .create()
-        val view = layoutInflater.inflate(R.layout.dialog_unit_plant,null)
-      //  val  cancelBtn = view.findViewById<Button>(R.id.btn_cancel)
-        val  okBtn = view.findViewById<Button>(R.id.btn_complete)
-
-//        val  title = view.findViewById<TextView>(R.id.subtitle)
-//        title.text=text
-        builder.setView(view)
-//        builder.setView(view)
-//        cancelBtn.setOnClickListener {
-//            builder.dismiss()
-//        }
-        okBtn.setOnClickListener {
-            builder.dismiss()
-
-        }
-        builder.setCanceledOnTouchOutside(false)
-        builder.show()
-    }
 
 }
 
