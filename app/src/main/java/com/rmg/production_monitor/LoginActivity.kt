@@ -29,23 +29,25 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         super.initializeData()
 
 
-//        val token = authenticationViewModel.getAuthToken()
-//        val userType = authenticationViewModel.getUserType()
-//
-//        if (!token.isNullOrEmpty()) {
+        val token = authenticationViewModel.getAuthToken()
+        val userType = authenticationViewModel.getUserType()
+
+        if (!token.isNullOrEmpty()) {
+
+            val intent: Intent = Intent(
+                this,
+                MainActivity::class.java
+            )
+            startActivity(intent)
 //            if (userType == Constants.UserType.SWING_LINE_IN_TYPE_USER.value) {
 //
-//                val intent: Intent = Intent(
-//                    this,
-//                    MainActivity::class.java
-//                )
-//                startActivity(intent)
+//
 //                //  findNavController().navigate(R.id.sewingLineFragment)
 //            } else {
 //
 //
 //            }
-//        }
+        }
 
 
         binding.inputEmail.setText(resources.getString(R.string.swing_in_user_name))
