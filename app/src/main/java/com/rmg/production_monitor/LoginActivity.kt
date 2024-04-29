@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
+import com.google.gson.Gson
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
@@ -103,10 +104,9 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                         if (userTypeName == "UT_03") {
                             val intent = Intent(this, UnitPlantActivity::class.java)
                             val bundle = Bundle()
-                            bundle.putParcelableArrayList("data",  it.data.authenticatePayload?.userPlantUnits!!)
-                            intent.putStringArrayListExtra("key", it.data.authenticatePayload?.userPlantUnits )
 
-                            bundle.putParcelableArrayList("UNIT", it.data.authenticatePayload.userPlantUnits )
+                            bundle.putString("unit", Gson().toJson(it.data.authenticatePayload.userPlantUnits))
+                            bundle.putString("plant", Gson().toJson(it.data.authenticatePayload.userPlants))
                             intent.putExtras(bundle)
                             startActivity(intent)
 

@@ -19,6 +19,8 @@ class SessionManagerImpl @Inject constructor(
         const val BUTTON_KEY = "button_key"
         const val USER_TYPE = "user_type"
         const val USER_NAME = "user_name"
+        const val  UNIT_ID="UNIT"
+        const val  PLANT_ID="PLANT"
     }
 
 
@@ -105,5 +107,25 @@ class SessionManagerImpl @Inject constructor(
 
     override fun getUserName(): String? {
      return   appPreference.getSting(USER_NAME, null)
+    }
+
+    override fun saveUnitId(unit: Int?) {
+        if (unit != null) {
+            appPreference.storeInt(UNIT_ID, unit)
+        }
+    }
+
+    override fun getUnitId(): Int {
+        return appPreference.getInt(UNIT_ID, 0)
+    }
+
+    override fun savePlantId(plant: Int?) {
+        if (plant != null) {
+            appPreference.storeInt(PLANT_ID,plant)
+        }
+    }
+
+    override fun getPlantId(): Int {
+        return appPreference.getInt(PLANT_ID, 0)
     }
 }

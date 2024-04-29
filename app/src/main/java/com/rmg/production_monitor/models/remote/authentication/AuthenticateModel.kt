@@ -44,7 +44,7 @@ data class AuthenticatePayload(
     @SerializedName("UserName")
     val userName: String? = null,
     @SerializedName("UserPlantUnits")
-    val userPlantUnits: ArrayList<UserPlantUnit>,
+    val userPlantUnits: List<UserPlantUnit>,
     @SerializedName("UserPlants")
     val userPlants: List<UserPlant>,
     @SerializedName("UserTypeName")
@@ -72,6 +72,11 @@ data class UserPlantUnit(
     @SerializedName("PlantUnitName")
     val plantUnitName: String? = null
 )
+{
+    override fun toString(): String {
+        return plantUnitName.toString()
+    }
+}
 
 @Keep
 data class UserPlant(
@@ -79,4 +84,8 @@ data class UserPlant(
     val plantId: Int? = 0,
     @SerializedName("PlantName")
     val plantName: String? = null
-)
+){
+    override fun toString(): String {
+        return plantName.toString()
+    }
+}

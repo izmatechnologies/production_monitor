@@ -21,10 +21,14 @@
         <activity
             android:name=".UnitPlantActivity"
             android:exported="false"
-            android:theme="@style/Theme.Production_monitor" />
+            android:theme="@style/Theme.Production_monitor"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden"/>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +37,9 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->

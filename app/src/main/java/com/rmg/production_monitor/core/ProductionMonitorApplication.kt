@@ -9,9 +9,6 @@ import dagger.hilt.android.HiltAndroidApp
 class ProductionMonitorApplication : Application() {
 
 
-
-
-
     companion object {
 
         private var _mApplication: Application? = null

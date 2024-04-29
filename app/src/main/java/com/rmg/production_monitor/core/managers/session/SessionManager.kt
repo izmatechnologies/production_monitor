@@ -28,4 +28,11 @@ interface SessionManager {
     fun saveUserName(userName: String?)
     fun getUserName(): String?
 
+
+    fun saveUnitId(unit: Int?)
+    fun getUnitId() : Int?
+
+    fun savePlantId(unit: Int?)
+    fun getPlantId() : Int?
+
 }
