@@ -8,11 +8,11 @@
     tools:context=".UnitPlantActivity">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/text1"
-        app:layout_constraintEnd_toStartOf="@+id/text2"
+        android:id="@+id/text2"
+        app:layout_constraintEnd_toStartOf="@+id/text1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="plant Unit Name"
+        android:hint="Plant Name"
         app:cornerRadius="5dp"
         app:strokeColor="@color/black"
         android:textColor="@color/black"
@@ -26,11 +26,11 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/text2"
+        android:id="@+id/text1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text1"
+        app:layout_constraintStart_toEndOf="@+id/text2"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Plant Name"
+        android:hint="Plant Unit Name"
         app:cornerRadius="5dp"
         android:layout_margin="10dp"
         android:textColor="@color/black"

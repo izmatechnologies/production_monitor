@@ -47,10 +47,10 @@ class AuthenticationViewModel @Inject constructor(
         authenticationRepository.saveUserName(userName)
     }
 
-    fun saveUnit(unit: Int?) {
+    fun saveUnit(unit: String?) {
         authenticationRepository.saveUnit(unit)
     }
-    fun savePlant(plant: Int?) {
+    fun savePlant(plant: String?) {
         authenticationRepository.savePlant(plant)
     }
 

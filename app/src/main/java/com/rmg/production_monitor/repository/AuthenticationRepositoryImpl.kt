@@ -75,11 +75,11 @@ class AuthenticationRepositoryImpl @Inject constructor(
         sessionManager.saveUserName(userName)
     }
 
-    override fun saveUnit(unit: Int?) {
+    override fun saveUnit(unit: String?) {
        sessionManager.saveUnitId(unit)
     }
 
-    override fun savePlant(plant: Int?) {
+    override fun savePlant(plant: String?) {
         sessionManager.savePlantId(plant)
     }
 }

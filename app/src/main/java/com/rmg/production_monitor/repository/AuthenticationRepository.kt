@@ -22,7 +22,7 @@ interface AuthenticationRepository {
     fun getUserType(): String?
     fun saveUserName(userName: String?)
 
-    fun saveUnit(unit:Int?)
-    fun savePlant(plant:Int?)
+    fun saveUnit(unit:String?)
+    fun savePlant(plant:String?)
 
 }

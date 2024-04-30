@@ -109,23 +109,22 @@ class SessionManagerImpl @Inject constructor(
      return   appPreference.getSting(USER_NAME, null)
     }
 
-    override fun saveUnitId(unit: Int?) {
+    override fun saveUnitId(unit: String?) {
         if (unit != null) {
-            appPreference.storeInt(UNIT_ID, unit)
+            appPreference.storeSting(UNIT_ID, unit)
         }
     }
 
-    override fun getUnitId(): Int {
-        return appPreference.getInt(UNIT_ID, 0)
+    override fun getUnitId(): String? {
+        return appPreference.getSting(UNIT_ID, null)
     }
 
-    override fun savePlantId(plant: Int?) {
-        if (plant != null) {
-            appPreference.storeInt(PLANT_ID,plant)
-        }
+    override fun savePlantId(plant: String?) {
+            appPreference.storeSting(PLANT_ID,plant)
+
     }
 
-    override fun getPlantId(): Int {
-        return appPreference.getInt(PLANT_ID, 0)
+    override fun getPlantId(): String? {
+        return appPreference.getSting(PLANT_ID, null)
     }
 }

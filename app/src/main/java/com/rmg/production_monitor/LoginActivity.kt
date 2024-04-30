@@ -1,8 +1,11 @@
 package com.rmg.production_monitor
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
@@ -21,13 +24,12 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
     private val authenticationViewModel by viewModels<AuthenticationViewModel>()
     override fun getViewBinding(inflater: LayoutInflater): ActivityLoginBinding {
       return ActivityLoginBinding.inflate(inflater)
+
+
     }
-
-
 
     override fun initializeData() {
         super.initializeData()
-
 
         val token = authenticationViewModel.getAuthToken()
         val userType = authenticationViewModel.getUserType()
@@ -48,6 +50,7 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 //
 //            }
         }
+
 
 
         binding.inputEmail.setText(resources.getString(R.string.swing_in_user_name))
@@ -112,11 +115,6 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                             intent.putExtras(bundle)
                             startActivity(intent)
 
-//                            val intent: Intent = Intent(
-//                                this,
-//                                UnitPlantActivity::class.java
-//                            )
-//                            startActivity(intent)
                         } else {
                             //'   findNavController().popBackStack()
                             //   findNavController().navigate(R.id.newSelectPOFragment)
