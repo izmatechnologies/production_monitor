@@ -54,5 +54,8 @@ class AuthenticationViewModel @Inject constructor(
         authenticationRepository.savePlant(plant)
     }
 
+    fun saveLine(line: String?) {
+        authenticationRepository.saveUserLine(line)
+    }
 
 }

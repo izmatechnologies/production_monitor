@@ -14,6 +14,7 @@ import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.extention.enable
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.ActivityUnitPlantBinding
+import com.rmg.production_monitor.models.remote.authentication.UserLine
 import com.rmg.production_monitor.models.remote.authentication.UserPlant
 import com.rmg.production_monitor.models.remote.authentication.UserPlantUnit
 import com.rmg.production_monitor.viewModel.AuthenticationViewModel
@@ -27,6 +28,9 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
     private var selectedUnit: Int = -1
     private var plantList = emptyList<UserPlant>()
     private var selectedPlant: Int = -1
+
+    private var lineList = emptyList<UserLine>()
+    private var selectedline: Int = -1
     override fun getViewBinding(inflater: LayoutInflater): ActivityUnitPlantBinding {
         return ActivityUnitPlantBinding.inflate(inflater)
     }
@@ -36,16 +40,21 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
         val unitKey = Constants.FragmentKey.UNIT_LIST
         val plantKey = Constants.FragmentKey.PLANT_LIST
+        val lineInKey = Constants.FragmentKey.LINE_IN_LIST
+
         val intent = intent
         val unitkeyList = intent.getStringExtra(unitKey) ?: ""
         val plantkeyList = intent.getStringExtra(plantKey) ?: ""
+        val lineInkeyList = intent.getStringExtra(lineInKey) ?: ""
 
         val unitListType: Type = object : TypeToken<List<UserPlantUnit>>() {}.type
         unitList = Gson().fromJson(unitkeyList, unitListType)
 
         val plantListType: Type = object : TypeToken<List<UserPlant>>() {}.type
-
         plantList = Gson().fromJson(plantkeyList, plantListType)
+
+        val lineInListType: Type = object : TypeToken<List<UserLine>>() {}.type
+        lineList = Gson().fromJson(lineInkeyList, lineInListType)
 
 
     }
@@ -57,6 +66,8 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
             if (validation()) {
                 authenticationViewModel.saveUnit(selectedUnit.toString())
                 authenticationViewModel.savePlant(selectedPlant.toString())
+                authenticationViewModel.saveLine(selectedline.toString())
+                "save".toast()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -74,9 +85,16 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         }
 
         binding.autoCompletePlant.setOnItemClickListener { _, _, position, _ ->
-            selectedPlant = unitList[position].plantUnitId!!
+            selectedPlant = plantList[position].plantId!!
             if (selectedPlant != -1) {
                 binding.text2.text = "Plant  Name  :" + plantList[position].plantName.toString()
+            }
+        }
+
+        binding.autoCompleteLine.setOnItemClickListener { _, _, position, _ ->
+            selectedline = lineList[position].lineId!!
+            if (selectedline != -1) {
+                binding.text3.text = "User Line  Name  :" + lineList[position].lineName.toString()
             }
         }
 
@@ -91,6 +109,9 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
         val adapterPlant = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, plantList)
         binding.autoCompletePlant.setAdapter(adapterPlant)
+
+        val adapterLine = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, lineList)
+        binding.autoCompleteLine.setAdapter(adapterLine)
     }
 
 
@@ -102,6 +123,10 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         }
         if (binding.text1.text.toString().isEmpty()) {
             "Select Plant Unit  Name".toast()
+            return false
+        }
+        if (binding.text3.text.toString().isEmpty()) {
+            "Select User Line Name".toast()
             return false
         }
         return true

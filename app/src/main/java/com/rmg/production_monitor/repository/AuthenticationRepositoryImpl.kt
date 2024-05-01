@@ -82,5 +82,9 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override fun savePlant(plant: String?) {
         sessionManager.savePlantId(plant)
     }
+
+    override fun saveUserLine(userLine: String?) {
+     sessionManager.saveLine(userLine)
+    }
 }
 

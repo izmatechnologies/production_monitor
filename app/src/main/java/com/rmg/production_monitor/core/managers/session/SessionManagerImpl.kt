@@ -58,25 +58,12 @@ class SessionManagerImpl @Inject constructor(
         return appPreference.getSting(USER_TYPE, Constants.UserType.SWING_LINE_IN_TYPE_USER.value) // By default sewing line in
     }
 
-
-//    override fun savePlantId(plantId: Int) {
-//
-//        appPreference.getInt(PLANT_ID, plantId)
-//
-//    }
-//
-//    override fun fetchPlantId(): Int {
-//        return prefs.getInt(PLANT_ID, 0)
-//    }
-
-    override fun saveLineId(lineId: Int) {
-
-        appPreference.getInt(LINE_ID, lineId)
-
+    override fun saveLine(lineId: String?) {
+        appPreference.storeSting(LINE_ID, lineId)
     }
 
-    override fun fetchLineId(): Int {
-        return appPreference.getInt(LINE_ID, 0)
+    override fun fetchLine(): String? {
+        return appPreference.getSting(LINE_ID, null)
     }
 
     override fun clearLineId() {
@@ -110,9 +97,7 @@ class SessionManagerImpl @Inject constructor(
     }
 
     override fun saveUnitId(unit: String?) {
-        if (unit != null) {
             appPreference.storeSting(UNIT_ID, unit)
-        }
     }
 
     override fun getUnitId(): String? {

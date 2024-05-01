@@ -33,6 +33,8 @@ object Constants {
         const val QC_STATUS_NAME="qc_status_name"
         const val UNIT_LIST="unit"
         const val PLANT_LIST="plant"
+        const val LINE_IN_LIST="linein"
+
     }
 
 

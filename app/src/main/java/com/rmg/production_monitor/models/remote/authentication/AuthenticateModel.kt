@@ -40,7 +40,7 @@ data class AuthenticatePayload(
     @SerializedName("AccessToken")
     val accessToken: String? =null,
     @SerializedName("UserLines")
-    val userLines: List<UserLine?>? = listOf(),
+    val userLines: List<UserLine>,
     @SerializedName("UserName")
     val userName: String? = null,
     @SerializedName("UserPlantUnits")
@@ -61,7 +61,11 @@ data class UserLine(
     val plantId: Int? = 0,
     @SerializedName("PlantUnitId")
     val plantUnitId: Int? = 0
-)
+){
+    override fun toString(): String {
+        return lineName.toString()
+    }
+}
 
 @Keep
 data class UserPlantUnit(

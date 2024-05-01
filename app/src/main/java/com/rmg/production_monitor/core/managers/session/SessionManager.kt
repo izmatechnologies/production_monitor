@@ -15,8 +15,8 @@ interface SessionManager {
 //    fun savePlantId(plantId: Int)
 //    fun fetchPlantId() : Int
 
-    fun saveLineId(lineId: Int)
-    fun fetchLineId() : Int
+    fun saveLine(lineId: String?)
+    fun fetchLine() : String?
 
     fun clearLineId()
 

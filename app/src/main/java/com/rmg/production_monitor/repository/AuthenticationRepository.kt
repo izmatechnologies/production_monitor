@@ -24,5 +24,6 @@ interface AuthenticationRepository {
 
     fun saveUnit(unit:String?)
     fun savePlant(plant:String?)
+    fun saveUserLine(userLine:String?)
 
 }

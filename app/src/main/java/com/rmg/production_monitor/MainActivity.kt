@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity(){
 
         initializeData()
         setUpAdapter()
+
+        binding.btnPause.setOnClickListener{
+            handler.postDelayed(runnable, delayMS)
+        }
     }
 
 

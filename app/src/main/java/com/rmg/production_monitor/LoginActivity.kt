@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.google.gson.Gson
+import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.enable
@@ -35,20 +36,11 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         val userType = authenticationViewModel.getUserType()
 
         if (!token.isNullOrEmpty()) {
-
             val intent: Intent = Intent(
                 this,
                 MainActivity::class.java
             )
             startActivity(intent)
-//            if (userType == Constants.UserType.SWING_LINE_IN_TYPE_USER.value) {
-//
-//
-//                //  findNavController().navigate(R.id.sewingLineFragment)
-//            } else {
-//
-//
-//            }
         }
 
 
@@ -109,9 +101,9 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                         if (userTypeName == "UT_03") {
                             val intent = Intent(this, UnitPlantActivity::class.java)
                             val bundle = Bundle()
-
-                            bundle.putString("unit", Gson().toJson(it.data.authenticatePayload.userPlantUnits))
-                            bundle.putString("plant", Gson().toJson(it.data.authenticatePayload.userPlants))
+                            bundle.putString(Constants.FragmentKey.LINE_IN_LIST, Gson().toJson(it.data.authenticatePayload.userLines))
+                            bundle.putString(Constants.FragmentKey.UNIT_LIST, Gson().toJson(it.data.authenticatePayload.userPlantUnits))
+                            bundle.putString(Constants.FragmentKey.PLANT_LIST, Gson().toJson(it.data.authenticatePayload.userPlants))
                             intent.putExtras(bundle)
                             startActivity(intent)
 
