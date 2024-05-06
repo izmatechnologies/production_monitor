@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
-        startAutoScroll()
+        //startAutoScroll()
     }
 
      fun initializeData() {
