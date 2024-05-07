@@ -27,7 +27,7 @@
                 android:hint="Pause"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 app:backgroundTint="@color/white"
                 app:cornerRadius="10dp"
                 android:elevation="6dp"
