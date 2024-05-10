@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.rmg.production_monitor.MainActivity
+import com.rmg.production_monitor.R
 //import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.listener.ToolBarController
@@ -114,22 +115,26 @@ abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderContro
     override fun showLoader() {
 
 
-//        // todo change it later
+        // chrash issue solved
+        loaderDialog = this.let { Dialog(it) }
 
 
-        // chash issu solved
-//        loaderDialog = context?.let { Dialog(it) }
-//        // todo excape function
-//
-//        loaderDialog?.requestWindowFeature(1)
-//        loaderDialog?.setContentView(R.layout.dialog_loader)
-//        loaderDialog?.setCanceledOnTouchOutside(false)
-//        loaderDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//        loaderDialog?.show()
-//
-//        loaderDialog?.findViewById<View>(android.R.id.content)?.postDelayed({
-//            loaderDialog?.dismiss()
-//        }, 6000)
+        loaderDialog.let {
+            it?.apply {
+                this.requestWindowFeature(1)
+                this.setContentView(R.layout.dialog_loader)
+                this.setCanceledOnTouchOutside(false)
+                this.window?.setBackgroundDrawableResource(android.R.color.transparent)
+                this.show()
+            }
+        }
+
+
+
+        //  delay millisecond should be constant
+        loaderDialog?.findViewById<View>(android.R.id.content)?.postDelayed({
+            loaderDialog?.dismiss()
+        }, LoaderController.LOAD_TIMER)
 
 
     }

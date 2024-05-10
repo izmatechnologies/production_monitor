@@ -10,14 +10,10 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:paddingStart="5dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="8dp"
-        android:paddingEnd="5dp"
-        android:paddingRight="5dp">
+        android:paddingEnd="5dp">
 
         <TextView
             android:layout_width="0dp"
@@ -26,9 +22,9 @@
             android:background="@drawable/line"
             android:gravity="center"
             style="@style/whiteText"
-            android:text="Tusuka Factory Software "
+            android:text="Tusuka Factory Software 0.0.1 "
             android:textColor="@color/white"
-            android:textSize="25dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:layout_width="0dp"
@@ -38,7 +34,7 @@
             android:gravity="center"
             android:text="PCB"
             android:textColor="@color/white"
-            android:textSize="25dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
 
         <TextView
@@ -48,7 +44,7 @@
             android:background="@drawable/line"
             android:gravity="center"
             android:text=""
-            android:textSize="25dp"
+            android:textSize="15dp"
             style="@style/whiteText" />
 
         <TextView
@@ -58,7 +54,7 @@
             android:background="@drawable/line"
             android:gravity="center"
             android:text="Line A"
-            android:textSize="25dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
 
         <TextView
@@ -78,7 +74,7 @@
             android:gravity="center"
             android:paddingEnd="10dp"
             android:text="8:04 PM"
-            android:textSize="25dp"
+            android:textSize="12dp"
             style="@style/whiteText" />
     </LinearLayout>
 
@@ -92,37 +88,44 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/view1"
         android:layout_margin="5dp"
         android:background="@drawable/style_color_bg"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/textViewStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingStart="10dp"
             android:background="@drawable/line"
             android:text="Style  -"
             style="@style/yellowText" />
 
         <TextView
+            android:id="@+id/textViewColor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingStart="10dp"
             android:background="@drawable/line"
             android:text="Color  -"
             style="@style/yellowText" />
 
         <TextView
+            android:id="@+id/textViewBuyer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingStart="10dp"
             android:background="@drawable/line"
             android:text="Buyer  -"
             style="@style/yellowText" />
 
         <TextView
+            android:id="@+id/textViewPO"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -136,13 +139,16 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:text="-"
+            android:paddingStart="10dp"
             android:textColor="@color/white"
             style="@style/yellowText" />
 
         <TextView
+            android:id="@+id/textViewHour"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingStart="10dp"
             android:text="Hour 8Hr"
             style="@style/yellowText" />
     </LinearLayout>
@@ -150,13 +156,13 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3">
 
 
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:id="@+id/layoutproduction"
             android:layout_width="0dp"
             android:background="@drawable/style_color_bg"
@@ -190,7 +196,7 @@
                         android:text="Target"
                         android:paddingLeft="10dp"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/textTargetValue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -199,10 +205,10 @@
                         android:id="@+id/textTargetValue"
                         android:layout_width="0dp"
                         android:gravity="center"
-                        android:paddingLeft="10dp"
+
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textTarget"
@@ -223,7 +229,7 @@
                         android:text="Actual"
                         android:paddingLeft="10dp"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/textActualValue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -232,10 +238,9 @@
                         android:id="@+id/textActualValue"
                         android:layout_width="0dp"
                         android:gravity="center"
-                        tools:text="0"
-
+                        android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textActual"
@@ -256,7 +261,7 @@
                         android:text="Variance"
                         android:paddingLeft="10dp"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/textVarianceValue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -265,10 +270,10 @@
                         android:id="@+id/textVarianceValue"
                         android:layout_width="0dp"
                         android:gravity="center"
-                        tools:text="0"
+                        android:text="0"
 
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textVariance"
@@ -288,7 +293,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/style_color_bg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -308,9 +313,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom|center"
                     android:paddingLeft="10dp"
-                    tools:text="0"
+                    android:text="0"
+                    android:layout_margin="10dp"
                     android:textColor="@color/white"
-                    android:textSize="45dp" />
+                    android:textSize="20dp" />
 
 
 
@@ -320,7 +326,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/style_color_bg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -331,7 +337,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/whiteText25"
-                    android:paddingLeft="10dp"
                     android:text="DHU%" />
 
 
@@ -341,9 +346,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="bottom|center"
                     android:paddingLeft="10dp"
-                    tools:text="0%"
+                    android:text="0%"
+                    android:layout_margin="10dp"
                     android:textColor="#1CEF0E"
-                    android:textSize="45dp" />
+                    android:textSize="20dp" />
 
 
 
@@ -355,10 +361,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:padding="10dp"
             android:id="@+id/layoutefficy"
             android:layout_width="0dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:background="@drawable/style_color_bg"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -388,9 +393,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:gravity="start|center"
-                        android:text="Target"
+                        android:text="Acual"
+                        android:layout_marginStart="10dp"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/textActualPercentValue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -401,7 +407,7 @@
                         android:gravity="center"
                         tools:text="0%"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textActualPercent"
@@ -419,9 +425,10 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:gravity="start|center"
-                        android:text="Target"
+                        android:text="Planned"
+                        android:layout_marginStart="10dp"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="15dp"
                         app:layout_constraintEnd_toStartOf="@+id/textActualPlannedValue"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -432,7 +439,7 @@
                         android:gravity="center"
                         tools:text="0%"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/textPlanned"
@@ -447,9 +454,10 @@
         android:weightSum="3"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/style_color_bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -461,7 +469,7 @@
                 android:layout_height="wrap_content"
                 style="@style/whiteText25"
                 android:text="DAY TERGET"
-           />
+                />
 
 
             <TextView
@@ -470,15 +478,18 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom|center"
                 android:paddingLeft="10dp"
-                tools:text="0%"
+                android:text="0%"
+                android:layout_margin="10dp"
                 android:textColor="@color/white"
-                android:textSize="45dp" />
+                android:textSize="20dp" />
 
 
 
         </LinearLayout>
         <LinearLayout
-            android:layout_margin="5dp"
+            android:layout_marginTop="5dp"
+
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/style_color_bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -508,7 +519,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_height="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -522,11 +533,11 @@
                         android:gravity="center"
                         android:text="Operations"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textOperationValue"
                         app:layout_constraintStart_toStartOf="parent"
-                      app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintBottom_toBottomOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -543,7 +554,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_height="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -557,7 +568,7 @@
                         android:gravity="center"
                         android:text="Helpers"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textHelperValue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -575,7 +586,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="45dp"
+                        android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_height="0dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -589,7 +600,7 @@
                         android:gravity="center"
                         android:text="Ironman"
                         android:textColor="@color/white"
-                        android:textSize="25dp"
+                        android:textSize="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textIronmanValue"
                         app:layout_constraintStart_toStartOf="parent"
@@ -602,7 +613,8 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/style_color_bg"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -616,7 +628,7 @@
                 android:paddingLeft="10dp"
                 android:text="WIP TOTALE"
                 android:textColor="@color/white"
-                android:textSize="25dp" />
+                android:textSize="15dp" />
 
 
             <TextView
@@ -626,8 +638,9 @@
                 android:gravity="bottom|center"
                 android:paddingLeft="10dp"
                 android:text="12636"
+                android:layout_margin="10dp"
                 android:textColor="@color/white"
-                android:textSize="50dp" />
+                android:textSize="20dp" />
 
 
 
