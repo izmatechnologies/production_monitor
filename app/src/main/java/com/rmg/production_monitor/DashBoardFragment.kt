@@ -1,50 +1,82 @@
 package com.rmg.production_monitor
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.rmg.production_monitor.core.base.BaseFragment
+import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.toast
+import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
+import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
+import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DashBoardFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
-class DashBoardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
+    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
 
+    override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
+        return FragmentDashBoardBinding.inflate(inflater)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dash_board, container, false)
+    override fun callInitialApi() {
+        super.callInitialApi()
+        networkChecker {
+            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(0)
+        }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DashBoardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashBoardFragment().apply {
+    override fun setupObserver() {
+        super.setupObserver()
+        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Success -> {
+                    hideLoader()
+                    it.data?.payload?.let { payload ->
+                        cumulativeDashboardSummaryPayload = payload
+                        initializeData()
+                    }
+                }
 
+                is NetworkResult.Error -> {
+                    hideLoader()
+                    it.message.toString().toast()
+                }
+
+                is NetworkResult.Loading -> {
+                    showLoader()
+                }
+
+                is NetworkResult.SessionOut -> {
+                    showTokenExpiredToast()
+                }
+                else ->{
+
+                }
             }
+        }
+    }
+
+    override fun initializeData() {
+        super.initializeData()
+        if (::cumulativeDashboardSummaryPayload.isInitialized) {
+            "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
+            "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
+            "Buyer - ${cumulativeDashboardSummaryPayload.buyerName}".also { binding.textViewBuyer.text = it }
+            "PO - ${cumulativeDashboardSummaryPayload.poNumber}".also { binding.textViewPO.text = it }
+            "Hour ${cumulativeDashboardSummaryPayload.hour}".also { binding.textViewHour.text = it }
+            binding.textTargetValue.text = cumulativeDashboardSummaryPayload.target
+            binding.textActualValue.text = cumulativeDashboardSummaryPayload.actual
+            binding.textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
+            binding.textTrendValue.text = cumulativeDashboardSummaryPayload.trend
+            binding.textDHUValue.text = cumulativeDashboardSummaryPayload.dHU
+            binding.textOperationValue.text = cumulativeDashboardSummaryPayload.operations
+            binding.textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
+            binding.textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMan
+            binding.textActualPercentValue.text = cumulativeDashboardSummaryPayload.actualEfficiency
+            binding.textActualPlannedValue.text = cumulativeDashboardSummaryPayload.plannedEfficiency
+            binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
+        }
     }
 }

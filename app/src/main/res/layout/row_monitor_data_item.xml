@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/black"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textSerialNumber"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/textBuyer"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="LPP::LLP" />
+
+        <TextView
+            android:id="@+id/textStyle"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="ZB5655" />
+
+        <TextView
+            android:id="@+id/textPo"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="ZB5655" />
+
+        <TextView
+            android:id="@+id/textColor"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="1356456" />
+
+
+        <TextView
+            android:id="@+id/textIineCunIn"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="35fy6555" />
+
+        <TextView
+            android:id="@+id/textLineCumOut"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="7676" />
+
+
+        <TextView
+            android:id="@+id/textWip"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/yellow"
+            android:textSize="12dp"
+            tools:text="455" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+</LinearLayout>

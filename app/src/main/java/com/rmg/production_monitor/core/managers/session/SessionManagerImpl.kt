@@ -19,6 +19,8 @@ class SessionManagerImpl @Inject constructor(
         const val BUTTON_KEY = "button_key"
         const val USER_TYPE = "user_type"
         const val USER_NAME = "user_name"
+        const val  UNIT_ID="UNIT"
+        const val  PLANT_ID="PLANT"
     }
 
 
@@ -56,25 +58,12 @@ class SessionManagerImpl @Inject constructor(
         return appPreference.getSting(USER_TYPE, Constants.UserType.SWING_LINE_IN_TYPE_USER.value) // By default sewing line in
     }
 
-
-//    override fun savePlantId(plantId: Int) {
-//
-//        appPreference.getInt(PLANT_ID, plantId)
-//
-//    }
-//
-//    override fun fetchPlantId(): Int {
-//        return prefs.getInt(PLANT_ID, 0)
-//    }
-
-    override fun saveLineId(lineId: Int) {
-
-        appPreference.getInt(LINE_ID, lineId)
-
+    override fun saveLine(lineId: String?) {
+        appPreference.storeSting(LINE_ID, lineId)
     }
 
-    override fun fetchLineId(): Int {
-        return appPreference.getInt(LINE_ID, 0)
+    override fun fetchLine(): String? {
+        return appPreference.getSting(LINE_ID, null)
     }
 
     override fun clearLineId() {
@@ -105,5 +94,22 @@ class SessionManagerImpl @Inject constructor(
 
     override fun getUserName(): String? {
      return   appPreference.getSting(USER_NAME, null)
+    }
+
+    override fun saveUnitId(unit: String?) {
+            appPreference.storeSting(UNIT_ID, unit)
+    }
+
+    override fun getUnitId(): String? {
+        return appPreference.getSting(UNIT_ID, null)
+    }
+
+    override fun savePlantId(plant: String?) {
+            appPreference.storeSting(PLANT_ID,plant)
+
+    }
+
+    override fun getPlantId(): String? {
+        return appPreference.getSting(PLANT_ID, null)
     }
 }

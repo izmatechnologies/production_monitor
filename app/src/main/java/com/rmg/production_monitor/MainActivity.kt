@@ -30,18 +30,22 @@ class MainActivity : AppCompatActivity(){
 
         initializeData()
         setUpAdapter()
+
+        binding.btnPause.setOnClickListener{
+            handler.postDelayed(runnable, delayMS)
+        }
     }
 
 
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
-        startAutoScroll()
+        //startAutoScroll()
     }
 
      fun initializeData() {
 
-        fragmentList = listOf(QualityFragment(), PCBFragment())
+        fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
         handler = Handler(Looper.getMainLooper())
     }
 
