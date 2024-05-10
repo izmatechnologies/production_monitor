@@ -1,24 +1,35 @@
 package com.rmg.production_monitor
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(){
 
-
+    lateinit var binding: ActivityMainBinding
     private var currentPage = 0
     private val delayMS: Long = 5000 // 5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
 
     private var fragmentList: List<Fragment> = ArrayList<Fragment>()
-    override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
-        return ActivityMainBinding.inflate(layoutInflater)
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initializeData()
+        setUpAdapter()
     }
 
 
@@ -28,14 +39,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         startAutoScroll()
     }
 
-    override fun initializeData() {
-        super.initializeData()
-        fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
+     fun initializeData() {
+
+        fragmentList = listOf(QualityFragment(), PCBFragment())
         handler = Handler(Looper.getMainLooper())
     }
 
-    override fun setUpAdapter() {
-        super.setUpAdapter()
+     fun setUpAdapter() {
+
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager, lifecycle, fragmentList)
         binding.viewPager.adapter = pagerAdapter
     }

@@ -15,9 +15,11 @@ import com.rmg.production_monitor.MainActivity
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.listener.ToolBarController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
+import dagger.hilt.android.AndroidEntryPoint
 
 
 import javax.inject.Inject
+
 
 abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderController {
 

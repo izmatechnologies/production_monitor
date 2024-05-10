@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "production_monitor"
-include(":app")
+rootProject.name = "TestKotlin_1"
+include ':app'

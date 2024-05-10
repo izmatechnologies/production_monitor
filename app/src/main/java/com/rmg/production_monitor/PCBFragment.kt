@@ -5,7 +5,9 @@ import com.rmg.production_monitor.core.adapter.PCBAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
 import com.rmg.production_monitor.models.remote.pcb.PCBModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
     private val pcbModelMutableList = mutableListOf<PCBModel>()
