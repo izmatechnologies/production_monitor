@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.core.base.BaseActivity
+import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity(){
     private val delayMS: Long = 5000 // 5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
+    private var flag:Boolean=false
 
     private var fragmentList: List<Fragment> = ArrayList<Fragment>()
 
@@ -32,7 +34,14 @@ class MainActivity : AppCompatActivity(){
         setUpAdapter()
 
         binding.btnPause.setOnClickListener{
-            handler.postDelayed(runnable, delayMS)
+            if (!flag){
+                flag=true
+                handler.removeCallbacks(runnable)
+            }else{
+                startAutoScroll()
+                flag=false
+            }
+
         }
     }
 
