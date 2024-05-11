@@ -11,6 +11,7 @@ import retrofit2.http.Body
 
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
 interface ApiService {
@@ -112,6 +113,6 @@ interface ApiService {
     @GET("api/HeeatMap/GetHeatmap")
     suspend fun getHeatmap(): Response<QualityModel>
 
-    @GET("api/AnalyticsDashboard/GetWip?lineId=1")
-    suspend fun getDashboardAnalytics(): Response<DashboardAnalyticsResponse>
+    @GET("api/AnalyticsDashboard/GetWip")
+    suspend fun getDashboardAnalytics(@Query("lineId") lineId: Int): Response<DashboardAnalyticsResponse>
 }

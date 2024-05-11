@@ -40,8 +40,12 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                 handler.postDelayed(this, 1000)
             }
         })
+
         networkChecker {
-            mViewModel.getDashboardAnalytics()
+          val lineId=  mViewModel.getLineId()
+            if (lineId != null) {
+                mViewModel.getDashboardAnalytics(lineId.toInt())
+            }
         }
     }
 

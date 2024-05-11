@@ -33,7 +33,6 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         super.initializeData()
 
         val token = authenticationViewModel.getAuthToken()
-        val userType = authenticationViewModel.getUserType()
 
         if (!token.isNullOrEmpty()) {
             val intent: Intent = Intent(
@@ -96,9 +95,6 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                         authenticationViewModel.saveUserName(userName)
                         authenticationViewModel.saveUserType(userTypeName)
 
-
-                        // todo user type call constant value
-                        if (userTypeName == "UT_03") {
                             val intent = Intent(this, UnitPlantActivity::class.java)
                             val bundle = Bundle()
                             bundle.putString(Constants.FragmentKey.LINE_IN_LIST, Gson().toJson(it.data.authenticatePayload.userLines))
@@ -106,11 +102,6 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                             bundle.putString(Constants.FragmentKey.PLANT_LIST, Gson().toJson(it.data.authenticatePayload.userPlants))
                             intent.putExtras(bundle)
                             startActivity(intent)
-
-                        } else {
-                            //'   findNavController().popBackStack()
-                            //   findNavController().navigate(R.id.newSelectPOFragment)
-                        }
 
                     }
                 }

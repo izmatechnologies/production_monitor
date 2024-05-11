@@ -17,9 +17,9 @@ class DashboardRepositoryImpl @Inject constructor(
     override val dashboardAnalyticsData: LiveData<NetworkResult<DashboardAnalyticsResponse>>
         get() = _dashboardAnalyticsData
 
-    override suspend fun getDashboardAnalytics() {
+    override suspend fun getDashboardAnalytics(lineId:Int) {
         _dashboardAnalyticsData.postValue(NetworkResult.Loading())
-        val response = apiService.getDashboardAnalytics()
+        val response = apiService.getDashboardAnalytics(lineId)
 
         if (response.isSuccessful && response.body() != null) {
             _dashboardAnalyticsData.postValue(NetworkResult.Success(response.body()!!))
