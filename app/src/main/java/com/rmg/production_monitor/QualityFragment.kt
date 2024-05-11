@@ -14,6 +14,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.*
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
@@ -26,6 +27,11 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
     private var imagePath: String? = null
+
+    private var finalHeight: Float = 0.0f
+    private var finalWidth: Float = 0.0f
+    private lateinit var mutableBitmap: Bitmap
+    private var initialBitmap:Boolean=false
 
     // The list of coordinates for the dots
     private var dotCoordinates: List<Pair<Float, Float>>? = null
@@ -78,12 +84,28 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun initializeData() {
         super.initializeData()
 
-        if(::qualityPayload.isInitialized) {
+        binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
+            // Get the width and height of the imageView
+            finalWidth = binding.imageView.width.toFloat()
+            finalHeight = binding.imageView.height.toFloat()
 
+        }
+        if (::qualityPayload.isInitialized) {
             imagePath = qualityPayload.imageUrl.replace("\\", "/")
+            "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
+
+            "finalHeight: $finalHeight finalWidth: $finalWidth".log("dim")
             dotCoordinates = qualityPayload.heatMapPositions.map { position ->
-                Pair(position.x.toFloat(), position.y.toFloat())
+                Pair(
+                    (finalWidth * position.x.toFloat()) / 100.00f,
+                    (finalHeight * position.y.toFloat()) / 100.00f
+                )
             }
+//            if (initialBitmap){
+//                drawCanvas(dotCoordinates?: mutableListOf())
+//            }
+
+
 
             Glide.with(requireContext()).asBitmap().load(imagePath).error(R.drawable.chart_image)
                 .into(object : BitmapImageViewTarget(binding.imageView) {
@@ -91,7 +113,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                         resource: Bitmap, transition: Transition<in Bitmap>?
                     ) {
                         // Make a mutable copy of the bitmap to draw on
-                        val mutableBitmap = resource.copy(Bitmap.Config.ARGB_8888, true)
+                        mutableBitmap = resource.copy(Bitmap.Config.ARGB_8888, true)
                         val canvas = Canvas(mutableBitmap)
                         val paint = Paint().apply {
                             color = Color.RED
@@ -103,18 +125,29 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
                         // Draw dots on the bitmap
                         dotCoordinates?.forEach { (x, y) ->
-                            canvas.drawCircle(x, y, dotRadius, paint)
+                            canvas.drawCircle(
+                                x,
+                                y,
+                                dotRadius,
+                                paint
+                            )
                         }
+                        "$dotCoordinates for x,y point".log("dim")
+
 
                         // Set the modified bitmap to the ImageView
                         binding.imageView.setImageBitmap(mutableBitmap)
                     }
                 })
 
+
+
             binding.textViewStyle.text = changeEndTextColor("Style - ${qualityPayload.style}", 6)
             binding.textViewColor.text = changeEndTextColor("Color - ${qualityPayload.color}", 6)
             binding.textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
-            binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
+            if (qualityPayload.po.isNotEmpty()){
+                binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
+            }
 
             "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
 
@@ -126,7 +159,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 }
             }
 
-            "REM.DEFECTIVE ${qualityPayload.remainingDiffective}".also { binding.textViewRemDefective.text = it }
+            "REM.DEFECTIVE ${qualityPayload.remainingDiffective}".also {
+                binding.textViewRemDefective.text = it
+            }
             "REJECTS ${qualityPayload.totalReject}".also { binding.textViewRejects.text = it }
 
             var operationsText = ""
@@ -145,7 +180,12 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
             "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
+
     }
+
+//    private fun drawCanvas(dotCoordinates: List<Pair<Float, Float>>) {
+//
+//    }
 
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
         val spannableString = SpannableString(text)

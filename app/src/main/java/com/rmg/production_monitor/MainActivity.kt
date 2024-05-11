@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(){
 
     lateinit var binding: ActivityMainBinding
     private var currentPage = 0
-    private val delayMS: Long = 5000 // 5 seconds delay
+    private val delayMS: Long = 45000 // 4.5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
 
