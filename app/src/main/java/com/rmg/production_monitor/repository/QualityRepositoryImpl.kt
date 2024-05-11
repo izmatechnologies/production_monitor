@@ -19,9 +19,9 @@ class QualityRepositoryImpl @Inject constructor(
     override val heatMapLiveData: LiveData<NetworkResult<QualityModel>>
         get() = _heatMapLiveData
 
-    override suspend fun getHeatmap() {
+    override suspend fun getHeatmap(lineId: Int) {
         _heatMapLiveData.postValue(NetworkResult.Loading())
-        val response = apiService.getHeatmap()
+        val response = apiService.getHeatmap(lineId)
 
         if (response.isSuccessful && response.body() != null) {
             _heatMapLiveData.postValue(NetworkResult.Success(response.body()!!))

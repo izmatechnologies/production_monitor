@@ -8,11 +8,13 @@ data class QualityPayload(
     @SerializedName("Color")
     val color: String,
     @SerializedName("HeatMapIssues")
-    val heatMapIssues: List<Any>,
+    val heatMapIssues: List<HeatMapIssue>,
     @SerializedName("HeatMapOperations")
-    val heatMapOperations: List<Any>,
+    val heatMapOperations: List<HeatMapOperation>,
     @SerializedName("HeatMapPositions")
-    val heatMapPositions: List<Any>,
+    val heatMapPositions: List<HeatMapPosition>,
+    @SerializedName("ImageUrl")
+    val imageUrl: String,
     @SerializedName("MarkingImageUrl")
     val markingImageUrl: String,
     @SerializedName("OverAllDhu")
