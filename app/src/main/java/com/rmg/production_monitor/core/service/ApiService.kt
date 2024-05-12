@@ -34,4 +34,6 @@ interface ApiService {
     suspend fun getCumulativeDashboardSummary(
         @Query("lineid") lineId: Int
     ): Response<CumulativeDashboardSummaryModel>
+    @GET("api/AnalyticsDashboard/GetWip")
+    suspend fun getDashboardAnalytics(@Query("lineId") lineId: Int): Response<DashboardAnalyticsResponse>
 }
