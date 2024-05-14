@@ -1,5 +1,9 @@
 package com.rmg.production_monitor
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -24,6 +28,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DataFragment : BaseFragment<FragmentDataBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
+    private var flag:Boolean=false
   @Inject
   lateinit var daAdapter: DAAdapter
     override fun getViewBinding(inflater: LayoutInflater): FragmentDataBinding {
@@ -32,6 +37,31 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
+
+        binding.btnPause.setOnClickListener{
+            if (!flag){
+                flag=true
+                (requireActivity() as MainActivity).stopScrolling()
+            }else{
+                (requireActivity() as MainActivity).startAutoScroll()
+                flag=false
+            }
+
+        }
+
+        binding.btnRefresh.setOnClickListener {
+            networkChecker {
+                val lineId=  mViewModel.getLineId()
+                if (lineId != null) {
+                    mViewModel.getDashboardAnalytics(lineId.toInt())
+                }
+            }
+        }
+
+        binding.btnExit.setOnClickListener {
+            showExitDialog()
+        }
+
 
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
@@ -105,4 +135,24 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         binding.recyclerView.apply {
             adapter = daAdapter
         }
-}}
+}
+
+    // todo rakib use base dialog fragment
+    @SuppressLint("SuspiciousIndentation")
+    private fun showExitDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Qc Monitor App")
+        builder.setMessage("Are you sure you want to exit?")
+            .setCancelable(false)
+            .setPositiveButton("Yes",
+                DialogInterface.OnClickListener { dialog, id ->
+
+                    mViewModel.clearSession()
+
+                    requireActivity().finish()
+                })
+            .setNegativeButton("No",
+                DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+        builder.create()?.show()
+    }
+}
