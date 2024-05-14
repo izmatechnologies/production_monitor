@@ -2,6 +2,8 @@ package com.rmg.production_monitor.core.di
 
 import com.rmg.production_monitor.repository.AuthenticationRepository
 import com.rmg.production_monitor.repository.AuthenticationRepositoryImpl
+import com.rmg.production_monitor.repository.CumulativeDashboardDetailRepository
+import com.rmg.production_monitor.repository.CumulativeDashboardDetailRepositoryImpl
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepository
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepositoryImpl
 import com.rmg.production_monitor.repository.DashboardRepository
@@ -29,5 +31,8 @@ interface RepositoryModule {
 
     @Binds
     fun provideCumulativeDashboardSummaryRepository(cumulativeDashboardSummaryRepositoryImpl: CumulativeDashboardSummaryRepositoryImpl): CumulativeDashboardSummaryRepository
+
+    @Binds
+    fun provideCumulativeDashboardDetailRepository(cumulativeDashboardDetailRepositoryImpl: CumulativeDashboardDetailRepositoryImpl): CumulativeDashboardDetailRepository
 
 }
