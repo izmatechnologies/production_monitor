@@ -2,8 +2,7 @@ package com.rmg.production_monitor.core.extention
 
 import android.app.Activity
 import android.content.Context
-
-
+import com.rmg.production_monitor.R
 
 
 // todo don't use as extention funtion use as dependant inject ion

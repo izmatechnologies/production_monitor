@@ -19,18 +19,19 @@
         <LinearLayout
             android:id="@+id/layoutTop"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/app_title"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:padding="5dp"
-                android:text="Tusuka fectory Software 0.0.1"
-                android:textSize="12dp" />
+                android:text="Qc Monitor App"
+                android:textSize="10dp" />
 
             <View
                 android:layout_width="1dp"
@@ -290,7 +291,7 @@
         <!--            app:layout_constraintTop_toTopOf="parent" />-->
         <TextView
             style="@style/whiteText"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Total"
@@ -301,7 +302,7 @@
         <TextView
             android:id="@+id/textTotalWip"
             style="@style/whiteText"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="2933"

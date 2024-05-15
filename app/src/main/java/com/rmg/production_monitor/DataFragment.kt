@@ -10,14 +10,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.adapter.DAAdapter
-import com.rmg.production_monitor.core.adapter.DashboardAnalyticsAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.viewModel.DashboardViewModel
-import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,8 +34,8 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         return FragmentDataBinding.inflate(inflater)
     }
 
-    override fun callInitialApi() {
-        super.callInitialApi()
+    override fun initializeData() {
+        super.initializeData()
 
         binding.btnPause.setOnClickListener{
             if (!flag){
@@ -60,7 +59,27 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
 
         binding.btnExit.setOnClickListener {
             showExitDialog()
+
+
+            showLogoutDialog(
+                requireContext(),
+                onYesButtonClick = {
+
+                    //  recreate()
+                    mViewModel.clearSession()
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent)
+
+                }
+            )
         }
+
+       // binding.appTitle.text="Qc Monitor App /br {}"
+    }
+    override fun callInitialApi() {
+        super.callInitialApi()
+
+
 
 
         val handler = Handler(Looper.getMainLooper())
@@ -142,7 +161,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
     private fun showExitDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Qc Monitor App")
-        builder.setMessage("Are you sure you want to exit?")
+        builder.setMessage("Are you sure you want to Logout?")
             .setCancelable(false)
             .setPositiveButton("Yes",
                 DialogInterface.OnClickListener { dialog, id ->
