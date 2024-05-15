@@ -44,6 +44,9 @@ class SessionManagerImpl @Inject constructor(
         appPreference.remove(LINE_ID)
         appPreference.remove(BUTTON_KEY)
         appPreference.remove(USER_TYPE)
+        appPreference.remove(UNIT_ID)
+        appPreference.remove(PLANT_ID)
+
     }
 
     override fun clearUserType() {

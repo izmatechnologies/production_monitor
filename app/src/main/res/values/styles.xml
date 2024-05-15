@@ -86,4 +86,9 @@
     <style name="NetworkConnectivityAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/bg_round_corner_white</item>
     </style>
+
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/dialog_corner</item>
+    </style>
 </resources>

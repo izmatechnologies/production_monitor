@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(){
     private val delayMS: Long = 45000 // 4.5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
-    private var flag:Boolean=false
+  //  private var flag:Boolean=false
 
     private var fragmentList: List<Fragment> = ArrayList<Fragment>()
 
@@ -33,16 +33,16 @@ class MainActivity : AppCompatActivity(){
         initializeData()
         setUpAdapter()
 
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                handler.removeCallbacks(runnable)
-            }else{
-                startAutoScroll()
-                flag=false
-            }
-
-        }
+//        binding.btnPause.setOnClickListener{
+//            if (!flag){
+//                flag=true
+//                handler.removeCallbacks(runnable)
+//            }else{
+//                startAutoScroll()
+//                flag=false
+//            }
+//
+//        }
     }
 
 
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(){
         binding.viewPager.adapter = pagerAdapter
     }
 
-    private fun startAutoScroll() {
+     fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
             currentPage++
@@ -76,6 +76,11 @@ class MainActivity : AppCompatActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
+        handler.removeCallbacks(runnable)
+    }
+
+
+    fun stopScrolling(){
         handler.removeCallbacks(runnable)
     }
 }

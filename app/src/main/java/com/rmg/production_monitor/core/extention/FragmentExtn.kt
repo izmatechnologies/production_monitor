@@ -2,29 +2,31 @@ package com.rmg.production_monitor.core.extention
 
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.rmg.production_monitor.R
 
 import com.rmg.production_monitor.core.Constants
+import com.rmg.production_monitor.core.view.dialog.LogoutDialog
 
 
-//fun Fragment.showLogoutDialog(
-//    context: Context,
-//    onYesButtonClick: (() -> Unit)? = null,
-//    onNoButtonClick: (() -> Unit)? = null
-//) {
-//
-//    val dialog = LogoutDialog(
-//        context, R.style.CustomAlertDialog,
-//        onYesButtonClick, onNoButtonClick
-//    )
-//
-//
-//    try {
-//        dialog.show()
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//        e.toString().log("dialog")
-//    }
-//}
+fun Fragment.showLogoutDialog(
+    context: Context,
+    onYesButtonClick: (() -> Unit)? = null,
+    onNoButtonClick: (() -> Unit)? = null
+) {
+
+    val dialog = LogoutDialog(
+        context, R.style.CustomAlertDialog,
+        onYesButtonClick, onNoButtonClick
+    )
+
+
+    try {
+        dialog.show()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        e.toString().log("dialog")
+    }
+}
 //
 //
 //fun Fragment.showNoInternetConnectionDialog(
