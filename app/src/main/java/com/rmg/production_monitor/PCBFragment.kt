@@ -1,42 +1,84 @@
 package com.rmg.production_monitor
 
 import android.view.LayoutInflater
+import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.adapter.PCBAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
+import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
-import com.rmg.production_monitor.models.remote.pcb.PCBModel
+import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.CumulativeDashboardDetailPayload
+import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.HourlyDetail
+import com.rmg.production_monitor.viewModel.CumulativeDashboardDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
-    private val pcbModelMutableList = mutableListOf<PCBModel>()
+    private val cumulativeDashboardDetailViewModel by viewModels<CumulativeDashboardDetailViewModel>()
+    private lateinit var cumulativeDashboardDetailPayload: CumulativeDashboardDetailPayload
+    private var hourlyDetailList = mutableListOf<HourlyDetail>()
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentPCBBinding {
         return FragmentPCBBinding.inflate(inflater)
     }
 
+    override fun callInitialApi() {
+        super.callInitialApi()
+
+        cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(0)
+    }
+
+    override fun setupObserver() {
+        super.setupObserver()
+
+        cumulativeDashboardDetailViewModel.cumulativeDashboardDetailLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Success -> {
+                    hideLoader()
+                    it.data?.payload?.let { payload ->
+                        cumulativeDashboardDetailPayload = payload
+                        initializeData()
+                    }
+                }
+
+                is NetworkResult.Error -> {
+                    hideLoader()
+                    it.message.toString().toast()
+                }
+
+                is NetworkResult.Loading -> {
+                    showLoader()
+                }
+
+                is NetworkResult.SessionOut -> {
+                    showTokenExpiredToast()
+                }
+                else ->{
+
+                }
+            }
+        }
+    }
+
     override fun initializeData() {
         super.initializeData()
-        repeat(10) {
-            val data = PCBModel(
-                "${it + 1}",
-                "0 / 0",
-                "0 / 0",
-                "0 / 0",
-                "0.0 / 0.0",
-                "0%",
-                "0%",
-                ""
-            )
-            pcbModelMutableList.add(data)
+
+        if (::cumulativeDashboardDetailPayload.isInitialized) {
+            "Style - ${cumulativeDashboardDetailPayload.styleName}".also { binding.textViewStyle.text = it }
+            "Color - ${cumulativeDashboardDetailPayload.colorName}".also { binding.textViewColor.text = it }
+            "Buyer - ${cumulativeDashboardDetailPayload.buyerName}".also { binding.textViewBuyer.text = it }
+            "PO - ${cumulativeDashboardDetailPayload.poNumber}".also { binding.textViewPO.text = it }
+            "Hour ${cumulativeDashboardDetailPayload.hour}".also { binding.textViewHour.text = it }
+            hourlyDetailList = cumulativeDashboardDetailPayload.hourlyDetails.toMutableList()
+            setUpRecycleView()
         }
     }
 
     override fun setUpRecycleView() {
         super.setUpRecycleView()
 
-        val pcbAdapter = PCBAdapter(pcbModelMutableList)
+        val pcbAdapter = PCBAdapter(hourlyDetailList)
         binding.recyclerView.adapter = pcbAdapter
     }
 }
