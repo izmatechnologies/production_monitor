@@ -12,6 +12,9 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.jjoe64.graphview.GridLabelRenderer
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.*
 import com.rmg.production_monitor.core.extention.log
@@ -34,7 +37,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private var initialBitmap:Boolean=false
 
     // The list of coordinates for the dots
-    private var dotCoordinates: List<Pair<Float, Float>>? = null
+    // Declare dotCoordinates globally
+    var dotCoordinates: Array<DataPoint>? = null
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentQualityBinding {
         return FragmentQualityBinding.inflate(inflater)
@@ -96,11 +100,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
             "finalHeight: $finalHeight finalWidth: $finalWidth".log("dim")
             dotCoordinates = qualityPayload.heatMapPositions.map { position ->
-                Pair(
-                    (finalWidth * position.x.toFloat()) / 100.00f,
-                    (finalHeight * position.y.toFloat()) / 100.00f
-                )
-            }
+                DataPoint(position.x.toDouble(), position.y.toDouble())
+            }.toTypedArray()
 //            if (initialBitmap){
 //                drawCanvas(dotCoordinates?: mutableListOf())
 //            }
@@ -124,21 +125,54 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                         val dotRadius = 20f // Radius of the dots
 
                         // Draw dots on the bitmap
-                        dotCoordinates?.forEach { (x, y) ->
-                            canvas.drawCircle(
-                                x,
-                                y,
-                                dotRadius,
-                                paint
-                            )
-                        }
-                        "$dotCoordinates for x,y point".log("dim")
+//                        dotCoordinates?.forEach { (x, y) ->
+//                            canvas.drawCircle(
+//                                x,
+//                                y,
+//                                dotRadius,
+//                                paint
+//                            )
+//                        }
+//                        "$dotCoordinates for x,y point".log("dim")
 
 
                         // Set the modified bitmap to the ImageView
                         binding.imageView.setImageBitmap(mutableBitmap)
                     }
                 })
+
+//            Glide.with(requireContext())
+//                .load(imagePath)
+//                .error(R.drawable.chart_image)
+//                .into(binding.imageView)
+
+            binding.graph.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE // Disable grid lines
+
+            binding.graph.gridLabelRenderer.isHorizontalLabelsVisible = false // Hide horizontal labels (X-axis)
+
+            binding.graph.gridLabelRenderer.isVerticalLabelsVisible = false // Hide vertical labels (Y-axis)
+
+
+            binding.graph.viewport.isYAxisBoundsManual = true
+            binding.graph.viewport.setMinY(0.0)
+            binding.graph.viewport.setMaxY(10.0)
+
+            binding.graph.viewport.isXAxisBoundsManual = true
+            binding.graph.viewport.setMinX(0.0)
+            binding.graph.viewport.setMaxX(5.0)
+
+            // Data points
+//            val dataPoints = arrayOf(
+//                DataPoint(1.4314515888690948, 8.536292761564255),
+//                DataPoint(4.133064448833466, 8.134373128414154),
+//                DataPoint(4.279233813285828, 0.6418716907501221)
+//            )
+
+            // Add the data points to the graph
+            val dotSeries = PointsGraphSeries(dotCoordinates)
+            dotSeries.color = Color.RED // Set color of the dots
+            dotSeries.size = 10f // Set size of the dots
+            binding.graph.addSeries(dotSeries)
 
 
 
