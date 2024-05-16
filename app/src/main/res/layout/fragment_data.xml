@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -18,20 +17,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/layoutTop"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/app_title"
                 style="@style/whiteText"
                 android:layout_width="0dp"
-                android:padding="5dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Tusuka fectory Software 0.0.1"
-                android:textSize="12dp" />
+                android:padding="5dp"
+                android:text="Qc Monitor App"
+                android:textSize="10dp" />
 
             <View
                 android:layout_width="1dp"
@@ -42,23 +42,11 @@
                 android:id="@+id/textWip"
                 style="@style/whiteText"
                 android:layout_width="0dp"
-                android:layout_gravity="center"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="12dp"
-                android:text="WIP" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="" />
+                android:text="WIP"
+                android:textSize="12dp" />
 
             <View
                 android:layout_width="1dp"
@@ -71,7 +59,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textSize="12dp"
                 android:text="Line A" />
 
             <View
@@ -79,59 +66,105 @@
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
-
             <TextView
                 android:id="@+id/texttimeHour"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="12dp"
-                android:text="8 hr" />
+                android:layout_weight=".5"
+                android:text="8 hr"
+                android:textSize="12dp" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
+
             <TextView
                 android:id="@+id/textTime"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableEnd="@drawable/outline_circle_24"
-                android:textSize="12dp"
-                android:text="8:40pm" />
+                android:layout_weight=".5"
+                android:text="8:40pm"
+                android:textSize="12dp" />
 
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_pause"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:src="@drawable/ic_pause"
+                    android:textColor="@color/yellow"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_refresh"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:src="@drawable/ic_refresh"
+                    android:textColor="@color/red"
+                    android:textSize="9dp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_exit"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:src="@drawable/ic_exit"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <View
             android:id="@+id/layoutDivider"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTop"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white" />
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/layoutTop" />
 
         <LinearLayout
             android:id="@+id/layoutActivity"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDivider"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDivider">
 
             <TextView
                 android:id="@+id/textTime2"
                 style="@style/whiteText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginStart="20dp"
+                android:layout_weight="1"
                 android:gravity="start|center"
-                android:textSize="12dp"
-                android:text="Latest 20 Styles/Purchase Order (PO,Page 1 Of 2)" />
+                android:text="Latest 20 Styles/Purchase Order (PO,Page 1 Of 2)"
+                android:textSize="12dp" />
 
             <TextView
 
@@ -141,18 +174,18 @@
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:paddingEnd="10dp"
-                android:textSize="12dp"
-                android:text="Active Style" />
+                android:text="Active Style"
+                android:textSize="12dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layoutRecyText"
-            app:layout_constraintTop_toBottomOf="@+id/layoutActivity"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@color/yellow"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/layoutActivity">
 
             <TextView
 
@@ -179,8 +212,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="12dp"
-                android:text="STYLE" />
+                android:text="STYLE"
+                android:textSize="12dp" />
 
             <TextView
                 style="@style/blackText"
@@ -217,8 +250,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="12dp"
-                android:text="LINE COME OUT" />
+                android:text="LINE COME OUT"
+                android:textSize="12dp" />
 
             <TextView
                 style="@style/blackText"
@@ -232,13 +265,13 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintTop_toBottomOf="@+id/layoutRecyText"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:itemCount="7"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutRecyText"
+            tools:itemCount="7"
             tools:listitem="@layout/row_monitor_data_item" />
 
 
@@ -251,14 +284,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-<!--        <View-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@color/white"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <View-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:background="@color/white"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
         <TextView
             style="@style/whiteText"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Total"
@@ -269,13 +302,13 @@
         <TextView
             android:id="@+id/textTotalWip"
             style="@style/whiteText"
-            android:layout_width="100dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="15dp"
+            android:text="2933"
             android:textColor="@color/yellow"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="2933" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

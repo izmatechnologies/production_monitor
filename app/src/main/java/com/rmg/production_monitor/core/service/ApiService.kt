@@ -2,6 +2,7 @@ package com.rmg.production_monitor.core.service
 
 
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
+import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.CumulativeDashboardDetailModel
 import com.rmg.production_monitor.models.remote.authentication.AuthenticateModel
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryModel
 import com.rmg.production_monitor.models.remote.dasboard.DashboardAnalyticsResponse
@@ -34,4 +35,11 @@ interface ApiService {
     suspend fun getCumulativeDashboardSummary(
         @Query("lineid") lineId: Int
     ): Response<CumulativeDashboardSummaryModel>
+    @GET("api/AnalyticsDashboard/GetWip")
+    suspend fun getDashboardAnalytics(@Query("lineId") lineId: Int): Response<DashboardAnalyticsResponse>
+
+    @GET("api/CumulativeDashboard/GetCumulativeDashboardDetail")
+    suspend fun getCumulativeDashboardDetail(
+        @Query("lineid") lineId: Int
+    ): Response<CumulativeDashboardDetailModel>
 }
