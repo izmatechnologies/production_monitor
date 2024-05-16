@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(){
 
         initializeData()
         setUpAdapter()
-
+      // todo rakib test code
         binding.btnPause.setOnClickListener{
             if (!flag){
                 flag=true
@@ -49,10 +49,10 @@ class MainActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
-        //startAutoScroll()
+        startAutoScroll()
     }
 
-     fun initializeData() {
+     private fun initializeData() {
 
         fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
         handler = Handler(Looper.getMainLooper())
