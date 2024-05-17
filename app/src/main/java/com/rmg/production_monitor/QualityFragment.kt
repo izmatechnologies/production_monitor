@@ -1,5 +1,6 @@
 package com.rmg.production_monitor
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -18,6 +19,7 @@ import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.*
 import com.rmg.production_monitor.core.extention.log
+import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
@@ -35,6 +37,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private var finalWidth: Float = 0.0f
     private lateinit var mutableBitmap: Bitmap
     private var initialBitmap:Boolean=false
+    private var flag:Boolean=false
+    var lineId =  0
 
     // The list of coordinates for the dots
     // Declare dotCoordinates globally
@@ -46,8 +50,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
-        networkChecker {
-            qualityViewModel.getHeatmap(1)
+        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+        if (lineId != null) {
+            qualityViewModel.getHeatmap(lineId)
         }
     }
 
@@ -87,6 +92,42 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
     override fun initializeData() {
         super.initializeData()
+
+        binding.btnPause.setOnClickListener{
+            if (!flag){
+                flag=true
+                (requireActivity() as MainActivity).stopScrolling()
+            }else{
+                (requireActivity() as MainActivity).startAutoScroll()
+                flag=false
+            }
+
+        }
+
+        binding.btnRefresh.setOnClickListener {
+            networkChecker {
+                if (lineId != null) {
+                    qualityViewModel.getHeatmap(lineId)
+                }
+            }
+        }
+
+        binding.btnExit.setOnClickListener {
+            //showExitDialog()
+
+
+            showLogoutDialog(
+                requireContext(),
+                onYesButtonClick = {
+
+                    //  recreate()
+                    qualityViewModel.clearSession()
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent)
+
+                }
+            )
+        }
 
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView

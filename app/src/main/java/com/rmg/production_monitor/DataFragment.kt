@@ -58,7 +58,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         }
 
         binding.btnExit.setOnClickListener {
-            showExitDialog()
+            //showExitDialog()
 
 
             showLogoutDialog(
