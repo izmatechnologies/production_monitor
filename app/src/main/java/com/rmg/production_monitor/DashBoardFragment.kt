@@ -1,9 +1,11 @@
 package com.rmg.production_monitor
 
+import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
@@ -15,6 +17,8 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
+    private var flag:Boolean=false
+    var lineId =  0
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
         return FragmentDashBoardBinding.inflate(inflater)
@@ -22,8 +26,9 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
+        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
         networkChecker {
-            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(0)
+            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
         }
     }
 
@@ -60,6 +65,41 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun initializeData() {
         super.initializeData()
+
+        binding.btnPause.setOnClickListener{
+            if (!flag){
+                flag=true
+                (requireActivity() as MainActivity).stopScrolling()
+            }else{
+                (requireActivity() as MainActivity).startAutoScroll()
+                flag=false
+            }
+
+        }
+
+        binding.btnRefresh.setOnClickListener {
+            networkChecker {
+                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+            }
+        }
+
+        binding.btnExit.setOnClickListener {
+            //showExitDialog()
+
+
+            showLogoutDialog(
+                requireContext(),
+                onYesButtonClick = {
+
+                    //  recreate()
+                    cumulativeDashboardSummaryViewModel.clearSession()
+                    val intent = Intent(activity, LoginActivity::class.java)
+                    startActivity(intent)
+
+                }
+            )
+        }
+
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
             "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
             "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }

@@ -30,7 +30,9 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     override fun callInitialApi() {
         super.callInitialApi()
         lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
-        cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        networkChecker {
+            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        }
     }
 
     override fun setupObserver() {

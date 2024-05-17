@@ -51,7 +51,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun callInitialApi() {
         super.callInitialApi()
         lineId = qualityViewModel.getLineId()?.toInt() ?: 0
-        qualityViewModel.getHeatmap(lineId)
+        networkChecker {
+            qualityViewModel.getHeatmap(lineId)
+        }
     }
 
     override fun setupObserver() {
@@ -104,9 +106,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
         binding.btnRefresh.setOnClickListener {
             networkChecker {
-                if (lineId != null) {
-                    qualityViewModel.getHeatmap(lineId)
-                }
+                qualityViewModel.getHeatmap(lineId)
             }
         }
 
