@@ -51,9 +51,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun callInitialApi() {
         super.callInitialApi()
         lineId = qualityViewModel.getLineId()?.toInt() ?: 0
-        if (lineId != null) {
-            qualityViewModel.getHeatmap(lineId)
-        }
+        qualityViewModel.getHeatmap(lineId)
     }
 
     override fun setupObserver() {
