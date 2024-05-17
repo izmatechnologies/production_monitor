@@ -40,8 +40,10 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         binding.btnPause.setOnClickListener{
             if (!flag){
                 flag=true
+                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
                 (requireActivity() as MainActivity).stopScrolling()
             }else{
+                binding.btnPause.setImageResource(R.drawable.ic_pause)
                 (requireActivity() as MainActivity).startAutoScroll()
                 flag=false
             }
