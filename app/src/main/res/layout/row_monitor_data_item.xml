@@ -69,7 +69,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="12dp"
-            tools:text="35fy6555" />
+            tools:text="356555" />
 
         <TextView
             android:id="@+id/textLineCumOut"
@@ -81,6 +81,15 @@
             android:textSize="12dp"
             tools:text="7676" />
 
+        <TextView
+            android:id="@+id/textReject"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            tools:text="7676" />
 
         <TextView
             android:id="@+id/textWip"

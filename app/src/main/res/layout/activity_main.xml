@@ -121,6 +121,7 @@
               android:layout_height="match_parent"
               android:layout_weight="1"
               android:gravity="center"
+              app:tint="@color/orange"
               android:src="@drawable/ic_refresh"
               android:textColor="@color/red"
               android:textSize="9dp"

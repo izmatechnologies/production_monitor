@@ -36,4 +36,6 @@
     <color name="btn_enable">#FF000000</color>
     <color name="btn_disable">#DDDDDD</color>
     <color name="black_80">#5C5C5C</color>
+    <color name="orange">#FFA500</color>
+
 </resources>

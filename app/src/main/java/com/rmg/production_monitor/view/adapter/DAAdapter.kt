@@ -51,7 +51,7 @@ class DAAdapter  @Inject constructor(): RecyclerView.Adapter<DAAdapter.ActiveCon
         val qcStatus = differ.currentList.get(position)
         val ctx = holder.binding.root.context
         holder.binding.apply {
-                textSerialNumber.text = itemCount.toString()
+                textSerialNumber.text = position.toString()
                 textBuyer.text=qcStatus.buyerName
                 textStyle.text = qcStatus.styleName
                 textPo.text =qcStatus.poNumber
