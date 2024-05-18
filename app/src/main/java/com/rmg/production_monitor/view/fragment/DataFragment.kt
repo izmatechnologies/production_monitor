@@ -39,61 +39,11 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
 
     override fun initializeData() {
         super.initializeData()
-
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
-                (requireActivity() as MainActivity).stopScrolling()
-            }else{
-                binding.btnPause.setImageResource(R.drawable.ic_pause)
-                (requireActivity() as MainActivity).startAutoScroll()
-                flag=false
-            }
-
-        }
-
-        binding.btnRefresh.setOnClickListener {
-            networkChecker {
-                val lineId=  mViewModel.getLineId()
-                if (lineId != null) {
-                    mViewModel.getDashboardAnalytics(lineId.toInt())
-                }
-            }
-        }
-
-        binding.btnExit.setOnClickListener {
-            //showExitDialog()
-
-
-            showLogoutDialog(
-                requireContext(),
-                onYesButtonClick = {
-
-                    //  recreate()
-                    mViewModel.clearSession()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-
-                }
-            )
-        }
-
-       // binding.appTitle.text="Qc Monitor App /br {}"
     }
     override fun callInitialApi() {
         super.callInitialApi()
 
 
-
-
-        val handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
-                updateTime()
-                handler.postDelayed(this, 1000)
-            }
-        })
 
         networkChecker {
           val lineId=  mViewModel.getLineId()
@@ -103,11 +53,11 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         }
     }
 
-    private fun updateTime() {
-        val sdf = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
-        val currentDate = sdf.format(Date())
-        binding.textTime.text = currentDate.toString()
-    }
+//    private fun updateTime() {
+//        val sdf = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+//        val currentDate = sdf.format(Date())
+//        binding.textTime.text = currentDate.toString()
+//    }
 
     override fun setupObserver() {
         super.setupObserver()
@@ -117,9 +67,9 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                     hideLoader()
                     Log.i("rakib1", "setupObserver: ${it.data?.payload}")
                     binding.apply {
-                        texttimeHour.text = "${it.data?.payload?.workingHour.toString()} Hr"
+                   //     texttimeHour.text = "${it.data?.payload?.workingHour.toString()} Hr"
                         textTotalWip.text = it.data?.payload?.totalWip.toString()
-                        textlineName.text = "Line ${it.data?.payload?.lineId.toString()}"
+                   //     textlineName.text = "Line ${it.data?.payload?.lineId.toString()}"
 
                     }
                     setUpRecyclerView(it.data?.payload?.wipPos)
@@ -160,23 +110,4 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
             adapter = daAdapter
         }
 }
-
-    // todo rakib use base dialog fragment
-    @SuppressLint("SuspiciousIndentation")
-    private fun showExitDialog() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Qc Monitor App")
-        builder.setMessage("Are you sure you want to Logout?")
-            .setCancelable(false)
-            .setPositiveButton("Yes",
-                DialogInterface.OnClickListener { dialog, id ->
-
-                    mViewModel.clearSession()
-
-                    requireActivity().finish()
-                })
-            .setNegativeButton("No",
-                DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
-        builder.create()?.show()
-    }
 }

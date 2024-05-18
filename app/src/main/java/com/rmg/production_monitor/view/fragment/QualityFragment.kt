@@ -96,41 +96,6 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun initializeData() {
         super.initializeData()
 
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
-                (requireActivity() as MainActivity).stopScrolling()
-            }else{
-                binding.btnPause.setImageResource(R.drawable.ic_pause)
-                (requireActivity() as MainActivity).startAutoScroll()
-                flag=false
-            }
-
-        }
-
-        binding.btnRefresh.setOnClickListener {
-            networkChecker {
-                qualityViewModel.getHeatmap(lineId)
-            }
-        }
-
-        binding.btnExit.setOnClickListener {
-            //showExitDialog()
-
-
-            showLogoutDialog(
-                requireContext(),
-                onYesButtonClick = {
-
-                    //  recreate()
-                    qualityViewModel.clearSession()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-
-                }
-            )
-        }
 
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView

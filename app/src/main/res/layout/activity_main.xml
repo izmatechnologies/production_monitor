@@ -18,7 +18,12 @@
 <!--            android:layout_height="wrap_content"-->
 <!--            android:id="@+id/toolbar"-->
 <!--            android:background="@color/cadet_blue">-->
-
+      <View
+          android:id="@+id/layoutDivider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/white"
+          app:layout_constraintTop_toBottomOf="@+id/layoutTop" />
       <LinearLayout
           android:id="@+id/layoutTop"
           android:layout_width="match_parent"
@@ -69,14 +74,7 @@
             android:layout_height="match_parent"
             android:background="@color/white" />
 
-        <TextView
-            android:id="@+id/texttimeHour"
-            style="@style/whiteText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:text="8 hr"
-            android:textSize="12dp" />
+
 
         <View
             android:layout_width="1dp"
@@ -89,7 +87,7 @@
             style="@style/whiteText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".5"
+            android:layout_weight="1"
             android:text="8:40pm"
             android:textSize="12dp" />
 
@@ -156,10 +154,11 @@
 
 
   <androidx.viewpager2.widget.ViewPager2
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+      app:layout_constraintBottom_toBottomOf="parent"
       android:id="@+id/view_pager"
-      android:visibility="gone"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

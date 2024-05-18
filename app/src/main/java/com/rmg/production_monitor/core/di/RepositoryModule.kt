@@ -8,6 +8,8 @@ import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepositor
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepositoryImpl
 import com.rmg.production_monitor.repository.DashboardRepository
 import com.rmg.production_monitor.repository.DashboardRepositoryImpl
+import com.rmg.production_monitor.repository.MainActivityRepository
+import com.rmg.production_monitor.repository.MainActivityRepositoryImpl
 import com.rmg.production_monitor.repository.QualityRepository
 import com.rmg.production_monitor.repository.QualityRepositoryImpl
 import dagger.Binds
@@ -21,7 +23,8 @@ import dagger.hilt.components.SingletonComponent
 interface RepositoryModule {
 //    @Binds
 //    fun provideAuthenticationRepository(authenticationRepositoryImpl: AuthenticationRepositoryImpl): AuthenticationRepository
-
+@Binds
+fun provideMainRepository(mainRepositoryImpl: MainActivityRepositoryImpl): MainActivityRepository
     @Binds
     fun provideQualityRepository(qualityRepositoryImpl: QualityRepositoryImpl): QualityRepository
     @Binds

@@ -25,8 +25,4 @@ class DashboardViewModel @Inject constructor(private  val repository:DashboardRe
     }
 
 
-    fun clearSession(){
-        val lineId= session.clearSession()
-
-    }
 }

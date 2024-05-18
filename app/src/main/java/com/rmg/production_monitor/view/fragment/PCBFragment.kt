@@ -73,42 +73,6 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     override fun initializeData() {
         super.initializeData()
 
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
-                (requireActivity() as MainActivity).stopScrolling()
-            }else{
-                binding.btnPause.setImageResource(R.drawable.ic_pause)
-                (requireActivity() as MainActivity).startAutoScroll()
-                flag=false
-            }
-
-        }
-
-        binding.btnRefresh.setOnClickListener {
-            networkChecker {
-                cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-            }
-        }
-
-        binding.btnExit.setOnClickListener {
-            //showExitDialog()
-
-
-            showLogoutDialog(
-                requireContext(),
-                onYesButtonClick = {
-
-                    //  recreate()
-                    cumulativeDashboardDetailViewModel.clearSession()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-
-                }
-            )
-        }
-
         if (::cumulativeDashboardDetailPayload.isInitialized) {
             "Style - ${cumulativeDashboardDetailPayload.styleName}".also { binding.textViewStyle.text = it }
             "Color - ${cumulativeDashboardDetailPayload.colorName}".also { binding.textViewColor.text = it }

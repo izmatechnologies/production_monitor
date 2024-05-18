@@ -69,42 +69,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     override fun initializeData() {
         super.initializeData()
 
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
-                (requireActivity() as MainActivity).stopScrolling()
-            }else{
-                binding.btnPause.setImageResource(R.drawable.ic_pause)
-                (requireActivity() as MainActivity).startAutoScroll()
-                flag=false
-            }
-
-        }
-
-        binding.btnRefresh.setOnClickListener {
-            networkChecker {
-                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
-            }
-        }
-
-        binding.btnExit.setOnClickListener {
-            //showExitDialog()
-
-
-            showLogoutDialog(
-                requireContext(),
-                onYesButtonClick = {
-
-                    //  recreate()
-                    cumulativeDashboardSummaryViewModel.clearSession()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-
-                }
-            )
-        }
-
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
             "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
             "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
