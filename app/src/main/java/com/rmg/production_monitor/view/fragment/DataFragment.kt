@@ -39,10 +39,8 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
         super.callInitialApi()
 
         networkChecker {
-          val lineId=  mViewModel.getLineId()
-            if (lineId != null) {
-                mViewModel.getDashboardAnalytics(lineId.toInt())
-            }
+            mViewModel.getLineId()?.toInt()?.let { mViewModel.getDashboardAnalytics(it) }
+
         }
     }
 
