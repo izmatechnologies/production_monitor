@@ -3,6 +3,7 @@ package com.rmg.production_monitor.core.extention
 import android.app.Activity
 import android.content.Context
 import com.rmg.production_monitor.R
+import com.rmg.production_monitor.core.view.dialog.LogoutDialog
 
 
 // todo don't use as extention funtion use as dependant inject ion
@@ -28,24 +29,24 @@ import com.rmg.production_monitor.R
 //}
 // todo new  lout out button
 
-//fun Activity.showLogoutDialog(
-//    context: Context,
-//    onYesButtonClick: () -> Unit,
-//    onNoButtonClick: (() -> Unit)? = null
-//) {
-//
-//    val dialog = LogoutDialog(
-//        context, R.style.CustomAlertDialog,
-//        onYesButtonClick, onNoButtonClick
-//    )
-//
-//    dialog.setCanceledOnTouchOutside(false)
-//    try {
-//        dialog.show()
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//        e.toString().log("dialog")
-//    }
-//}
+fun Activity.showLogoutDialog(
+    context: Context,
+    onYesButtonClick: () -> Unit,
+    onNoButtonClick: (() -> Unit)? = null
+) {
+
+    val dialog = LogoutDialog(
+        context, R.style.CustomAlertDialog,
+        onYesButtonClick, onNoButtonClick
+    )
+
+    dialog.setCanceledOnTouchOutside(false)
+    try {
+        dialog.show()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        e.toString().log("dialog")
+    }
+}
 
 

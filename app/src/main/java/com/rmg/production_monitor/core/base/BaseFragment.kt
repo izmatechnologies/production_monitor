@@ -8,18 +8,16 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.rmg.production_monitor.MainActivity
 //import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
-import com.rmg.production_monitor.core.listener.ToolBarController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
-import dagger.hilt.android.AndroidEntryPoint
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 
 
 import javax.inject.Inject
 
 
-abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
+abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, ToolbarInterface {
 
 
     private  var loaderDialog: Dialog?=null
@@ -27,7 +25,14 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
     private var _binding: Vb? = null
     val binding: Vb get() = _binding!!
 
+    private var pageTitle:String=""
     private var _argumentOfFragment: Bundle? = null
+
+    override fun onRefreshButtonClick() {
+
+    }
+
+
 
     @Inject lateinit var networkManager: NetworkManager
 

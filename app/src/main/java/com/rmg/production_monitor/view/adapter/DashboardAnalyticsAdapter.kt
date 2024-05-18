@@ -1,13 +1,10 @@
-package com.rmg.production_monitor.core.adapter
+package com.rmg.production_monitor.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rmg.production_monitor.databinding.RowMonitorDataItemBinding
-import com.rmg.production_monitor.databinding.RowPCBBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
-import com.rmg.production_monitor.models.remote.pcb.PCBModel
-import com.rmg.production_monitor.viewModel.DashboardViewModel
 
 class DashboardAnalyticsAdapter(
     private val dashboardAnalyticsList: List<WipPo>
@@ -48,6 +45,7 @@ class DashboardAnalyticsAdapter(
                 textLineCumOut.text = item.lineCumOut.toString()
                 textIineCunIn.text = item.lineCumIn.toString()
                 textWip.text = item.lineWip.toString()
+                textReject.text = item.totalReject.toString()
             }
 
 

@@ -28,9 +28,4 @@ class CumulativeDashboardDetailViewModel @Inject constructor(
         return lineId
     }
 
-
-    fun clearSession(){
-        val lineId= session.clearSession()
-
-    }
 }

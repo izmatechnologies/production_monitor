@@ -4,55 +4,162 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/appBarLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/cadet_blue">-->
-<!--&lt;!&ndash;        <androidx.appcompat.widget.Toolbar&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/toolbar"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:background="@color/cadet_blue">&ndash;&gt;-->
+    tools:context=".view.activity.MainActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:background="@color/cadet_blue">-->
+      <View
+          android:id="@+id/layoutDivider"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/white"
+          app:layout_constraintTop_toBottomOf="@+id/layoutTop" />
+      <LinearLayout
+          android:id="@+id/layoutTop"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:orientation="horizontal"
+          app:layout_constraintTop_toTopOf="parent">
 
-<!--            <com.google.android.material.button.MaterialButton-->
-<!--                android:id="@+id/btn_pause"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="end|center"-->
-<!--                android:hint="Pause"-->
+        <TextView
+            android:id="@+id/app_title"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:text="Qc Monitor App"
+            android:textSize="10dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_page_title"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            tools:text="WIP"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/textlineName"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Line A" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+
+        <TextView
+            android:id="@+id/textTime"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="8:40pm"
+            android:textSize="12dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+          <ImageButton
+              android:id="@+id/btn_pause"
+              style="@style/Widget.MaterialComponents.Button"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center"
+              android:src="@drawable/ic_pause"
+              android:textColor="@color/yellow"
+              android:textSize="10dp"
+              android:textStyle="bold" />
+
+          <ImageButton
+              android:id="@+id/img_btn_refresh"
+              style="@style/Widget.MaterialComponents.Button"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center"
+              app:tint="@color/orange"
+              android:src="@drawable/ic_refresh"
+              android:textColor="@color/red"
+              android:textSize="9dp"
+              android:textStyle="bold" />
+
+          <ImageButton
+              android:id="@+id/btn_exit"
+              style="@style/Widget.MaterialComponents.Button"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:gravity="center"
+              android:src="@drawable/ic_exit"
+              android:textColor="@color/red"
+              android:textStyle="bold" />
+
+        </LinearLayout>
+
+      </LinearLayout>
+<!--            <TextView-->
+<!--                android:text="Pause"-->
+<!--                android:textSize="16dp"-->
 <!--                android:textStyle="bold"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="12dp"-->
-<!--                app:backgroundTint="@color/white"-->
-<!--                app:cornerRadius="10dp"-->
-<!--                android:elevation="6dp"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/text2"-->
-<!--                app:strokeColor="@color/cadet_blue"-->
-<!--                app:strokeWidth="2dp" />-->
-
-<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:text="Pause"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textSize="16dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:padding="10dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_gravity="end|center"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        </androidx.appcompat.widget.Toolbar>&ndash;&gt;-->
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+<!--                android:textColor="@color/white"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_gravity="end|center"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--        </androidx.appcompat.widget.Toolbar>-->
+    </com.google.android.material.appbar.AppBarLayout>
 
 
   <androidx.viewpager2.widget.ViewPager2
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+      app:layout_constraintBottom_toBottomOf="parent"
       android:id="@+id/view_pager"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

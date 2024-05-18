@@ -1,0 +1,5 @@
+package com.rmg.production_monitor.repository
+
+interface MainActivityRepository {
+    fun clearSession()
+}

@@ -1,5 +1,6 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -16,6 +17,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
+import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.*
 import com.rmg.production_monitor.core.extention.log
@@ -23,11 +25,14 @@ import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
+import com.rmg.production_monitor.view.activity.LoginActivity
+import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QualityFragment : BaseFragment<FragmentQualityBinding>() {
+class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
 
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
@@ -93,41 +98,6 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun initializeData() {
         super.initializeData()
 
-        binding.btnPause.setOnClickListener{
-            if (!flag){
-                flag=true
-                binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
-                (requireActivity() as MainActivity).stopScrolling()
-            }else{
-                binding.btnPause.setImageResource(R.drawable.ic_pause)
-                (requireActivity() as MainActivity).startAutoScroll()
-                flag=false
-            }
-
-        }
-
-        binding.btnRefresh.setOnClickListener {
-            networkChecker {
-                qualityViewModel.getHeatmap(lineId)
-            }
-        }
-
-        binding.btnExit.setOnClickListener {
-            //showExitDialog()
-
-
-            showLogoutDialog(
-                requireContext(),
-                onYesButtonClick = {
-
-                    //  recreate()
-                    qualityViewModel.clearSession()
-                    val intent = Intent(activity, LoginActivity::class.java)
-                    startActivity(intent)
-
-                }
-            )
-        }
 
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView
@@ -212,7 +182,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             // Add the data points to the graph
             val dotSeries = PointsGraphSeries(dotCoordinates)
             dotSeries.color = Color.RED // Set color of the dots
-            dotSeries.size = 10f // Set size of the dots
+            dotSeries.size = 6f // Set size of the dots
             binding.graph.addSeries(dotSeries)
 
 
@@ -256,6 +226,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
 
+
+
     }
 
 //    private fun drawCanvas(dotCoordinates: List<Pair<Float, Float>>) {
@@ -267,5 +239,24 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         val white = ForegroundColorSpan(Color.WHITE)
         spannableString.setSpan(white, start, text.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
         return spannableString
+    }
+
+    override fun onRefreshButtonClick() {
+        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            qualityViewModel.getHeatmap(lineId)
+        }
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

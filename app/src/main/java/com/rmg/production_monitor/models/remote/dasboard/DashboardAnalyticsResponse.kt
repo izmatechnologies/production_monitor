@@ -50,5 +50,7 @@ data class WipPo(
     @SerializedName("StyleId")
     val styleId: Int,
     @SerializedName("StyleName")
-    val styleName: String
+    val styleName: String,
+    @SerializedName("TotalReject")
+    val totalReject: Int
 )

@@ -1,12 +1,10 @@
-package com.rmg.production_monitor.core.adapter
+package com.rmg.production_monitor.view.adapter
 
 
 import android.annotation.SuppressLint
-import android.media.MediaRouter
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -53,7 +51,8 @@ class DAAdapter  @Inject constructor(): RecyclerView.Adapter<DAAdapter.ActiveCon
         val qcStatus = differ.currentList.get(position)
         val ctx = holder.binding.root.context
         holder.binding.apply {
-                textSerialNumber.text = itemCount.toString()
+            var positionSerial= position+1
+                textSerialNumber.text =positionSerial.toString()
                 textBuyer.text=qcStatus.buyerName
                 textStyle.text = qcStatus.styleName
                 textPo.text =qcStatus.poNumber
@@ -61,6 +60,7 @@ class DAAdapter  @Inject constructor(): RecyclerView.Adapter<DAAdapter.ActiveCon
                 textLineCumOut.text = qcStatus.lineCumOut.toString()
                 textIineCunIn.text = qcStatus.lineCumIn.toString()
                 textWip.text = qcStatus.lineWip.toString()
+            textReject.text = qcStatus.totalReject.toString()
 
 
         }

@@ -19,14 +19,9 @@ class DashboardViewModel @Inject constructor(private  val repository:DashboardRe
     }
 
 
-    fun getLineId():String?{
-       val lineId= session.fetchLine()
-        return lineId
+    fun getLineId(): String? {
+        return session.fetchLine()
     }
 
 
-    fun clearSession(){
-        val lineId= session.clearSession()
-
-    }
 }

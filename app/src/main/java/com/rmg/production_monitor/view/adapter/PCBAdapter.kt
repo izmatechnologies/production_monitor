@@ -1,4 +1,4 @@
-package com.rmg.production_monitor.core.adapter
+package com.rmg.production_monitor.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

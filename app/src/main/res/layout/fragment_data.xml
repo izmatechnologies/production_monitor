@@ -16,138 +16,18 @@
         app:layout_constraintBottom_toTopOf="@+id/constrain"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/layoutTop"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/app_title"
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="5dp"
-                android:text="Qc Monitor App"
-                android:textSize="10dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/textWip"
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="WIP"
-                android:textSize="12dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/textlineName"
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Line A" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <TextView
-                android:id="@+id/texttimeHour"
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:text="8 hr"
-                android:textSize="12dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-
-            <TextView
-                android:id="@+id/textTime"
-                style="@style/whiteText"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:text="8:40pm"
-                android:textSize="12dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_pause"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/ic_pause"
-                    android:textColor="@color/yellow"
-                    android:textSize="10dp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/btn_refresh"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/ic_refresh"
-                    android:textColor="@color/red"
-                    android:textSize="9dp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:id="@+id/btn_exit"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:src="@drawable/ic_exit"
-                    android:textColor="@color/red"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
         <View
             android:id="@+id/layoutDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTop" />
+            />
 
         <LinearLayout
+            android:background="@color/bg_view_card_data"
             android:id="@+id/layoutActivity"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -183,7 +63,7 @@
             android:id="@+id/layoutRecyText"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@color/yellow"
+            android:background="@color/bg_header_data"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/layoutActivity">
 
@@ -251,6 +131,16 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="LINE COME OUT"
+                android:textSize="12dp" />
+
+
+            <TextView
+                style="@style/blackText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="REJECT"
                 android:textSize="12dp" />
 
             <TextView

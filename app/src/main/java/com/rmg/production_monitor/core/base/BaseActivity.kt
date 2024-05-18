@@ -2,21 +2,14 @@ package com.rmg.production_monitor.core.base
 
 import android.app.Dialog
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.rmg.production_monitor.MainActivity
 import com.rmg.production_monitor.R
 //import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
-import com.rmg.production_monitor.core.listener.ToolBarController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
-import dagger.hilt.android.AndroidEntryPoint
 
 
 import javax.inject.Inject

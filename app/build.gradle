@@ -45,6 +45,12 @@ android {
 
 dependencies {
 
+    // version
+
+    //Dimen
+    def ssp_android_version = "1.0.5"
+    def sdp_android_version = "1.0.5"
+
     implementation 'androidx.core:core-ktx:1.13.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
@@ -103,4 +109,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     implementation 'com.jjoe64:graphview:4.2.2'
+
+    //Dimen
+    implementation "com.intuit.ssp:ssp-android:$ssp_android_version"
+    implementation "com.intuit.sdp:sdp-android:$sdp_android_version"
 }

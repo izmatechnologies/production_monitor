@@ -1,15 +1,13 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.google.gson.Gson
+import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.data.NetworkResult
