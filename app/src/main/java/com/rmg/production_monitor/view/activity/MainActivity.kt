@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.DisplayFragment
@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL // 4.5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
-    private var flag: Boolean = false
+    private var autoSliderFragmentFlag: Boolean = false
 
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
 
@@ -72,14 +73,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnPause.setOnClickListener {
-            if (!flag) {
-                flag = true
+            if (!autoSliderFragmentFlag) {
+                autoSliderFragmentFlag = true
                 binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
                 stopScrolling()
             } else {
                 binding.btnPause.setImageResource(R.drawable.ic_pause)
                 startAutoScroll()
-                flag = false
+                autoSliderFragmentFlag = false
             }
 
         }
@@ -113,6 +114,16 @@ class MainActivity : AppCompatActivity() {
             toolbarInterface?.onRefreshButtonClick()
         }
 
+
+
+        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.tvPageTitle.text= fragmentList[position].fragmentTitle
+            }
+        })
+
+
+
     }
 
     fun initializeData() {
@@ -135,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
-            binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
+          //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
             currentPage++
             handler.postDelayed(runnable, delayMS)
 
