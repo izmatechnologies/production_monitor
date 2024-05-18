@@ -239,7 +239,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
     }
 
     override fun onRefreshButtonClick() {
-
+        "toast".toast(requireContext())
     }
 
     override fun changePageName(title: String) {

@@ -91,7 +91,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>(),ToolbarInterf
     }
 
     override fun onRefreshButtonClick() {
-
+        "toast".toast(requireContext())
     }
 
     override fun changePageName(title: String) {

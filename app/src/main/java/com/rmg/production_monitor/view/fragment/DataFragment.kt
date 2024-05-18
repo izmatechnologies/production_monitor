@@ -102,7 +102,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
 }
 
     override fun onRefreshButtonClick() {
-        TODO("Not yet implemented")
+        "toast".toast(requireContext())
     }
 
     override fun changePageName(title: String) {

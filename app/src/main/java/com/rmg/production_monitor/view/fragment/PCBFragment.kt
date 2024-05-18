@@ -93,7 +93,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
     }
 
     override fun onRefreshButtonClick() {
-
+        "toast".toast(requireContext())
     }
 
     override fun changePageName(title: String) {
