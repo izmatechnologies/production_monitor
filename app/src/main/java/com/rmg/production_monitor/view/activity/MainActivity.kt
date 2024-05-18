@@ -5,6 +5,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.paging.Config
+import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity(){
 
     lateinit var binding: ActivityMainBinding
     private var currentPage = 0
-    private val delayMS: Long = 3000 // 4.5 seconds delay
+    private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL // 4.5 seconds delay
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
   //  private var flag:Boolean=false
