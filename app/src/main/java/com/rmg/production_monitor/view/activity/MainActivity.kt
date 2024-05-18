@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         binding.imgBtnRefresh.setOnClickListener {
             toolbarInterface?.onRefreshButtonClick()
         }
+        binding.tvPageTitle.text=toolbarInterface?.getPageName()
     }
 
     fun initializeData() {

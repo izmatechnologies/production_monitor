@@ -91,9 +91,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         "toast".toast(requireContext())
     }
 
-    override fun changePageName(title: String) {
 
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

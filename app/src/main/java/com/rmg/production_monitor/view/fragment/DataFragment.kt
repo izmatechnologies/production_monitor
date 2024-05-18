@@ -31,12 +31,12 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
 
     override fun initializeData() {
         super.initializeData()
+
+        setPageName("WIP")
     }
 
     override fun callInitialApi() {
         super.callInitialApi()
-
-
 
         networkChecker {
           val lineId=  mViewModel.getLineId()
@@ -46,11 +46,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
         }
     }
 
-//    private fun updateTime() {
-//        val sdf = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
-//        val currentDate = sdf.format(Date())
-//        binding.textTime.text = currentDate.toString()
-//    }
+
 
     override fun setupObserver() {
         super.setupObserver()
@@ -108,9 +104,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
         "toast".toast(requireContext())
     }
 
-    override fun changePageName(title: String) {
 
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

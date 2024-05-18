@@ -85,6 +85,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
             hourlyDetailList = cumulativeDashboardDetailPayload.hourlyDetails.toMutableList()
             setUpRecycleView()
         }
+        setPageName("PCB")
     }
 
     override fun setUpRecycleView() {
@@ -98,9 +99,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
         "toast".toast(requireContext())
     }
 
-    override fun changePageName(title: String) {
 
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

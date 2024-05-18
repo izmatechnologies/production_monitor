@@ -25,14 +25,19 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, Too
     private var _binding: Vb? = null
     val binding: Vb get() = _binding!!
 
+    private var pageTitle:String=""
     private var _argumentOfFragment: Bundle? = null
 
     override fun onRefreshButtonClick() {
 
     }
 
-    override fun changePageName(title: String) {
+    override fun setPageName(title: String) {
+        pageTitle= title
+    }
 
+    override fun getPageName(): String {
+        return pageTitle
     }
 
     @Inject lateinit var networkManager: NetworkManager
