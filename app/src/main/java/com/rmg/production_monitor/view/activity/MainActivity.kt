@@ -1,15 +1,16 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.activity
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
-import com.rmg.production_monitor.core.base.BaseActivity
-import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.ActivityMainBinding
+import com.rmg.production_monitor.view.fragment.DashBoardFragment
+import com.rmg.production_monitor.view.fragment.DataFragment
+import com.rmg.production_monitor.view.fragment.PCBFragment
+import com.rmg.production_monitor.view.fragment.QualityFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity(){
 
      fun initializeData() {
 
-        fragmentList = listOf(QualityFragment(), PCBFragment(),DashBoardFragment(),DataFragment())
+        fragmentList = listOf(QualityFragment(), PCBFragment(), DashBoardFragment(), DataFragment())
         handler = Handler(Looper.getMainLooper())
     }
 

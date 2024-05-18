@@ -1,4 +1,4 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.fragment
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -16,6 +16,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
+import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.*
 import com.rmg.production_monitor.core.extention.log
@@ -23,6 +24,8 @@ import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
+import com.rmg.production_monitor.view.activity.LoginActivity
+import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

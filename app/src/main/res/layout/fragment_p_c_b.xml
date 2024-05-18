@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".PCBFragment">
+    tools:context=".view.fragment.PCBFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout1"

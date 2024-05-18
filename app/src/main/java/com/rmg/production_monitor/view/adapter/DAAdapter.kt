@@ -1,12 +1,10 @@
-package com.rmg.production_monitor.core.adapter
+package com.rmg.production_monitor.view.adapter
 
 
 import android.annotation.SuppressLint
-import android.media.MediaRouter
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil

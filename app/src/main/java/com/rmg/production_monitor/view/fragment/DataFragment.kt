@@ -1,4 +1,4 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.fragment
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -9,13 +9,16 @@ import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import com.rmg.production_monitor.core.adapter.DAAdapter
+import com.rmg.production_monitor.R
+import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
+import com.rmg.production_monitor.view.activity.LoginActivity
+import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat

@@ -1,17 +1,14 @@
-package com.rmg.production_monitor
+package com.rmg.production_monitor.view.activity
 
 import android.R
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.compose.ui.unit.Constraints
-import androidx.core.widget.doAfterTextChanged
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
-import com.rmg.production_monitor.core.extention.enable
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.ActivityUnitPlantBinding
 import com.rmg.production_monitor.models.remote.authentication.UserLine
