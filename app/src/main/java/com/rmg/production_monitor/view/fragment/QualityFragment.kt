@@ -242,7 +242,10 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
     }
 
     override fun onRefreshButtonClick() {
-        "toast".toast(requireContext())
+        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            qualityViewModel.getHeatmap(lineId)
+        }
     }
 
 

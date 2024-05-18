@@ -88,7 +88,10 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
     override fun onRefreshButtonClick() {
-        "toast".toast(requireContext())
+        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+        }
     }
 
 
