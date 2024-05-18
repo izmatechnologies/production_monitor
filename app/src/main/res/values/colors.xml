@@ -25,7 +25,7 @@
 
     <color name="red">#FF0000</color>
     <color name="green_sadow">#CBDCD6</color>
-    <color name="yellow">#FFEB3B</color>
+    <color name="yellow">#FEC919</color>
 
     <color name="cadmium_green">#097969</color>
     <color name="cadet_blue">#5F9EA0</color>
@@ -37,5 +37,9 @@
     <color name="btn_disable">#DDDDDD</color>
     <color name="black_80">#5C5C5C</color>
     <color name="orange">#FFA500</color>
+    <color name="bg_view_card_dash_board">#181818</color>
+    <color name="bg_view_card_data">#141414</color>
+    <color name="bg_header_data">#FEC919</color>
+    <color name="txt_dhu">#35CC9A</color>
 
 </resources>
