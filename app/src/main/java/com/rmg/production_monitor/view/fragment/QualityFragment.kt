@@ -182,7 +182,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             // Add the data points to the graph
             val dotSeries = PointsGraphSeries(dotCoordinates)
             dotSeries.color = Color.RED // Set color of the dots
-            dotSeries.size = 10f // Set size of the dots
+            dotSeries.size = 6f // Set size of the dots
             binding.graph.addSeries(dotSeries)
 
 
