@@ -14,240 +14,229 @@
         android:layout_height="1dp"
         android:background="#808080" />
 
-    <!-- header -->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/view1"
         android:layout_margin="5dp"
-        android:background="@drawable/style_color_bg">
+        android:background="@drawable/style_color_bg"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewStyle"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/line"
+            android:layout_weight="1"
             android:paddingStart="10dp"
+            android:background="@drawable/line"
             android:text="Style  -"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewColor"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/yellowText" />
 
         <TextView
             android:id="@+id/textViewColor"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/line"
+            android:layout_weight="1"
             android:paddingStart="10dp"
+            android:background="@drawable/line"
             android:text="Color  -"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewBuyer"
-
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textViewStyle"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/yellowText" />
 
         <TextView
             android:id="@+id/textViewBuyer"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/line"
+            android:layout_weight="1"
             android:paddingStart="10dp"
+            android:background="@drawable/line"
             android:text="Buyer  -"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewPO"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textViewColor"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/yellowText" />
 
         <TextView
             android:id="@+id/textViewPO"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/line"
             android:text="PO  -"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvblank"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textViewBuyer"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/yellowText" />
 
         <TextView
-            android:id="@+id/tvblank"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/line"
-            android:paddingStart="10dp"
             android:text="-"
+            android:paddingStart="10dp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textViewHour"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textViewPO"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/yellowText" />
 
         <TextView
             android:id="@+id/textViewHour"
-            style="@style/yellowText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:paddingStart="10dp"
             android:text="Hour 8Hr"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvblank"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- end header -->
+            style="@style/yellowText" />
+    </LinearLayout>
 
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="3">
 
 
-        <LinearLayout
-            android:orientation="horizontal"
-           android:layout_weight="1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_margin="5dp"
             android:id="@+id/layoutproduction"
             android:layout_width="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/style_color_bg"
             android:layout_height="match_parent"
-            android:background="@drawable/style_color_bg">
+            android:layout_weight="1"
+            >
 
             <TextView
-                android:id="@+id/text_production_title"
-                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tv_production_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="PRODUCTION"
-                style="@style/whiteText25" />
+                style="@style/whiteText25"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+      
+                app:layout_constraintTop_toTopOf="parent" 
+                
+                />
 
-            <LinearLayout
+            <!-- production-->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_production_title"
+                >
+                <!-- vertical -->
+                <androidx.constraintlayout.widget.Guideline
+                    app:layout_constraintGuide_percent=".5"
+                    android:id="@+id/guideline_v"
+                    android:orientation="vertical"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
+                <!-- horizontal -->
+                <androidx.constraintlayout.widget.Guideline
+                    app:layout_constraintGuide_percent=".33"
+                    android:id="@+id/guideline_h_33"
+                    android:orientation="horizontal"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                <androidx.constraintlayout.widget.Guideline
+                    app:layout_constraintGuide_percent=".66"
+                    android:id="@+id/guideline_h_66"
+                    android:orientation="horizontal"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"/>
 
-
-                    <TextView
-                        android:id="@+id/textTarget"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center"
-                        android:text="Target"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textTargetValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textTargetValue"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textTarget"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layoutActual"
+                <!-- target-->
+                <TextView
+                    android:id="@+id/textTarget"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/textActual"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center"
-                        android:text="Actual"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textActualValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textActualValue"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textActual"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:gravity="start|center"
+                    android:text="Target"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_v"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/textTargetValue"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_height="0dp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
 
-                    <TextView
-                        android:id="@+id/textVariance"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center"
-                        android:text="Variance"
-                        android:paddingLeft="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textVarianceValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_v"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!-- end target-->
 
-                    <TextView
-                        android:id="@+id/textVarianceValue"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-                        android:text="0"
+                <!-- actual-->
+                <TextView
+                    android:id="@+id/textActual"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="start|center"
+                    android:text="Actual"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_v"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_66"
+                    app:layout_constraintTop_toTopOf="@+id/guideline_h_33" />
 
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textVariance"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textActualValue"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_66"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_v"
+                    app:layout_constraintTop_toTopOf="@+id/guideline_h_33"
+                    />
+                <!-- end actual-->
+                <!--Variance -->
+                <TextView
+                    android:id="@+id/textVariance"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="start|center"
+                    android:text="Variance"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_v"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline_h_66" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textVarianceValue"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="0"
 
-        </LinearLayout>
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_v"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline_h_66" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- end production-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/layout"
+            android:id="@+id/layouttrend"
             android:layout_width="0dp"
             android:weightSum="2"
             android:layout_height="match_parent"
