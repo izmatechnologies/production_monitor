@@ -45,6 +45,7 @@ class DashboardAnalyticsAdapter(
                 textLineCumOut.text = item.lineCumOut.toString()
                 textIineCunIn.text = item.lineCumIn.toString()
                 textWip.text = item.lineWip.toString()
+                textReject.text = item.totalReject.toString()
             }
 
 

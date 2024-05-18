@@ -96,7 +96,11 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
     }
 
     override fun onRefreshButtonClick() {
-        "toast".toast(requireContext())
+
+        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        }
     }
 
 

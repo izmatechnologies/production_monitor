@@ -99,7 +99,12 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
 }
 
     override fun onRefreshButtonClick() {
-        "toast".toast(requireContext())
+        networkChecker {
+            val lineId=  mViewModel.getLineId()
+            if (lineId != null) {
+                mViewModel.getDashboardAnalytics(lineId.toInt())
+            }
+        }
     }
 
 
