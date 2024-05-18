@@ -47,13 +47,13 @@
             android:background="@color/white" />
 
         <TextView
-            android:id="@+id/textWip"
+            android:id="@+id/tv_page_title"
             style="@style/whiteText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="WIP"
+            tools:text="WIP"
             android:textSize="12dp" />
 
         <View
@@ -115,7 +115,7 @@
               android:textStyle="bold" />
 
           <ImageButton
-              android:id="@+id/btn_refresh"
+              android:id="@+id/img_btn_refresh"
               style="@style/Widget.MaterialComponents.Button"
               android:layout_width="0dp"
               android:layout_height="match_parent"

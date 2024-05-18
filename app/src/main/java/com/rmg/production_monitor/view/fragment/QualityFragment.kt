@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -26,11 +27,12 @@ import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QualityFragment : BaseFragment<FragmentQualityBinding>() {
+class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
 
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
@@ -180,7 +182,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             // Add the data points to the graph
             val dotSeries = PointsGraphSeries(dotCoordinates)
             dotSeries.color = Color.RED // Set color of the dots
-            dotSeries.size = 10f // Set size of the dots
+            dotSeries.size = 6f // Set size of the dots
             binding.graph.addSeries(dotSeries)
 
 
@@ -224,6 +226,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
 
+
+
     }
 
 //    private fun drawCanvas(dotCoordinates: List<Pair<Float, Float>>) {
@@ -235,5 +239,21 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         val white = ForegroundColorSpan(Color.WHITE)
         spannableString.setSpan(white, start, text.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
         return spannableString
+    }
+
+    override fun onRefreshButtonClick() {
+        "toast".toast(requireContext())
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

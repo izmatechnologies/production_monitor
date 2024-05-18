@@ -7,24 +7,20 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.paging.Config
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Config
+import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.databinding.ActivityMainBinding
-import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.DataFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
-import com.rmg.production_monitor.viewModel.DashboardViewModel
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,9 +32,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var runnable: Runnable
     private var flag: Boolean = false
 
-    private var fragmentList: List<Fragment> = ArrayList<Fragment>()
+    private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
 
     private val mViewModel by viewModels<MainActivityViewModel>()
+     var toolbarInterface:ToolbarInterface? = null
+
+
+    fun setOnToolBarListener(toolbarInterface: ToolbarInterface?) {
+        this.toolbarInterface = toolbarInterface
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -104,12 +107,23 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // Start auto-scrolling
         startAutoScroll()
+
+
+        binding.imgBtnRefresh.setOnClickListener {
+            toolbarInterface?.onRefreshButtonClick()
+        }
+
     }
 
     fun initializeData() {
 
-        fragmentList = listOf(QualityFragment(), PCBFragment(), DashBoardFragment(), DataFragment())
+        fragmentList.add(DisplayFragment("HeatMap",QualityFragment()))
+        fragmentList.add(DisplayFragment("PCB",PCBFragment()))
+        fragmentList.add(DisplayFragment("Swing..",DashBoardFragment()))
+        fragmentList.add(DisplayFragment("WIP",DataFragment()))
+
         handler = Handler(Looper.getMainLooper())
+
     }
 
     fun setUpAdapter() {
@@ -121,9 +135,11 @@ class MainActivity : AppCompatActivity() {
     fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
+            binding.tvPageTitle.text= fragmentList[binding.viewPager.currentItem].fragmentTitle
             currentPage++
             handler.postDelayed(runnable, delayMS)
-        }
+
+       }
 
         handler.postDelayed(runnable, delayMS)
     }
