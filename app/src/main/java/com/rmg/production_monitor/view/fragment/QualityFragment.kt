@@ -226,7 +226,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
 
-        setPageName("HeatMap")
+
 
     }
 

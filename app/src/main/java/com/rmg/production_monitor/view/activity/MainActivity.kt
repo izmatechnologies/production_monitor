@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Config
+import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
-import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var runnable: Runnable
     private var flag: Boolean = false
 
-    private var fragmentList: List<Fragment> = ArrayList<Fragment>()
+    private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
 
     private val mViewModel by viewModels<MainActivityViewModel>()
      var toolbarInterface:ToolbarInterface? = null
@@ -112,12 +112,16 @@ class MainActivity : AppCompatActivity() {
         binding.imgBtnRefresh.setOnClickListener {
             toolbarInterface?.onRefreshButtonClick()
         }
-        binding.tvPageTitle.text=toolbarInterface?.getPageName()
+
     }
 
     fun initializeData() {
 
-        fragmentList = listOf(QualityFragment(), PCBFragment(), DashBoardFragment(), DataFragment())
+        fragmentList.add(DisplayFragment("HeatMap",QualityFragment()))
+        fragmentList.add(DisplayFragment("PCB",PCBFragment()))
+        fragmentList.add(DisplayFragment("Swing..",DashBoardFragment()))
+        fragmentList.add(DisplayFragment("WIP",DataFragment()))
+
         handler = Handler(Looper.getMainLooper())
 
     }
@@ -131,9 +135,11 @@ class MainActivity : AppCompatActivity() {
     fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
+
             currentPage++
             handler.postDelayed(runnable, delayMS)
-        }
+
+       }
 
         handler.postDelayed(runnable, delayMS)
     }

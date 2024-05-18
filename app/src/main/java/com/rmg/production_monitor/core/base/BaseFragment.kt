@@ -32,13 +32,7 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, Too
 
     }
 
-    override fun setPageName(title: String) {
-        pageTitle= title
-    }
 
-    override fun getPageName(): String {
-        return pageTitle
-    }
 
     @Inject lateinit var networkManager: NetworkManager
 

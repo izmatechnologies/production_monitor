@@ -32,7 +32,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
     override fun initializeData() {
         super.initializeData()
 
-        setPageName("WIP")
+
     }
 
     override fun callInitialApi() {
