@@ -12,11 +12,12 @@ import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
+class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>(),ToolbarInterface {
 
     private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
@@ -87,5 +88,13 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             binding.textActualPlannedValue.text = cumulativeDashboardSummaryPayload.plannedEfficiency
             binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
         }
+    }
+
+    override fun onRefreshButtonClick() {
+
+    }
+
+    override fun changePageName(title: String) {
+
     }
 }

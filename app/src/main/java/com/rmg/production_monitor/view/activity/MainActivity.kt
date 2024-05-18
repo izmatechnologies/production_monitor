@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private var fragmentList: List<Fragment> = ArrayList<Fragment>()
 
     private val mViewModel by viewModels<MainActivityViewModel>()
+     var toolbarInterface:ToolbarInterface? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -110,6 +112,10 @@ class MainActivity : AppCompatActivity() {
 
         fragmentList = listOf(QualityFragment(), PCBFragment(), DashBoardFragment(), DataFragment())
         handler = Handler(Looper.getMainLooper())
+        toolbarInterface=QualityFragment()
+        binding.imgBtnRefresh.setOnClickListener {
+            toolbarInterface?.onRefreshButtonClick()
+        }
     }
 
     fun setUpAdapter() {

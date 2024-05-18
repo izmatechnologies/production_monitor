@@ -26,11 +26,12 @@ import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QualityFragment : BaseFragment<FragmentQualityBinding>() {
+class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
 
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
@@ -235,5 +236,13 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         val white = ForegroundColorSpan(Color.WHITE)
         spannableString.setSpan(white, start, text.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
         return spannableString
+    }
+
+    override fun onRefreshButtonClick() {
+
+    }
+
+    override fun changePageName(title: String) {
+
     }
 }

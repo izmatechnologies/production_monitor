@@ -14,11 +14,12 @@ import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.Cumula
 import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.HourlyDetail
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.CumulativeDashboardDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PCBFragment : BaseFragment<FragmentPCBBinding>() {
+class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
 
     private val cumulativeDashboardDetailViewModel by viewModels<CumulativeDashboardDetailViewModel>()
     private lateinit var cumulativeDashboardDetailPayload: CumulativeDashboardDetailPayload
@@ -89,5 +90,13 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
         val pcbAdapter = PCBAdapter(hourlyDetailList)
         binding.recyclerView.adapter = pcbAdapter
+    }
+
+    override fun onRefreshButtonClick() {
+
+    }
+
+    override fun changePageName(title: String) {
+
     }
 }

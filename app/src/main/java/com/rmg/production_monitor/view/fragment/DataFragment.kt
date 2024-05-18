@@ -1,38 +1,27 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import com.rmg.production_monitor.R
-import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
-import com.rmg.production_monitor.view.activity.LoginActivity
-import com.rmg.production_monitor.view.activity.MainActivity
+import com.rmg.production_monitor.view.activity.ToolbarInterface
+import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DataFragment : BaseFragment<FragmentDataBinding>() {
+class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
     private val mViewModel by viewModels<DashboardViewModel>()
-    private var flag:Boolean=false
-  @Inject
-  lateinit var daAdapter: DAAdapter
+    private var flag: Boolean = false
+
+    @Inject
+    lateinit var daAdapter: DAAdapter
     override fun getViewBinding(inflater: LayoutInflater): FragmentDataBinding {
         return FragmentDataBinding.inflate(inflater)
     }
@@ -40,6 +29,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
     override fun initializeData() {
         super.initializeData()
     }
+
     override fun callInitialApi() {
         super.callInitialApi()
 
@@ -110,4 +100,12 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
             adapter = daAdapter
         }
 }
+
+    override fun onRefreshButtonClick() {
+        TODO("Not yet implemented")
+    }
+
+    override fun changePageName(title: String) {
+        TODO("Not yet implemented")
+    }
 }
