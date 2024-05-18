@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
-            binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
+            binding.tvPageTitle.text= fragmentList[binding.viewPager.currentItem].fragmentTitle
             currentPage++
             handler.postDelayed(runnable, delayMS)
 
