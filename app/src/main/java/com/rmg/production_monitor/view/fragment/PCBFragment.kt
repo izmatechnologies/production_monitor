@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
@@ -7,6 +8,7 @@ import com.rmg.production_monitor.R
 import com.rmg.production_monitor.view.adapter.PCBAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
@@ -98,5 +100,16 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
 
     override fun changePageName(title: String) {
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

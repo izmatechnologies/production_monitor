@@ -1,13 +1,16 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
+import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
@@ -106,6 +109,17 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
     }
 
     override fun changePageName(title: String) {
-        TODO("Not yet implemented")
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

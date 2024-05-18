@@ -1,23 +1,20 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Intent
+import android.content.Context
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.showLogoutDialog
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
-import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>(),ToolbarInterface {
+class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
@@ -96,5 +93,16 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>(),ToolbarInterf
 
     override fun changePageName(title: String) {
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -244,5 +245,15 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
 
     override fun changePageName(title: String) {
 
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        try {
+            (requireActivity() as MainActivity).setOnToolBarListener(this)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            ex.toString().log("dim")
+        }
     }
 }

@@ -7,24 +7,20 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.paging.Config
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
+import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.databinding.ActivityMainBinding
-import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.DataFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
-import com.rmg.production_monitor.viewModel.DashboardViewModel
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,6 +36,11 @@ class MainActivity : AppCompatActivity() {
 
     private val mViewModel by viewModels<MainActivityViewModel>()
      var toolbarInterface:ToolbarInterface? = null
+
+
+    fun setOnToolBarListener(toolbarInterface: ToolbarInterface?) {
+        this.toolbarInterface = toolbarInterface
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,16 +107,18 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // Start auto-scrolling
         startAutoScroll()
+
+
+        binding.imgBtnRefresh.setOnClickListener {
+            toolbarInterface?.onRefreshButtonClick()
+        }
     }
 
     fun initializeData() {
 
         fragmentList = listOf(QualityFragment(), PCBFragment(), DashBoardFragment(), DataFragment())
         handler = Handler(Looper.getMainLooper())
-        toolbarInterface=QualityFragment()
-        binding.imgBtnRefresh.setOnClickListener {
-            toolbarInterface?.onRefreshButtonClick()
-        }
+
     }
 
     fun setUpAdapter() {
