@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
-    android:orientation="vertical">
+    android:background="@color/black">
 
 
     <View
         android:id="@+id/view1"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#808080" />
 
-    <!-- header -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        android:id="@+id/layoutMain1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_below="@+id/view1"
         android:layout_margin="5dp"
-        android:background="@drawable/style_color_bg">
+        android:background="@color/bg_view_card_dash_board">
 
         <TextView
             android:id="@+id/textViewStyle"
@@ -108,31 +108,29 @@
             app:layout_constraintStart_toEndOf="@+id/tvblank"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- end header -->
-
     <LinearLayout
-
+        android:id="@+id/layoutMain2"
+        app:layout_constraintBottom_toTopOf="@+id/layoutMain3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_margin="5dp"
             android:id="@+id/layoutproduction"
             android:layout_width="0dp"
-            android:background="@drawable/style_color_bg"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            >
+            android:background="@color/bg_view_card_dash_board">
 
             <TextView
                 android:id="@+id/tv_production_title"
+                style="@style/whiteText25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="PRODUCTION"
-                style="@style/whiteText25"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
@@ -144,32 +142,31 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_production_title"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/tv_production_title">
                 <!-- vertical -->
                 <androidx.constraintlayout.widget.Guideline
-                    app:layout_constraintGuide_percent=".5"
                     android:id="@+id/guideline_v"
-                    android:orientation="vertical"
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5" />
                 <!-- horizontal -->
                 <androidx.constraintlayout.widget.Guideline
-                    app:layout_constraintGuide_percent=".33"
                     android:id="@+id/guideline_h_33"
-                    android:orientation="horizontal"
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".33" />
 
                 <androidx.constraintlayout.widget.Guideline
-                    app:layout_constraintGuide_percent=".66"
                     android:id="@+id/guideline_h_66"
-                    android:orientation="horizontal"
                     android:layout_width="1dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".66" />
 
                 <!-- target-->
                 <TextView
@@ -177,26 +174,25 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="start|center"
-                    android:text="Target"
                     android:paddingLeft="10dp"
+                    android:text="Target"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_v"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textTargetValue"
                     android:layout_width="0dp"
-                    android:gravity="center"
                     android:layout_height="0dp"
-                    android:text="0"
+                    android:gravity="center"
+                    tools:text="00000"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
-
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="35dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline_v"
                     app:layout_constraintTop_toTopOf="parent" />
                 <!-- end target-->
@@ -207,28 +203,27 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="start|center"
-                    android:text="Actual"
                     android:paddingLeft="10dp"
+                    android:text="Actual"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_66"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_v"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_h_66"
                     app:layout_constraintTop_toTopOf="@+id/guideline_h_33" />
 
                 <TextView
                     android:id="@+id/textActualValue"
                     android:layout_width="0dp"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="20dp"
                     android:layout_height="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center"
+                    tools:text="00000"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline_h_66"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline_v"
-                    app:layout_constraintTop_toTopOf="@+id/guideline_h_33"
-                    />
+                    app:layout_constraintTop_toTopOf="@+id/guideline_h_33" />
                 <!-- end actual-->
                 <!--Variance -->
                 <TextView
@@ -236,13 +231,13 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="start|center"
-                    android:text="Variance"
                     android:paddingLeft="10dp"
+                    android:text="Variance"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_v"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline_h_66" />
 
                 <TextView
@@ -250,382 +245,430 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center"
-                    android:text="0"
-
+                    tools:text="000000"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="35dp"
 
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/guideline_v"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline_h_66" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!-- end production-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <LinearLayout
-            android:id="@+id/layout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:weightSum="2"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:background="@drawable/style_color_bg"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TREND"
-                    style="@style/whiteText25" />
-
-
-                <TextView
-                    android:id="@+id/textTrendValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center"
-                    android:paddingLeft="10dp"
-                    android:text="0"
-                    android:layout_margin="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-
-
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_margin="5dp"
-                android:background="@drawable/style_color_bg"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/whiteText25"
-                    android:text="DHU%" />
-
-
-                <TextView
-                    android:id="@+id/textDHUValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="bottom|center"
-                    android:paddingLeft="10dp"
-                    android:text="0%"
-                    android:layout_margin="10dp"
-                    android:textColor="#1CEF0E"
-                    android:textSize="20dp" />
-
-
-
-            </LinearLayout>
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutefficy"
-            android:layout_width="0dp"
             android:layout_margin="5dp"
-            android:background="@drawable/style_color_bg"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/bg_view_card_dash_board">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_trend_v"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".50" />
+            <!-- horizontal -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_trend_h"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".50" />
+
 
             <TextView
+                style="@style/whiteText25"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="TREND"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_trend_h"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_trend_v"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textTrendValue"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="35dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_trend_h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline_trend_v"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0000" />
+
+
+            <TextView
+                style="@style/whiteText25"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="DHU%"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_trend_v"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline_trend_h" />
+
+
+            <TextView
+                android:id="@+id/textDHUValue"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:textColor="@color/txt_dhu"
+                android:textSize="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline_trend_v"
+                app:layout_constraintTop_toBottomOf="@+id/guideline_trend_h"
+                tools:text="0%" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/bg_view_card_dash_board">
+
+            <TextView
+                android:id="@+id/titleEfficiency"
+                style="@style/whiteText25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/whiteText25"
-                android:text="EFFICIENCY"/>
-            <LinearLayout
-                android:weightSum="2"
-                android:orientation="vertical"
+                android:text="EFFICIENCY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:background="@color/bg_view_card_dash_board"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleEfficiency">
 
 
+                <!-- vertical -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_efficiency_v"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".5" />
+                <!-- horizontal -->
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_efficiency_h"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".5" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textActualPercent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_marginStart="10dp"
+                    android:gravity="start|center"
+                    android:text="Actual"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/guideline_efficiency_h"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_efficiency_v"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-
-                    <TextView
-                        android:id="@+id/textActualPercent"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center"
-                        android:text="Acual"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textActualPercentValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textActualPercentValue"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-                        tools:text="0%"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textActualPercent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textActualPercentValue"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline_efficiency_h"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textActualPercent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="0%" />
 
 
-                    <TextView
-                        android:id="@+id/textPlanned"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="start|center"
-                        android:text="Planned"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/textActualPlannedValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textPlanned"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start|center"
+                    android:text="Planned"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_efficiency_v"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline_efficiency_h" />
 
-                    <TextView
-                        android:id="@+id/textActualPlannedValue"
-                        android:layout_width="0dp"
-                        android:gravity="center"
-                        tools:text="0%"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textPlanned"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textActualPlannedValue"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/guideline_efficiency_v"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline_efficiency_h"
+                    tools:text="0%" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </LinearLayout>
 
+
     <LinearLayout
-        android:weightSum="3"
-        android:orientation="horizontal"
+        android:id="@+id/layoutMain3"
+        app:layout_constraintTop_toBottomOf="@+id/layoutMain2"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/style_color_bg"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_margin="5dp"
+            android:background="@color/bg_view_card_dash_board">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_dayTarget_h"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".5" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/titleDayTarget"
                 style="@style/whiteText25"
-                android:text="DAY TERGET"
-                />
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="top"
+                android:text="DAY TARGET"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_dayTarget_h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/textDayTarget"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|center"
-                android:paddingLeft="10dp"
-                android:text="0%"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline_dayTarget_h"
+                tools:text="0%" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="5dp"
-
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/style_color_bg"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/bg_view_card_dash_board">
             <TextView
+                android:id="@+id/titlePower"
+                style="@style/whiteText25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MAIN POWER"
-                style="@style/whiteText25"/>
+                android:text="MAN POWER"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPower1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layoutPower2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titlePower">
 
 
-                    <TextView
-                        android:id="@+id/textOperationValue"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textOperationValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textOperation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="000000" />
 
 
-                    <TextView
-                        android:id="@+id/textOperation"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:gravity="center"
-                        android:text="Operations"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textOperationValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textOperation"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="Operations"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textOperationValue" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-
-                    <TextView
-                        android:id="@+id/textHelperValue"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPower2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/layoutPower3"
+                app:layout_constraintStart_toEndOf="@+id/layoutPower1"
+                app:layout_constraintTop_toBottomOf="@+id/titlePower">
 
 
-                    <TextView
-                        android:id="@+id/textHelpers"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:gravity="center"
-                        android:text="Helpers"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textHelperValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <TextView
+                    android:id="@+id/textHelperValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textHelpers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="0000" />
 
 
-                    <TextView
-                        android:id="@+id/textIronmanValue"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textHelpers"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="Helpers"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textHelperValue" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutPower3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/layoutPower2"
+                app:layout_constraintTop_toBottomOf="@+id/titlePower">
 
 
-                    <TextView
-                        android:id="@+id/textIronman"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:gravity="center"
-                        android:text="Ironman"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textIronmanValue"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textIronmanValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="25dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textIronman"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="00000" />
 
 
+                <TextView
+                    android:id="@+id/textIronman"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="Ironman"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textIronmanValue" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-        <LinearLayout
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/style_color_bg"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/bg_view_card_dash_board">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_wiptotal_h"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".5" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start|center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="top"
                 android:paddingLeft="10dp"
-                android:text="WIP TOTALE"
+                android:text="WIP TOTAL"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:textSize="25dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_wiptotal_h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/textWipTotal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="bottom|center"
-                android:paddingLeft="10dp"
-                android:text="12636"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/guideline_wiptotal_h"
+                tools:text="12636"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="35dp" />
 
 
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

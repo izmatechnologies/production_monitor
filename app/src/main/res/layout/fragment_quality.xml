@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/style_color_bg">
+        android:background="@color/bg_view_card_dash_board">
 
         <TextView
             android:id="@+id/textViewStyle"
@@ -205,7 +205,7 @@
                 android:id="@+id/constraintLayout5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/style_color_bg"
+                android:background="@color/bg_view_card_dash_board"
                 app:layout_constraintBottom_toTopOf="@+id/textViewOperations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -229,7 +229,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/style_color_bg"
+                android:background="@color/bg_view_card_dash_board"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="TOP 3 DEFECT OPERATIONS"
@@ -246,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/style_color_bg"
+                android:background="@color/bg_view_card_dash_board"
                 android:paddingStart="10dp"
                 android:paddingTop="10dp"
                 android:text="TOP 3 DEFECT ISSUES"
