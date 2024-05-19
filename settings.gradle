@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TestKotlin_1"
+rootProject.name = "SmartGarmetnsApp"
 include ':app'

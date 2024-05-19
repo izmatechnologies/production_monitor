@@ -198,9 +198,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
 
             qualityPayload.stationWiseDhus.forEach { stationWiseDhus ->
                 if (stationWiseDhus.stationName == "Back Side") {
-                    "${stationWiseDhus.dHU} Back".also { binding.textViewBack.text = it }
+//                    "${stationWiseDhus.dHU} Back".also { binding.textViewBack.text = it }
                 } else if (stationWiseDhus.stationName == "Inside") {
-                    "${stationWiseDhus.dHU} Inside QC".also { binding.textViewInside.text = it }
+//                    "${stationWiseDhus.dHU} Inside QC".also { binding.textViewInside.text = it }
                 }
             }
 
