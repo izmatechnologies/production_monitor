@@ -1,11 +1,8 @@
 package com.rmg.production_monitor.view.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -19,15 +16,18 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.base.BaseFragment
-import com.rmg.production_monitor.core.data.NetworkResult.*
+import com.rmg.production_monitor.core.data.NetworkResult.Error
+import com.rmg.production_monitor.core.data.NetworkResult.Loading
+import com.rmg.production_monitor.core.data.NetworkResult.SessionOut
+import com.rmg.production_monitor.core.data.NetworkResult.Success
 import com.rmg.production_monitor.core.extention.log
-import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
+import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
-import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.activity.ToolbarInterface
+import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,17 +37,15 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
     private var imagePath: String? = null
-
     private var finalHeight: Float = 0.0f
     private var finalWidth: Float = 0.0f
     private lateinit var mutableBitmap: Bitmap
-    private var initialBitmap:Boolean=false
-    private var flag:Boolean=false
+    private lateinit var dhuList: MutableList<DhuValueList>
     var lineId =  0
 
     // The list of coordinates for the dots
     // Declare dotCoordinates globally
-    var dotCoordinates: Array<DataPoint>? = null
+    private var dotCoordinates: Array<DataPoint>? = null
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentQualityBinding {
         return FragmentQualityBinding.inflate(inflater)
@@ -99,6 +97,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
         super.initializeData()
 
 
+        dhuList= mutableListOf()
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView
             finalWidth = binding.imageView.width.toFloat()
@@ -109,13 +108,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             imagePath = qualityPayload.imageUrl.replace("\\", "/")
             "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
 
-            "finalHeight: $finalHeight finalWidth: $finalWidth".log("dim")
             dotCoordinates = qualityPayload.heatMapPositions.map { position ->
                 DataPoint(position.x.toDouble(), position.y.toDouble())
             }.toTypedArray()
-//            if (initialBitmap){
-//                drawCanvas(dotCoordinates?: mutableListOf())
-//            }
 
 
 
@@ -126,36 +121,10 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                     ) {
                         // Make a mutable copy of the bitmap to draw on
                         mutableBitmap = resource.copy(Bitmap.Config.ARGB_8888, true)
-                        val canvas = Canvas(mutableBitmap)
-                        val paint = Paint().apply {
-                            color = Color.RED
-                            style = Paint.Style.FILL
-                            isAntiAlias = true
-                        }
-
-                        val dotRadius = 20f // Radius of the dots
-
-                        // Draw dots on the bitmap
-//                        dotCoordinates?.forEach { (x, y) ->
-//                            canvas.drawCircle(
-//                                x,
-//                                y,
-//                                dotRadius,
-//                                paint
-//                            )
-//                        }
-//                        "$dotCoordinates for x,y point".log("dim")
-
-
                         // Set the modified bitmap to the ImageView
                         binding.imageView.setImageBitmap(mutableBitmap)
                     }
                 })
-
-//            Glide.with(requireContext())
-//                .load(imagePath)
-//                .error(R.drawable.chart_image)
-//                .into(binding.imageView)
 
             binding.graph.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE // Disable grid lines
 
@@ -171,13 +140,6 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             binding.graph.viewport.isXAxisBoundsManual = true
             binding.graph.viewport.setMinX(0.0)
             binding.graph.viewport.setMaxX(5.0)
-
-            // Data points
-//            val dataPoints = arrayOf(
-//                DataPoint(1.4314515888690948, 8.536292761564255),
-//                DataPoint(4.133064448833466, 8.134373128414154),
-//                DataPoint(4.279233813285828, 0.6418716907501221)
-//            )
 
             // Add the data points to the graph
             val dotSeries = PointsGraphSeries(dotCoordinates)
@@ -196,12 +158,19 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
 
             "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
 
-            qualityPayload.stationWiseDhus.forEach { stationWiseDhus ->
-                if (stationWiseDhus.stationName == "Back Side") {
-//                    "${stationWiseDhus.dHU} Back".also { binding.textViewBack.text = it }
-                } else if (stationWiseDhus.stationName == "Inside") {
-//                    "${stationWiseDhus.dHU} Inside QC".also { binding.textViewInside.text = it }
-                }
+
+            val dhuValue=qualityPayload.stationWiseDhus.map {
+                DhuValueList(
+                    it.stationName,
+                    it.dHU
+                )
+            }
+            dhuList.addAll(dhuValue)
+
+            val dhuAdapter=StationWiseDHUAdapter(dhuValue)
+            binding.rvDhu.apply {
+                setHasFixedSize(true)
+                adapter=dhuAdapter
             }
 
             "REM.DEFECTIVE ${qualityPayload.remainingDiffective}".also {
@@ -215,7 +184,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 operationsText += "\n    ${operations.operationName}"
             }
 
-            "TOP 3 DEFECT OPERATIONS $operationsText".also { binding.textViewOperations.text = it }
+//            "TOP 3 DEFECT OPERATIONS $operationsText".also { binding.textViewOperations.text = it }
 
             var issuesText = ""
 
@@ -223,7 +192,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 issuesText += "\n    ${issues.issueName}"
             }
 
-            "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
+//            "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
 
 
