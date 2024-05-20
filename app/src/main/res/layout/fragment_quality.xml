@@ -109,7 +109,6 @@
             android:text="Hour 8Hr"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_10ssp"
-            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

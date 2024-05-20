@@ -61,6 +61,7 @@ class SessionManagerImpl @Inject constructor(
         return appPreference.getSting(USER_TYPE, Constants.UserType.SWING_LINE_IN_TYPE_USER.value) // By default sewing line in
     }
 
+
     override fun saveLine(lineId: String?) {
         appPreference.storeSting(LINE_ID, lineId)
     }

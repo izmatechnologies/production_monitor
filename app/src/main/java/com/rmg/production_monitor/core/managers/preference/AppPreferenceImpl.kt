@@ -13,6 +13,11 @@ class AppPreferenceImpl @Inject constructor(
     private var prefs: SharedPreferences =
         context.getSharedPreferences(Config.Storage.APPLICATION_PREFERENCE_NAME, Context.MODE_PRIVATE)
 
+    companion object {
+
+        const val SLIDER_VALUE = "slider_value"
+
+    }
 
     private fun getEditor(): Editor {
         return prefs.edit()
@@ -38,6 +43,17 @@ class AppPreferenceImpl @Inject constructor(
 
     override fun getInt(key: String, defaultValue: Int): Int {
         return prefs.getInt(key, defaultValue)
+    }
+
+    override fun saveSliderValue(value: Boolean) {
+        val editor = prefs.edit()
+        editor.putBoolean(SLIDER_VALUE, value)
+        editor.apply()
+
+    }
+
+    override fun getSliderValue(): Boolean{
+        return prefs.getBoolean(SLIDER_VALUE, false)
     }
 
 

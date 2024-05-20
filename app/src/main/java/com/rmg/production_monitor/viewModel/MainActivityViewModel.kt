@@ -17,4 +17,13 @@ class MainActivityViewModel @Inject constructor(
 
             mainActivityRepository.clearSession()
         }
+
+
+    fun getSliding():Boolean{
+        return mainActivityRepository.getSliderValue()
+
+    }
+    fun saveSliderValue(value:Boolean){
+        mainActivityRepository.saveSliderValue(value)
+    }
 }
