@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_4sdp">
+    android:layout_marginTop="@dimen/_2sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_issue_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
         android:padding="@dimen/_2sdp"
         android:text="A B C Issue"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:textSize="@dimen/_10ssp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintEnd_toStartOf="@+id/tv_issue_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />/ >
@@ -21,19 +24,24 @@
         android:id="@+id/tv_issue_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_2sdp"
-        android:text="2500"
         android:layout_marginEnd="@dimen/_2sdp"
         android:background="@drawable/outline_box_border"
-        android:textSize="@dimen/_10ssp"
+        android:paddingStart="@dimen/_4sdp"
+        android:paddingTop="@dimen/_2sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_2sdp"
+        android:text="2500"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@color/windowBackground"
+        android:id="@+id/view_bottom"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
         android:layout_marginTop="@dimen/_4sdp"
+        android:background="@color/windowBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_issue_name" />

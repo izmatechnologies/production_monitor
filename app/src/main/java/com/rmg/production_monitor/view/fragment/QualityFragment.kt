@@ -25,15 +25,16 @@ import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
+import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.activity.ToolbarInterface
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
+import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
-
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
     private var imagePath: String? = null
@@ -41,6 +42,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
     private var finalWidth: Float = 0.0f
     private lateinit var mutableBitmap: Bitmap
     private lateinit var dhuList: MutableList<DhuValueList>
+    private lateinit var issuesList: MutableList<TopProductionsIssue>
+    private lateinit var operationsList: MutableList<TopProductionsIssue>
     var lineId =  0
 
     // The list of coordinates for the dots
@@ -98,6 +101,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
 
 
         dhuList= mutableListOf()
+        issuesList= mutableListOf()
+        operationsList= mutableListOf()
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView
             finalWidth = binding.imageView.width.toFloat()
@@ -159,6 +164,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
 
 
+            //Station wise DHU
             val dhuValue=qualityPayload.stationWiseDhus.map {
                 DhuValueList(
                     it.stationName,
@@ -173,36 +179,46 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 adapter=dhuAdapter
             }
 
-            "REM.DEFECTIVE ${qualityPayload.remainingDiffective}".also {
+            //Defect Issue
+            val issues= qualityPayload.heatMapIssues.map {
+                TopProductionsIssue(
+                    it.issueName,
+                    it.count
+                )
+            }
+            issuesList.addAll(issues)
+            val issuesAdapter=
+                context?.let { TopProductionsIssueAdapter(it,issuesList.sortedBy {it.value }.reversed()) }
+            binding.rvViewIssues.apply {
+                setHasFixedSize(true)
+                adapter=issuesAdapter
+            }
+
+            //operations List
+            val operations= qualityPayload.heatMapOperations.map {
+                TopProductionsIssue(
+                    it.operationName,
+                    it.count
+                )
+            }
+            operationsList.addAll(operations)
+            val operationsAdapter=
+                context?.let { TopProductionsIssueAdapter(it,operationsList.sortedBy { it.value }.reversed()) }
+            binding.rvViewOperations.apply {
+                setHasFixedSize(true)
+                adapter=operationsAdapter
+            }
+
+            "REM.DEF. ${qualityPayload.remainingDiffective}".also {
                 binding.textViewRemDefective.text = it
             }
             "REJECTS ${qualityPayload.totalReject}".also { binding.textViewRejects.text = it }
 
-            var operationsText = ""
-
-            qualityPayload.heatMapOperations.forEach { operations ->
-                operationsText += "\n    ${operations.operationName}"
-            }
-
-//            "TOP 3 DEFECT OPERATIONS $operationsText".also { binding.textViewOperations.text = it }
-
-            var issuesText = ""
-
-            qualityPayload.heatMapIssues.forEach { issues ->
-                issuesText += "\n    ${issues.issueName}"
-            }
-
-//            "TOP 3 DEFECT ISSUES $issuesText".also { binding.textViewIssues.text = it }
         }
 
 
 
     }
-
-//    private fun drawCanvas(dotCoordinates: List<Pair<Float, Float>>) {
-//
-//    }
-
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
         val spannableString = SpannableString(text)
         val white = ForegroundColorSpan(Color.WHITE)

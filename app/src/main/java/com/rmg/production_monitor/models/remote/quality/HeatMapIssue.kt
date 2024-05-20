@@ -6,5 +6,7 @@ data class HeatMapIssue(
     @SerializedName("IssueId")
     val issueId: Int,
     @SerializedName("IssueName")
-    val issueName: String
+    val issueName: String,
+    @SerializedName("Count")
+    val count: Int
 )

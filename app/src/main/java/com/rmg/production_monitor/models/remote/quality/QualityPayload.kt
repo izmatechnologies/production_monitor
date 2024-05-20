@@ -35,3 +35,8 @@ data class DhuValueList(
     var name:String?,
     var value:String?
 )
+
+data class TopProductionsIssue(
+    var name: String?,
+    var value: Int?
+)

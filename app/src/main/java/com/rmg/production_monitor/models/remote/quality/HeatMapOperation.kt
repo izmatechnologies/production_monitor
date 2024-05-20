@@ -6,5 +6,8 @@ data class HeatMapOperation(
     @SerializedName("OperationId")
     val operationId: Int,
     @SerializedName("OperationName")
-    val operationName: String
+    val operationName: String,
+    @SerializedName("Count")
+    val count: Int
+
 )

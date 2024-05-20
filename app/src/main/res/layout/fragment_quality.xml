@@ -131,8 +131,7 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintHorizontal_weight="3.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -187,11 +186,12 @@
                 android:background="@color/bg_view_card_dash_board"
                 android:text="OVERALL DHU%"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp"
+                android:textSize="@dimen/_8ssp"
                 android:padding="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
@@ -248,7 +248,8 @@
                     android:id="@+id/appCompatTextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Top Defect Issue"
+                    android:text="@string/top_3_defect_issues"
+                    app:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_9ssp"
                     android:padding="@dimen/_2sdp"
@@ -256,8 +257,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <View
+                    android:id="@+id/view_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:background="@color/windowBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvViewOperations"
+                    android:id="@+id/rvViewIssues"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_view_card_dash_board"
@@ -267,7 +279,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/view_bottom"
                     app:reverseLayout="false"
                     tools:itemCount="3"
                     tools:listitem="@layout/deffect_operations_layout" />
@@ -291,16 +303,27 @@
                     android:id="@+id/appCompatTextView1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Top Defect Issue"
+                    android:text="@string/top_3_defect_operations"
+                    app:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_9ssp"
                     android:padding="@dimen/_2sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+                <View
+                    android:id="@+id/view_bottom1"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:background="@color/windowBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView1" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvViewIssues"
+                    android:id="@+id/rvViewOperations"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@color/bg_view_card_dash_board"
@@ -310,7 +333,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView1"
+                    app:layout_constraintTop_toBottomOf="@+id/view_bottom1"
                     app:reverseLayout="false"
                     tools:itemCount="3"
                     tools:listitem="@layout/deffect_operations_layout" />
@@ -337,9 +360,9 @@
                     android:layout_height="match_parent"
                     android:background="@color/bg_view_card_dash_board"
                     android:paddingStart="5dp"
-                    android:text="REM.DEFECTIVE 49"
+                    android:text="REM.DEFE."
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_8ssp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewRejects"
@@ -357,7 +380,7 @@
                     android:paddingStart="5dp"
                     android:text="REJECTS 0"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_8ssp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
