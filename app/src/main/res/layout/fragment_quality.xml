@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".view.fragment.QualityFragment">
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="#808080" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout21"
@@ -23,7 +29,7 @@
             android:paddingStart="10dp"
             android:text="Style  -"
             android:textColor="#FFBF00"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewColor"
             app:layout_constraintHorizontal_bias="0.5"
@@ -39,7 +45,7 @@
             android:paddingStart="10dp"
             android:text="Color  -"
             android:textColor="#FFBF00"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewBuyer"
             app:layout_constraintHorizontal_bias="0.5"
@@ -55,7 +61,7 @@
             android:paddingStart="10dp"
             android:text="Buyer  -"
             android:textColor="#FFBF00"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewPO"
             app:layout_constraintHorizontal_bias="0.5"
@@ -71,7 +77,7 @@
             android:paddingStart="10dp"
             android:text="PO  -"
             android:textColor="#FFBF00"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.5"
@@ -87,7 +93,7 @@
             android:paddingStart="10dp"
             android:text="-"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintHorizontal_bias="0.5"
@@ -102,6 +108,7 @@
             android:paddingStart="10dp"
             android:text="Hour 8Hr"
             android:textColor="#FFBF00"
+            android:textSize="@dimen/_10ssp"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -150,14 +157,15 @@
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MEASLES CHART"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="@dimen/_9ssp"
                 android:textStyle="bold"
+                android:layout_marginStart="@dimen/_4sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -168,48 +176,49 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="2"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintStart_toEndOf="@+id/frameLayout"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewOverallDHU"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/style_color_bg"
+                android:background="@color/bg_view_card_dash_board"
                 android:text="OVERALL DHU%"
                 android:textColor="@color/white"
-                android:textSize="15dp"
-                android:padding="4dp"
+                android:textSize="@dimen/_10ssp"
+                android:padding="@dimen/_1sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewStationWiseDHU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/style_color_bg"
-                android:text="STATION WISE DHU%"
-                android:textColor="@color/white"
-                android:textSize="15dp"
-                android:gravity="center"
-                android:padding="2dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOverallDHU" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:background="@color/bg_view_card_dash_board"
-                app:layout_constraintBottom_toTopOf="@+id/textViewOperations"
+                app:layout_constraintBottom_toTopOf="@+id/constraint_top_issue_operations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewStationWiseDHU">
+                app:layout_constraintTop_toBottomOf="@+id/textViewOverallDHU">
+
+                <TextView
+                    android:id="@+id/textViewStationWiseDHU"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_view_card_dash_board"
+                    android:text="STATION WISE DHU%"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_dhu"
@@ -219,44 +228,98 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:spanCount="2"
                     tools:itemCount="4"
+                    tools:listitem="@layout/station_wisez_dhu_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStationWiseDHU"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_top_issue_operations"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                app:layout_constraintBottom_toTopOf="@+id/constraint_top_defect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Top Defect Issue"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp"
+                    android:padding="@dimen/_2sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvViewOperations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_view_card_dash_board"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                    app:reverseLayout="false"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/deffect_operations_layout" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textViewOperations"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bg_view_card_dash_board"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:text="TOP 3 DEFECT OPERATIONS"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/textViewIssues"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
-                app:layout_constraintVertical_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewIssues"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/bg_view_card_dash_board"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:text="TOP 3 DEFECT ISSUES"
-                android:textColor="@color/white"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_top_defect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOperations"
-                app:layout_constraintVertical_weight="1" />
+                app:layout_constraintTop_toBottomOf="@+id/constraint_top_issue_operations">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Top Defect Issue"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp"
+                    android:padding="@dimen/_2sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvViewIssues"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_view_card_dash_board"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView1"
+                    app:reverseLayout="false"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/deffect_operations_layout" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -267,17 +330,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewIssues">
+                app:layout_constraintTop_toBottomOf="@+id/constraint_top_defect">
 
                 <TextView
                     android:id="@+id/textViewRemDefective"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/style_color_bg"
+                    android:background="@color/bg_view_card_dash_board"
                     android:paddingStart="5dp"
                     android:text="REM.DEFECTIVE 49"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/_10ssp"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/textViewRejects"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -290,11 +354,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/style_color_bg"
+                    android:background="@color/bg_view_card_dash_board"
                     android:paddingStart="5dp"
                     android:text="REJECTS 0"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/_10ssp"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"

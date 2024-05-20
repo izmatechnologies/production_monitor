@@ -30,3 +30,8 @@ data class QualityPayload(
     @SerializedName("TotalReject")
     val totalReject: Int
 )
+
+data class DhuValueList(
+    var name:String?,
+    var value:String?
+)
