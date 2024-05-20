@@ -10,4 +10,8 @@ interface AppPreference {
     fun storeInt(key: String, value: Int)
 
     fun getInt(key: String, defaultValue: Int): Int
+
+    fun saveSliderValue(value: Boolean)
+    fun getSliderValue(): Boolean
+
 }

@@ -73,14 +73,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnPause.setOnClickListener {
-            if (!autoSliderFragmentFlag) {
-                autoSliderFragmentFlag = true
+            if (!mViewModel.getSliding()) {
+
+                mViewModel.saveSliderValue(true)
+               // autoSliderFragmentFlag = true
                 binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
                 stopScrolling()
             } else {
                 binding.btnPause.setImageResource(R.drawable.ic_pause)
                 startAutoScroll()
-                autoSliderFragmentFlag = false
+                mViewModel.saveSliderValue(false)
+              //  autoSliderFragmentFlag = false
             }
 
         }

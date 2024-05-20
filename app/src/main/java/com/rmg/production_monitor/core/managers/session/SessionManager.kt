@@ -12,16 +12,17 @@ interface SessionManager {
     fun saveUserType(userType: String?)
     fun getUserType(): String?
 
+
 //    fun savePlantId(plantId: Int)
 //    fun fetchPlantId() : Int
 
     fun saveLine(lineId: String?)
-    fun fetchLine() : String?
+    fun fetchLine(): String?
 
     fun clearLineId()
 
     fun saveButtonKey(key: String?)
-    fun fetchButtonKey() : String?
+    fun fetchButtonKey(): String?
 
     fun clearButtonKey()
 
@@ -30,9 +31,9 @@ interface SessionManager {
 
 
     fun saveUnitId(unit: String?)
-    fun getUnitId() : String?
+    fun getUnitId(): String?
 
     fun savePlantId(unit: String?)
-    fun getPlantId() : String?
+    fun getPlantId(): String?
 
 }

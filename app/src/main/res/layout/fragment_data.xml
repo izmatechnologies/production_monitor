@@ -185,8 +185,8 @@
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Total"
-            android:textSize="15dp"
+            android:textSize="20dp"
+            android:text="Total WIP"
             app:layout_constraintEnd_toStartOf="@id/textTotalWip"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -196,9 +196,9 @@
             android:layout_width="130dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="2933"
+            tools:text="2933"
             android:textColor="@color/yellow"
-            android:textSize="15dp"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
