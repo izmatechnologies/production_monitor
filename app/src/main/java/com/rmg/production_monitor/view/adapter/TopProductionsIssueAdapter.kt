@@ -35,9 +35,9 @@ class TopProductionsIssueAdapter(
             binding.apply {
                 tvIssueName.text=item.name
                 tvIssueValue.text=item.value.toString()
-                if (topIssues.size - 1 == absoluteAdapterPosition) {
-                    viewBottom.visibility = View.GONE
-                } else viewBottom.visibility = View.VISIBLE
+//                if (topIssues.size - 1 == absoluteAdapterPosition) {
+//                    viewBottom.visibility = View.GONE
+//                } else viewBottom.visibility = View.VISIBLE
 
                 if (absoluteAdapterPosition==0){
                     tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border)

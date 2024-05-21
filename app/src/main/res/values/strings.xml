@@ -49,4 +49,6 @@
     <string name="top_3_defect_issues">Top 3 Defect Issues</string>
     <string name="top_3_defect_operations">Top 3 Defect Operations</string>
     <string name="qc_monitor_app">Qc Monitor App</string>
+    <string name="rejects">REJECTS</string>
+    <string name="rem_defectives">REM.DEFECTIVES</string>
 </resources>

@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -32,6 +33,7 @@ import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
@@ -176,6 +178,14 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             val dhuAdapter=StationWiseDHUAdapter(dhuValue)
             binding.rvDhu.apply {
                 setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.HORIZONTAL
+                ))
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
                 adapter=dhuAdapter
             }
 
@@ -191,6 +201,10 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 context?.let { TopProductionsIssueAdapter(it,issuesList.sortedBy {it.value }.reversed()) }
             binding.rvViewIssues.apply {
                 setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
                 adapter=issuesAdapter
             }
 
@@ -206,13 +220,17 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 context?.let { TopProductionsIssueAdapter(it,operationsList.sortedBy { it.value }.reversed()) }
             binding.rvViewOperations.apply {
                 setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
                 adapter=operationsAdapter
             }
 
-            "REM.DEF. ${qualityPayload.remainingDiffective}".also {
-                binding.textViewRemDefective.text = it
+            "${qualityPayload.remainingDiffective}".also {
+                binding.tvRemDefectCount.text = it
             }
-            "REJECTS ${qualityPayload.totalReject}".also { binding.textViewRejects.text = it }
+            "${qualityPayload.totalReject}".also { binding.tvRejectsCount.text = it }
 
         }
 
