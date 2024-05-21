@@ -28,7 +28,7 @@
       <LinearLayout
           android:id="@+id/layoutTop"
           android:layout_width="match_parent"
-          android:layout_height="50dp"
+          android:layout_height="@dimen/_16sdp"
           android:orientation="horizontal"
           app:layout_constraintTop_toTopOf="parent">
 
@@ -39,8 +39,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
-            android:text="Qc Monitor App"
-            android:textSize="20dp" />
+            android:text="@string/qc_monitor_app"
+            android:textSize="@dimen/_10ssp" />
 
         <View
             android:layout_width="1dp"
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             tools:text="WIP"
-            android:textSize="20dp" />
+            android:textSize="@dimen/_10ssp" />
 
         <View
             android:layout_width="1dp"
@@ -66,7 +66,7 @@
             android:id="@+id/textlineName"
             style="@style/whiteText"
             android:layout_width="0dp"
-            android:textSize="20dp"
+            android:textSize="@dimen/_10ssp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Line A" />
@@ -87,7 +87,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="8:40pm"
-            android:textSize="20dp"/>
+            android:textSize="@dimen/_10ssp"/>
 
         <View
             android:layout_width="1dp"
@@ -100,7 +100,7 @@
             android:layout_weight="2"
             android:orientation="horizontal">
 
-          <ImageButton
+          <androidx.appcompat.widget.AppCompatImageButton
               android:id="@+id/btn_pause"
               style="@style/Widget.MaterialComponents.Button"
               android:layout_width="0dp"
@@ -109,10 +109,9 @@
               android:gravity="center"
               android:src="@drawable/ic_pause"
               android:textColor="@color/yellow"
-              android:textSize="10dp"
               android:textStyle="bold" />
 
-          <ImageButton
+          <androidx.appcompat.widget.AppCompatImageButton
               android:id="@+id/img_btn_refresh"
               style="@style/Widget.MaterialComponents.Button"
               android:layout_width="0dp"
@@ -122,10 +121,9 @@
               app:tint="@color/orange"
               android:src="@drawable/ic_refresh"
               android:textColor="@color/red"
-              android:textSize="9dp"
               android:textStyle="bold" />
 
-          <ImageButton
+          <androidx.appcompat.widget.AppCompatImageButton
               android:id="@+id/btn_exit"
               style="@style/Widget.MaterialComponents.Button"
               android:layout_width="0dp"

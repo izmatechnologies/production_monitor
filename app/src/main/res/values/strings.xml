@@ -48,4 +48,5 @@
     </string>
     <string name="top_3_defect_issues">Top 3 Defect Issues</string>
     <string name="top_3_defect_operations">Top 3 Defect Operations</string>
+    <string name="qc_monitor_app">Qc Monitor App</string>
 </resources>

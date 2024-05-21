@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     fun initializeData() {
 
-        fragmentList.add(DisplayFragment("HeatMap",QualityFragment()))
+        fragmentList.add(DisplayFragment("Quality",QualityFragment()))
         fragmentList.add(DisplayFragment("PCB",PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..",DashBoardFragment()))
         fragmentList.add(DisplayFragment("WIP",DataFragment()))
