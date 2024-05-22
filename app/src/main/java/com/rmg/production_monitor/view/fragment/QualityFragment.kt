@@ -105,6 +105,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
         dhuList= mutableListOf()
         issuesList= mutableListOf()
         operationsList= mutableListOf()
+
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView
             finalWidth = binding.imageView.width.toFloat()
@@ -166,6 +167,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
 
 
+            if (dhuList.isNotEmpty())dhuList.clear()
             //Station wise DHU
             val dhuValue=qualityPayload.stationWiseDhus.map {
                 DhuValueList(
@@ -190,6 +192,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             }
 
             //Defect Issue
+            if (issuesList.isNotEmpty())issuesList.clear()
             val issues= qualityPayload.heatMapIssues.map {
                 TopProductionsIssue(
                     it.issueName,
@@ -209,6 +212,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             }
 
             //operations List
+            if (operationsList.isNotEmpty())operationsList.clear()
             val operations= qualityPayload.heatMapOperations.map {
                 TopProductionsIssue(
                     it.operationName,
