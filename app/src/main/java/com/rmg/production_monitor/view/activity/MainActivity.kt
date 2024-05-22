@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
 
     private val mViewModel by viewModels<MainActivityViewModel>()
-     var toolbarInterface:ToolbarInterface? = null
+    // var toolbarInterface:ToolbarInterface? = null
 
 
     fun setOnToolBarListener(toolbarInterface: ToolbarInterface?) {
-        this.toolbarInterface = toolbarInterface
+      //  this.toolbarInterface = toolbarInterface
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,9 +125,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        binding.imgBtnRefresh.setOnClickListener {
-            toolbarInterface?.onRefreshButtonClick()
-        }
+//        binding.imgBtnRefresh.setOnClickListener {
+//            toolbarInterface?.onRefreshButtonClick()
+//        }
 
 
 
@@ -179,4 +179,5 @@ class MainActivity : AppCompatActivity() {
     fun stopScrolling() {
         handler.removeCallbacksAndMessages(null)
     }
+
 }

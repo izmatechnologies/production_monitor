@@ -99,12 +99,12 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
 }
 
     override fun onRefreshButtonClick() {
-        networkChecker {
-            val lineId=  mViewModel.getLineId()
-            if (lineId != null) {
-                mViewModel.getDashboardAnalytics(lineId.toInt())
-            }
-        }
+//        networkChecker {
+//            val lineId=  mViewModel.getLineId()
+//            if (lineId != null) {
+//                mViewModel.getDashboardAnalytics(lineId.toInt())
+//            }
+//        }
     }
 
 
@@ -117,6 +117,18 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
         } catch (ex: Exception) {
             ex.printStackTrace()
             ex.toString().log("dim")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity()as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            networkChecker {
+                val lineId=  mViewModel.getLineId()
+                if (lineId != null) {
+                    mViewModel.getDashboardAnalytics(lineId.toInt())
+                }
+            }
         }
     }
 }

@@ -249,10 +249,10 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
     }
 
     override fun onRefreshButtonClick() {
-        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            qualityViewModel.getHeatmap(lineId)
-        }
+//        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+//        networkChecker {
+//            qualityViewModel.getHeatmap(lineId)
+//        }
     }
 
 
@@ -264,6 +264,18 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
         } catch (ex: Exception) {
             ex.printStackTrace()
             ex.toString().log("dim")
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+
+                    lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            qualityViewModel.getHeatmap(lineId)
+        }
         }
     }
 }

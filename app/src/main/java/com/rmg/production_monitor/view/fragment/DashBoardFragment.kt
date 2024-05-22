@@ -88,10 +88,10 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
     override fun onRefreshButtonClick() {
-        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
-        }
+//        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+//        networkChecker {
+//            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+//        }
     }
 
 
@@ -104,6 +104,16 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         } catch (ex: Exception) {
             ex.printStackTrace()
             ex.toString().log("dim")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+            }
         }
     }
 }

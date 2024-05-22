@@ -96,11 +96,11 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
     }
 
     override fun onRefreshButtonClick() {
-
-        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-        }
+//
+//        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+//        networkChecker {
+//            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+//        }
     }
 
 
@@ -113,6 +113,17 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
         } catch (ex: Exception) {
             ex.printStackTrace()
             ex.toString().log("dim")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+
+        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+        networkChecker {
+            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        }
         }
     }
 }
