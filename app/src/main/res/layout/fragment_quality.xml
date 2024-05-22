@@ -178,15 +178,15 @@
             app:layout_constraintStart_toEndOf="@+id/frameLayout"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewOverallDHU"
+            <TextView
+                android:id="@+id/tvOverAllDHU"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_view_card_dash_board"
                 android:padding="4dp"
-                android:text="OVERALL DHU%"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_8ssp"
+                tools:text="OverAllDHU "
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +202,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/constraint_top_issue_operations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOverallDHU">
+                app:layout_constraintTop_toBottomOf="@+id/tvOverAllDHU">
 
                 <TextView
                     android:id="@+id/textViewStationWiseDHU"
@@ -399,6 +399,7 @@
                         android:gravity="center"
                         tools:text="200"
                         android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"
@@ -445,6 +446,7 @@
                         android:gravity="center"
                         tools:text="200"
                         android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"

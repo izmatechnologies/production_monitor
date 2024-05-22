@@ -164,11 +164,11 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
             }
 
-            "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
+            //OverAll DHU count
+            "OVERALL DHU    ${qualityPayload.overAllDhu}".also { binding.tvOverAllDHU.text = it }
 
-
+            //Station wise DHU  list
             if (dhuList.isNotEmpty())dhuList.clear()
-            //Station wise DHU
             val dhuValue=qualityPayload.stationWiseDhus.map {
                 DhuValueList(
                     it.stationName,
@@ -191,7 +191,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 adapter=dhuAdapter
             }
 
-            //Defect Issue
+            //Defect Issue list
             if (issuesList.isNotEmpty())issuesList.clear()
             val issues= qualityPayload.heatMapIssues.map {
                 TopProductionsIssue(
@@ -231,9 +231,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
                 adapter=operationsAdapter
             }
 
-            "${qualityPayload.remainingDiffective}".also {
-                binding.tvRemDefectCount.text = it
-            }
+            //defect and reject count
+            "${qualityPayload.remainingDiffective}".also {binding.tvRemDefectCount.text = it }
             "${qualityPayload.totalReject}".also { binding.tvRejectsCount.text = it }
 
         }
