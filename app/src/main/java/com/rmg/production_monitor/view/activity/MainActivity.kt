@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private var currentPage = 0
-    private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL // 4.5 seconds delay
+    private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var autoSliderFragmentFlag: Boolean = false
@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mViewModel.saveSliderValue(false)
+
         initializeData()
         setUpAdapter()
 
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         handler.post(object : Runnable {
             override fun run() {
                 updateTime()
-                handler.postDelayed(this, 1000)
+                handler.postDelayed(this, delayMS)
             }
         })
 
@@ -110,7 +112,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
-        startAutoScroll()
+        //startAutoScroll()
+
+        if (mViewModel.getSliding()) {
+            mViewModel.saveSliderValue(true)
+            binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
+            stopScrolling()
+        } else {
+            binding.btnPause.setImageResource(R.drawable.ic_pause)
+            startAutoScroll()
+            mViewModel.saveSliderValue(false)
+        }
 
 
         binding.imgBtnRefresh.setOnClickListener {
@@ -165,6 +177,6 @@ class MainActivity : AppCompatActivity() {
 
 
     fun stopScrolling() {
-        handler.removeCallbacks(runnable)
+        handler.removeCallbacksAndMessages(null)
     }
 }
