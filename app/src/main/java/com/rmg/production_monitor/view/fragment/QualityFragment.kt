@@ -198,7 +198,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             }
             issuesList.addAll(issues)
             val issuesAdapter=
-                context?.let { TopProductionsIssueAdapter(it,issuesList.sortedBy {it.value }.reversed()) }
+                context?.let {context-> TopProductionsIssueAdapter(context,issuesList.sortedBy {it.value }.reversed()) }
             binding.rvViewIssues.apply {
                 setHasFixedSize(true)
                 addItemDecoration( DividerItemDecoration(
@@ -217,7 +217,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             }
             operationsList.addAll(operations)
             val operationsAdapter=
-                context?.let { TopProductionsIssueAdapter(it,operationsList.sortedBy { it.value }.reversed()) }
+                context?.let {context-> TopProductionsIssueAdapter(context,operationsList.sortedBy { it.value }.reversed()) }
             binding.rvViewOperations.apply {
                 setHasFixedSize(true)
                 addItemDecoration( DividerItemDecoration(

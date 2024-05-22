@@ -35,19 +35,20 @@ class TopProductionsIssueAdapter(
             binding.apply {
                 tvIssueName.text=item.name
                 tvIssueValue.text=item.value.toString()
-//                if (topIssues.size - 1 == absoluteAdapterPosition) {
-//                    viewBottom.visibility = View.GONE
-//                } else viewBottom.visibility = View.VISIBLE
 
-                if (absoluteAdapterPosition==0){
-                    tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border)
-                    tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.d44d25))
-                }else if(absoluteAdapterPosition==1){
-                    tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border_2nd)
-                    tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.cc7944))
-                }else{
-                    tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border_3rd)
-                    tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.b4a14f))
+                when (absoluteAdapterPosition) {
+                    0 -> {
+                        tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border)
+                        tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.d44d25))
+                    }
+                    1 -> {
+                        tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border_2nd)
+                        tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.cc7944))
+                    }
+                    else -> {
+                        tvIssueValue.background=ContextCompat.getDrawable(context,R.drawable.outline_box_border_3rd)
+                        tvIssueValue.setTextColor(ContextCompat.getColor(context,R.color.b4a14f))
+                    }
                 }
             }
         }
