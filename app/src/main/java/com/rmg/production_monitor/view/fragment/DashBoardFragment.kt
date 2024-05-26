@@ -1,15 +1,16 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Context
+import android.R
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
@@ -17,13 +18,14 @@ import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
-    private var flag:Boolean=false
-    var lineId =  0
+    private var flag: Boolean = false
+    var lineId = 0
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
         return FragmentDashBoardBinding.inflate(inflater)
@@ -39,7 +41,9 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun setupObserver() {
         super.setupObserver()
-        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(viewLifecycleOwner) {
+        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(
+            viewLifecycleOwner
+        ) {
             when (it) {
                 is NetworkResult.Success -> {
                     hideLoader()
@@ -61,7 +65,8 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 is NetworkResult.SessionOut -> {
                     showTokenExpiredToast()
                 }
-                else ->{
+
+                else -> {
 
                 }
             }
@@ -78,33 +83,56 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 //            "PO - ${cumulativeDashboardSummaryPayload.poNumber}".also { binding.textViewPO.text = it }
 //            "Hour ${cumulativeDashboardSummaryPayload.hour}".also { binding.textViewHour.text = it }
 
-            binding.textViewStyle.text = changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
-            binding.textViewColor.text = changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
-            binding.textViewBuyer.text = changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
-            binding.tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.RunningDay}", 9)
-            binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.RununningHour}", 13)
-            if (cumulativeDashboardSummaryPayload.poNumber.isNotEmpty()){
-                binding.textViewPO.text = changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber, 2)
+            binding.textViewStyle.text =
+                changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
+            binding.textViewColor.text =
+                changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
+            binding.textViewBuyer.text =
+                changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
+            binding.tvRunDay.text =
+                changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.runDay}", 9)
+            binding.tvRuningHour.text = changeEndTextColor(
+                "Running Hour - ${cumulativeDashboardSummaryPayload.runningHour}",
+                13
+            )
+            if (cumulativeDashboardSummaryPayload.poNumber?.isNotEmpty() == true) {
+                binding.textViewPO.text =
+                    changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber ?: "", 2)
             }
 
 
-            binding.textTargetValue.text = cumulativeDashboardSummaryPayload.target
-            binding.textActualValue.text = cumulativeDashboardSummaryPayload.actual
-            binding.textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
-            binding.textTrendValue.text = cumulativeDashboardSummaryPayload.trend
-            binding.textDHUValue.text = cumulativeDashboardSummaryPayload.dHU
-            binding.textOperationValue.text = cumulativeDashboardSummaryPayload.operations
-            binding.textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
-            binding.textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMan
-            binding.textActualPercentValue.text = cumulativeDashboardSummaryPayload.actualEfficiency
-            binding.textActualPlannedValue.text = cumulativeDashboardSummaryPayload.plannedEfficiency
-            binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
+            binding.apply {
+                textTargetValue.text = cumulativeDashboardSummaryPayload.target
+                textActualValue.text = cumulativeDashboardSummaryPayload.actual
+                textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
+                textTrendValue.text = cumulativeDashboardSummaryPayload.trend
+                textDHUValue.text = "${cumulativeDashboardSummaryPayload.dHU} %"
+                textDHUValue.text=changeTextSize("DHU ${cumulativeDashboardSummaryPayload.dHU}%")
+
+                textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
+                textActualPercentValue.text =
+                    "${cumulativeDashboardSummaryPayload.actualEfficiency} %"
+                progressBar.progress =
+                    cumulativeDashboardSummaryPayload.actualEfficiency?.toInt() ?: 0
+
+                textActualPlannedValue.text =
+                    "${cumulativeDashboardSummaryPayload.plannedEfficiency} %"
+                textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
+                textOperationValue.text = cumulativeDashboardSummaryPayload.operators
+                textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
+            }
+
         }
 
 
     }
 
 
+    private fun changeTextSize(text: String):SpannableString {
+        val ss1 = SpannableString(text)
+        ss1.setSpan(RelativeSizeSpan(2f), 0, 5, 0) // set size
+        return ss1
+    }
 
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
         val spannableString = SpannableString(text)
@@ -123,7 +151,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             }
         }
     }
-
 
 
 }

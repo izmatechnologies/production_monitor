@@ -46,6 +46,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private lateinit var dhuList: MutableList<DhuValueList>
     private lateinit var issuesList: MutableList<TopProductionsIssue>
     private lateinit var operationsList: MutableList<TopProductionsIssue>
+    private lateinit var dhuAdapter:StationWiseDHUAdapter
+    private lateinit var issuesAdapter:TopProductionsIssueAdapter
+    private lateinit var operationsAdapter:TopProductionsIssueAdapter
     var lineId =  0
 
     // The list of coordinates for the dots
@@ -72,7 +75,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                     hideLoader()
                     it.data?.payload?.let { payload ->
                         qualityPayload = payload
-                        initializeData()
+//                        initializeData()
+                        heatMapData()
                     }
                 }
 
@@ -106,12 +110,53 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         issuesList= mutableListOf()
         operationsList= mutableListOf()
 
+        //DHU Adapter
+        dhuAdapter=StationWiseDHUAdapter(dhuList)
+        binding.rvDhu.apply {
+            setHasFixedSize(true)
+            addItemDecoration( DividerItemDecoration(
+                activity,
+                DividerItemDecoration.HORIZONTAL
+            ))
+            addItemDecoration( DividerItemDecoration(
+                activity,
+                DividerItemDecoration.VERTICAL
+            ))
+            adapter=dhuAdapter
+        }
+
+        //Defect Issue list
+        issuesAdapter= TopProductionsIssueAdapter(requireContext(),issuesList.sortedBy {it.value }.reversed())
+        binding.rvViewIssues.apply {
+            setHasFixedSize(true)
+            addItemDecoration( DividerItemDecoration(
+                activity,
+                DividerItemDecoration.VERTICAL
+            ))
+            adapter=issuesAdapter
+        }
+
+        //operations List
+        operationsAdapter= TopProductionsIssueAdapter(requireContext(),operationsList.sortedBy { it.value }.reversed())
+        binding.rvViewOperations.apply {
+            setHasFixedSize(true)
+            addItemDecoration( DividerItemDecoration(
+                activity,
+                DividerItemDecoration.VERTICAL
+            ))
+            adapter=operationsAdapter
+        }
+
         binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
             // Get the width and height of the imageView
             finalWidth = binding.imageView.width.toFloat()
             finalHeight = binding.imageView.height.toFloat()
 
         }
+
+    }
+
+    private fun heatMapData(){
         if (::qualityPayload.isInitialized) {
             imagePath = qualityPayload.imageUrl.replace("\\", "/")
             "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
@@ -178,20 +223,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 )
             }
             dhuList.addAll(dhuValue)
+            dhuAdapter.submit(dhuList)
 
-            val dhuAdapter=StationWiseDHUAdapter(dhuValue)
-            binding.rvDhu.apply {
-                setHasFixedSize(true)
-                addItemDecoration( DividerItemDecoration(
-                    activity,
-                    DividerItemDecoration.HORIZONTAL
-                ))
-                addItemDecoration( DividerItemDecoration(
-                    activity,
-                    DividerItemDecoration.VERTICAL
-                ))
-                adapter=dhuAdapter
-            }
+
 
             //Defect Issue list
             if (issuesList.isNotEmpty())issuesList.clear()
@@ -202,16 +236,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 )
             }
             issuesList.addAll(issues)
-            val issuesAdapter=
-                context?.let {context-> TopProductionsIssueAdapter(context,issuesList.sortedBy {it.value }.reversed()) }
-            binding.rvViewIssues.apply {
-                setHasFixedSize(true)
-                addItemDecoration( DividerItemDecoration(
-                    activity,
-                    DividerItemDecoration.VERTICAL
-                ))
-                adapter=issuesAdapter
-            }
+            issuesAdapter.submit(issuesList.sortedBy { it.value }.reversed())
+
 
             //operations List
             if (operationsList.isNotEmpty())operationsList.clear()
@@ -222,25 +248,14 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 )
             }
             operationsList.addAll(operations)
-            val operationsAdapter=
-                context?.let {context-> TopProductionsIssueAdapter(context,operationsList.sortedBy { it.value }.reversed()) }
-            binding.rvViewOperations.apply {
-                setHasFixedSize(true)
-                addItemDecoration( DividerItemDecoration(
-                    activity,
-                    DividerItemDecoration.VERTICAL
-                ))
-                adapter=operationsAdapter
-            }
+            operationsAdapter.submit(operationsList.sortedBy { it.value }.reversed())
+
 
             //defect and reject count
             "${qualityPayload.remainingDiffective}".also {binding.tvRemDefectCount.text = it }
             "${qualityPayload.totalReject}".also { binding.tvRejectsCount.text = it }
 
         }
-
-
-
     }
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
         val spannableString = SpannableString(text)
@@ -253,7 +268,6 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     override fun onResume() {
         super.onResume()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-
             lineId = qualityViewModel.getLineId()?.toInt() ?: 0
             networkChecker {
                 qualityViewModel.getHeatmap(lineId)

@@ -7,12 +7,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.databinding.DeffectOperationsLayoutBinding
+import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
 
 class TopProductionsIssueAdapter(
     private val context:Context,
-    private val topIssues: List<TopProductionsIssue>
+    private var topIssues: List<TopProductionsIssue>
 ) : RecyclerView.Adapter<TopProductionsIssueAdapter.DefectOperationsViewHolder>() {
+    fun submit(topIssues: List<TopProductionsIssue>){
+        this.topIssues=topIssues
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefectOperationsViewHolder {
         return DefectOperationsViewHolder(DeffectOperationsLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))

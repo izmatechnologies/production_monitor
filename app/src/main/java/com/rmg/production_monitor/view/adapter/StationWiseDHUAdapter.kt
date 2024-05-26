@@ -7,9 +7,13 @@ import com.rmg.production_monitor.databinding.StationWisezDhuLayoutBinding
 import com.rmg.production_monitor.models.remote.quality.DhuValueList
 
 class StationWiseDHUAdapter(
-    private val dhuList: List<DhuValueList>
+    private var dhuList: List<DhuValueList>
 ) : RecyclerView.Adapter<StationWiseDHUAdapter.StationWiseDHUHolder>() {
 
+     fun submit(dhuList: List<DhuValueList>){
+        this.dhuList=dhuList
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StationWiseDHUHolder {
         return StationWiseDHUHolder(
             StationWisezDhuLayoutBinding.inflate(
