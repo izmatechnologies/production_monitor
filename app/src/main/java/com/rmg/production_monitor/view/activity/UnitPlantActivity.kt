@@ -61,9 +61,9 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
         binding.btnComplete.setOnClickListener {
             if (validation()) {
-                authenticationViewModel.saveUnit(selectedUnit.toString())
-                authenticationViewModel.savePlant(selectedPlant.toString())
-                authenticationViewModel.saveLine(selectedline.toString())
+                authenticationViewModel.saveUnit(selectedUnit)
+                authenticationViewModel.savePlant(selectedPlant)
+                authenticationViewModel.saveLine(selectedline)
                 "save".toast()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

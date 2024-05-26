@@ -2,8 +2,8 @@ package com.rmg.production_monitor.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rmg.production_monitor.core.managers.session.SessionManager
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepository
+import com.rmg.production_monitor.repository.MainActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CumulativeDashboardSummaryViewModel @Inject constructor(
     private val cumulativeDashboardSummaryRepository: CumulativeDashboardSummaryRepository,
-    val session: SessionManager
+    private val mainActivityRepository: MainActivityRepository
 ) : ViewModel() {
 
     // Cumulative Dashboard Summary
@@ -23,14 +23,11 @@ class CumulativeDashboardSummaryViewModel @Inject constructor(
         }
     }
 
-    fun getLineId():String?{
-        val lineId= session.fetchLine()
-        return lineId
+    fun getLineId(): Int? {
+        return mainActivityRepository.getLine()
     }
 
 
-    fun clearSession(){
-        val lineId= session.clearSession()
 
-    }
+
 }

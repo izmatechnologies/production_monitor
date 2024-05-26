@@ -5,4 +5,7 @@ interface MainActivityRepository {
 
     fun getSliderValue(): Boolean
     fun saveSliderValue(value: Boolean)
+
+
+    fun getLine():Int?
 }

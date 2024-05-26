@@ -35,26 +35,19 @@ class AuthenticationViewModel @Inject constructor(
         return authenticationRepository.getAuthToken()
     }
 
-    fun saveUserType(userType: String?) {
-        authenticationRepository.saveUserType(userType)
-    }
-
-    fun getUserType(): String? {
-        return authenticationRepository.getUserType()
-    }
 
     fun saveUserName(userName: String?) {
         authenticationRepository.saveUserName(userName)
     }
 
-    fun saveUnit(unit: String?) {
+    fun saveUnit(unit: Int?) {
         authenticationRepository.saveUnit(unit)
     }
-    fun savePlant(plant: String?) {
+    fun savePlant(plant: Int?) {
         authenticationRepository.savePlant(plant)
     }
 
-    fun saveLine(line: String?) {
+    fun saveLine(line: Int?) {
         authenticationRepository.saveUserLine(line)
     }
 

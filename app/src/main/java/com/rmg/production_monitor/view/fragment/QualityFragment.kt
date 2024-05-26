@@ -86,7 +86,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 }
 
                 is SessionOut -> {
-                    qualityViewModel.clearSession()
+                //    qualityViewModel.clearSession()
                     showTokenExpiredToast()
                     //(requireActivity() as MainActivity).logout()
                 }

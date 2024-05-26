@@ -65,9 +65,11 @@ class MainActivity : AppCompatActivity() {
                 this,
                 onYesButtonClick = {
                   mViewModel.clearSession()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
 
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finishAfterTransition()
                 }
             )
         }

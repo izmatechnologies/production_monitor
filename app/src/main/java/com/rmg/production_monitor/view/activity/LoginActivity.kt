@@ -90,8 +90,8 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
                         val userTypeName = it.data.authenticatePayload.userTypeName
                         var userName = it.data.authenticatePayload.userName
 
-                        authenticationViewModel.saveUserName(userName)
-                        authenticationViewModel.saveUserType(userTypeName)
+//                        authenticationViewModel.saveUserName(userName)
+//                        authenticationViewModel.saveUserType(userTypeName)
 
                             val intent = Intent(this, UnitPlantActivity::class.java)
                             val bundle = Bundle()

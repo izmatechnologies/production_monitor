@@ -2,14 +2,14 @@ package com.rmg.production_monitor.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rmg.production_monitor.core.managers.session.SessionManager
 import com.rmg.production_monitor.repository.DashboardRepository
+import com.rmg.production_monitor.repository.MainActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(private  val repository:DashboardRepository,val session:SessionManager):ViewModel() {
+class DashboardViewModel @Inject constructor(private  val repository:DashboardRepository,  private val mainActivityRepository: MainActivityRepository):ViewModel() {
     val dashboardAnalyticLiveData get() = repository.dashboardAnalyticsData
 
     fun getDashboardAnalytics(lineId:Int) {
@@ -19,9 +19,10 @@ class DashboardViewModel @Inject constructor(private  val repository:DashboardRe
     }
 
 
-    fun getLineId(): String? {
-        return session.fetchLine()
+    fun getLineId(): Int? {
+        return mainActivityRepository.getLine()
     }
+
 
 
 }

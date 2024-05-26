@@ -7,8 +7,7 @@ import com.rmg.production_monitor.core.managers.network.NetworkManager
 import com.rmg.production_monitor.core.managers.network.NetworkManagerImpl
 import com.rmg.production_monitor.core.managers.preference.AppPreference
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
-import com.rmg.production_monitor.core.managers.session.SessionManager
-import com.rmg.production_monitor.core.managers.session.SessionManagerImpl
+
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,8 +17,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface ManagerModule {
 
-    @Binds
-    fun provideSessionManager(sessionManagerImpl: SessionManagerImpl): SessionManager
+
 
 
     @Binds

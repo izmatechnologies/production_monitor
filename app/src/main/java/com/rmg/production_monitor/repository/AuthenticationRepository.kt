@@ -18,12 +18,12 @@ interface AuthenticationRepository {
 
     fun storeAuthenticationToken(token: String?)
     fun getAuthToken(): String?
-    fun saveUserType(userType: String?)
-    fun getUserType(): String?
     fun saveUserName(userName: String?)
 
-    fun saveUnit(unit:String?)
-    fun savePlant(plant:String?)
-    fun saveUserLine(userLine:String?)
+    fun saveUnit(unit:Int?)
+    fun savePlant(plant:Int?)
+    fun saveUserLine(userLine:Int?)
+
+
 
 }

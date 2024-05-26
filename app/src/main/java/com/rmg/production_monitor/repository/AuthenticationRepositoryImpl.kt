@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.log
-import com.rmg.production_monitor.core.managers.session.SessionManager
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.core.service.ApiService
 import com.rmg.production_monitor.models.remote.authentication.AuthenticateModel
 
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class AuthenticationRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val sessionManager: SessionManager,
+    private val appPreference: AppPreferenceImpl,
 ) : AuthenticationRepository {
 
     private val TAG: String = AuthenticationRepository::class.java.name
@@ -53,38 +53,28 @@ class AuthenticationRepositoryImpl @Inject constructor(
     }
 
     override fun storeAuthenticationToken(token: String?) {
-        " store AuthenticationToken  : $token".log(TAG)
-        sessionManager.saveAuthToken(token)
+        appPreference.userToken = token
     }
 
     override fun getAuthToken(): String? {
-        val token = sessionManager.fetchAuthToken()
-        " get AuthenticationToken  : $token".log(TAG)
-        return token
+        return  appPreference.userToken
     }
 
-    override fun saveUserType(userType: String?) {
-        sessionManager.saveUserType(userType)
-    }
-
-    override fun getUserType(): String? {
-        return sessionManager.getUserType()
-    }
 
     override fun saveUserName(userName: String?) {
-        sessionManager.saveUserName(userName)
+        appPreference.userName=userName
     }
 
-    override fun saveUnit(unit: String?) {
-       sessionManager.saveUnitId(unit)
+    override fun saveUnit(unit: Int?) {
+       appPreference.unitId=unit
     }
 
-    override fun savePlant(plant: String?) {
-        sessionManager.savePlantId(plant)
+    override fun savePlant(plant: Int?) {
+        appPreference.plantId=plant
     }
 
-    override fun saveUserLine(userLine: String?) {
-     sessionManager.saveLine(userLine)
+    override fun saveUserLine(userLine: Int?) {
+     appPreference.lineId=userLine
     }
 }
 

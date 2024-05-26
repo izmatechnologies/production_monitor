@@ -10,6 +10,4 @@ interface QualityRepository {
 
     suspend fun getHeatmap(lineId: Int)
 
-    // Clear Session
-    fun clearSession()
 }

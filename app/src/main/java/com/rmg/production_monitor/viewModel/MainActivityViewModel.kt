@@ -26,4 +26,9 @@ class MainActivityViewModel @Inject constructor(
     fun saveSliderValue(value:Boolean){
         mainActivityRepository.saveSliderValue(value)
     }
+
+    fun getLineId(): Int? {
+        return mainActivityRepository.getLine()
+    }
+
 }
