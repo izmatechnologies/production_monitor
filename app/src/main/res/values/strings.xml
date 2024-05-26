@@ -51,5 +51,10 @@
     <string name="qc_monitor_app">Qc Monitor App</string>
     <string name="rejects">REJECTS</string>
     <string name="rem_defectives">REM.DEFECTIVES</string>
+
+    <string name="internet_connection_off">Internet Connection Off</string>
+    <string name="turn_on_your_wifi_mobile_internet">Turn on your Wifi / Mobile Internet</string>
+    <string name="please_try_again">Please Try Again</string>
+    <string name="cancel">Cancel</string>
     <string name="inside">inside</string>
 </resources>

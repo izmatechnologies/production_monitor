@@ -8,16 +8,16 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-//import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
+import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
-import com.rmg.production_monitor.view.activity.ToolbarInterface
+
 
 
 import javax.inject.Inject
 
 
-abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, ToolbarInterface {
+abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
 
 
     private  var loaderDialog: Dialog?=null
@@ -28,9 +28,7 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, Too
     private var pageTitle:String=""
     private var _argumentOfFragment: Bundle? = null
 
-    override fun onRefreshButtonClick() {
 
-    }
 
 
 
@@ -102,11 +100,11 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController, Too
             getData()
         } else {
 
-//            showNoInternetConnectionDialog(requireContext(),
-//                onRetryButtonClick = {
-//                    networkChecker { getData() }
-//                }
-//                )
+            showNoInternetConnectionDialog(requireContext(),
+                onRetryButtonClick = {
+                    networkChecker { getData() }
+                }
+                )
 
 
         }

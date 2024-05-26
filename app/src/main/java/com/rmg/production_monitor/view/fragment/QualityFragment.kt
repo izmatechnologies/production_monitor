@@ -28,7 +28,7 @@ import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.view.activity.ToolbarInterface
+
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import com.rmg.production_monitor.viewModel.QualityViewModel
@@ -36,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface{
+class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: QualityPayload
     private var imagePath: String? = null
@@ -239,7 +239,13 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
 
         }
 
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
 
+            lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                qualityViewModel.getHeatmap(lineId)
+            }
+        }
 
     }
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
@@ -249,22 +255,11 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
         return spannableString
     }
 
-    override fun onRefreshButtonClick() {
-        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            qualityViewModel.getHeatmap(lineId)
-        }
-    }
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-        try {
-            (requireActivity() as MainActivity).setOnToolBarListener(this)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ex.toString().log("dim")
-        }
-    }
+
+
+
+
 }

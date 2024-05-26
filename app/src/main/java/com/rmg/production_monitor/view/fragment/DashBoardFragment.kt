@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.log
+
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
@@ -86,8 +86,8 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             if (cumulativeDashboardSummaryPayload.poNumber.isNotEmpty()){
                 binding.textViewPO.text = changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber, 2)
             }
-            
-            
+
+
             binding.textTargetValue.text = cumulativeDashboardSummaryPayload.target
             binding.textActualValue.text = cumulativeDashboardSummaryPayload.actual
             binding.textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
@@ -100,14 +100,16 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             binding.textActualPlannedValue.text = cumulativeDashboardSummaryPayload.plannedEfficiency
             binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
         }
-    }
 
-    override fun onRefreshButtonClick() {
-        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+            }
         }
     }
+
+
 
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
         val spannableString = SpannableString(text)
@@ -117,14 +119,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-        try {
-            (requireActivity() as MainActivity).setOnToolBarListener(this)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ex.toString().log("dim")
-        }
-    }
+
+
 }

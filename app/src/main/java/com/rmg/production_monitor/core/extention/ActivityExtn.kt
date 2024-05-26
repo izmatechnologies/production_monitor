@@ -2,8 +2,10 @@ package com.rmg.production_monitor.core.extention
 
 import android.app.Activity
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.view.dialog.LogoutDialog
+import com.rmg.production_monitor.view.dialog.NoInternetConnectionDialog
 
 
 // todo don't use as extention funtion use as dependant inject ion
@@ -28,6 +30,26 @@ import com.rmg.production_monitor.core.view.dialog.LogoutDialog
 //    }
 //}
 // todo new  lout out button
+
+fun Activity.showNoInternetConnectionDialog(
+    context: Context,
+    onRetryButtonClick: (() -> Unit)? = null,
+    onCancelButtonClick: (() -> Unit)? = null
+) {
+
+    val dialog = NoInternetConnectionDialog(
+        context, R.style.NetworkConnectivityAlertDialog,
+        onRetryButtonClick, onCancelButtonClick
+    )
+
+
+    try {
+        dialog.show()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        e.toString().log("dialog")
+    }
+}
 
 fun Activity.showLogoutDialog(
     context: Context,
