@@ -160,6 +160,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() ,ToolbarInterface
             binding.textViewStyle.text = changeEndTextColor("Style - ${qualityPayload.style}", 6)
             binding.textViewColor.text = changeEndTextColor("Color - ${qualityPayload.color}", 6)
             binding.textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
+            binding.tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
+            binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
             if (qualityPayload.po.isNotEmpty()){
                 binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
             }
