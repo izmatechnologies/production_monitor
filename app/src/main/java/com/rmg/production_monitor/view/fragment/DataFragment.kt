@@ -11,7 +11,7 @@ import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.view.activity.ToolbarInterface
+
 import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
+class DataFragment : BaseFragment<FragmentDataBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
     private var flag: Boolean = false
 
@@ -31,7 +31,15 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
 
     override fun initializeData() {
         super.initializeData()
-
+        (requireActivity()as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            networkChecker {
+                val lineId=  mViewModel.getLineId()
+                "line id in Data frgament $lineId".log("192")
+                if (lineId != null) {
+                    mViewModel.getDashboardAnalytics(lineId.toInt())
+                }
+            }
+        }
 
     }
 
@@ -52,6 +60,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
             when (it) {
                 is NetworkResult.Success -> {
                     hideLoader()
+                    "success".log("192")
                     Log.i("rakib1", "setupObserver: ${it.data?.payload}")
                     binding.apply {
                    //     texttimeHour.text = "${it.data?.payload?.workingHour.toString()} Hr"
@@ -98,37 +107,11 @@ class DataFragment : BaseFragment<FragmentDataBinding>(), ToolbarInterface {
         }
 }
 
-    override fun onRefreshButtonClick() {
-//        networkChecker {
-//            val lineId=  mViewModel.getLineId()
-//            if (lineId != null) {
-//                mViewModel.getDashboardAnalytics(lineId.toInt())
-//            }
-//        }
-    }
 
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-        try {
-            (requireActivity() as MainActivity).setOnToolBarListener(this)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ex.toString().log("dim")
-        }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        (requireActivity()as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            networkChecker {
-                val lineId=  mViewModel.getLineId()
-                if (lineId != null) {
-                    mViewModel.getDashboardAnalytics(lineId.toInt())
-                }
-            }
-        }
-    }
+
+
 }

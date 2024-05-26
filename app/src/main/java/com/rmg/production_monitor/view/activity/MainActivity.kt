@@ -39,9 +39,7 @@ class MainActivity : AppCompatActivity() {
     // var toolbarInterface:ToolbarInterface? = null
 
 
-    fun setOnToolBarListener(toolbarInterface: ToolbarInterface?) {
-      //  this.toolbarInterface = toolbarInterface
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,27 +1,25 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Context
-import android.content.Intent
+
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import com.rmg.production_monitor.R
+
 import com.rmg.production_monitor.view.adapter.PCBAdapter
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.log
-import com.rmg.production_monitor.core.extention.showLogoutDialog
+
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
 import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.CumulativeDashboardDetailPayload
 import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.HourlyDetail
-import com.rmg.production_monitor.view.activity.LoginActivity
+
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.view.activity.ToolbarInterface
+
 import com.rmg.production_monitor.viewModel.CumulativeDashboardDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
+class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
     private val cumulativeDashboardDetailViewModel by viewModels<CumulativeDashboardDetailViewModel>()
     private lateinit var cumulativeDashboardDetailPayload: CumulativeDashboardDetailPayload
@@ -86,6 +84,14 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
             setUpRecycleView()
         }
 
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+
+            lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+            }
+        }
+
     }
 
     override fun setUpRecycleView() {
@@ -95,35 +101,11 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>(),ToolbarInterface {
         binding.recyclerView.adapter = pcbAdapter
     }
 
-    override fun onRefreshButtonClick() {
-//
-//        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
-//        networkChecker {
-//            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-//        }
-    }
 
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
 
-        try {
-            (requireActivity() as MainActivity).setOnToolBarListener(this)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ex.toString().log("dim")
-        }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
 
-        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
-        networkChecker {
-            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-        }
-        }
-    }
+
 }

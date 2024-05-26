@@ -1,11 +1,14 @@
 package com.rmg.production_monitor.core.extention
 
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.rmg.production_monitor.R
 
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.view.dialog.LogoutDialog
+import com.rmg.production_monitor.databinding.DialogNoNetworkFoundBinding
+import com.rmg.production_monitor.view.dialog.NoInternetConnectionDialog
 
 
 fun Fragment.showLogoutDialog(
@@ -27,78 +30,25 @@ fun Fragment.showLogoutDialog(
         e.toString().log("dialog")
     }
 }
-//
-//
-//fun Fragment.showNoInternetConnectionDialog(
-//context: Context,
-//onRetryButtonClick: (() -> Unit)? = null,
-//onCancelButtonClick: (() -> Unit)? = null
-//) {
-//
-//    val dialog = NoInternetConnectionDialog(
-//        context, R.style.NetworkConnectivityAlertDialog,
-//        onRetryButtonClick, onCancelButtonClick
-//    )
-//
-//
-//    try {
-//        dialog.show()
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//        e.toString().log("dialog")
-//    }
-//}
 
 
-//fun Fragment.networkChecker(getData: () -> Unit) {
-//    //if (NetworkManagerImpl().hasInternetConnection()) {
-//    if (true) {
-//        getData()
-//    } else {
-//        val builder =
-//            AlertDialog.Builder(requireContext(), R.style.NetworkConnectivityAlertDialog).create()
-//        val bind: DialogNoNetworkFoundBinding = DialogNoNetworkFoundBinding.inflate(layoutInflater)
-//
-//
-//
-//        bind.retryButton.setOnClickListener {
-//            builder.dismiss()
-//            networkChecker { getData() }
-//        }
-//        bind.cancelButton.setOnClickListener { builder.dismiss() }
-//
-//        builder.setCanceledOnTouchOutside(false)
-//
-//        builder.setView(bind.root)
-//        builder.show()
-//
-//
-//    }
-//}
+fun Fragment.showNoInternetConnectionDialog(
+    context: Context,
+    onRetryButtonClick: (() -> Unit)? = null,
+    onCancelButtonClick: (() -> Unit)? = null
+) {
 
-//fun Fragment.showOperationBottomSheet(operations: ArrayList<QcOperationEntity>,
-//                                      onPositiveButtonClick: ((QcOperationEntity?) -> Unit)? = null, ) {
-//
-//    val dialog = QcOperationBottomSheet(operations, onPositiveButtonClick)
-//
-//
-//    try{
-//        dialog.show(childFragmentManager, Constants.BottomSheetTag.OPERATION_B_S)
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//    }
-//}
-//
-//fun Fragment.showIssueBottomSheet(
-//    issuesList: List<QcIssueEntity?>,
-//    onPositiveButtonClick: ((QcIssueEntity?) -> Unit)? = null,
-//    onCloseButtonClick: (() -> Unit)? = null,
-//) {
-//
-//    val dialog = QcIssuesBottomSheet(issuesList,onPositiveButtonClick,onCloseButtonClick)
-//    try {
-//        dialog.show(childFragmentManager, Constants.BottomSheetTag.ISSUE_B_S)
-//    } catch (e: Exception) {
-//        e.printStackTrace()
-//    }
-//}
+    val dialog = NoInternetConnectionDialog(
+        context, R.style.NetworkConnectivityAlertDialog,
+        onRetryButtonClick, onCancelButtonClick
+    )
+
+
+    try {
+        dialog.show()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        e.toString().log("dialog")
+    }
+}
+

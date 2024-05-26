@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.rmg.production_monitor.R
+import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 //import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
@@ -88,11 +89,11 @@ abstract class BaseActivity<Vb:ViewBinding> : AppCompatActivity() , LoaderContro
             getData()
         } else {
 
-//            showNoInternetConnectionDialog(requireContext(),
-//                onRetryButtonClick = {
-//                    networkChecker { getData() }
-//                }
-//                )
+            showNoInternetConnectionDialog(this,
+                onRetryButtonClick = {
+                    networkChecker { getData() }
+                }
+                )
 
 
         }

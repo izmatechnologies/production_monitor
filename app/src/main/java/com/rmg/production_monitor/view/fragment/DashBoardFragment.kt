@@ -1,11 +1,11 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.log
+
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
@@ -85,30 +85,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             binding.textActualPlannedValue.text = cumulativeDashboardSummaryPayload.plannedEfficiency
             binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
         }
-    }
 
-    override fun onRefreshButtonClick() {
-//        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
-//        networkChecker {
-//            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
-//        }
-    }
-
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        try {
-            (requireActivity() as MainActivity).setOnToolBarListener(this)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            ex.toString().log("dim")
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
             lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
             networkChecker {
@@ -116,4 +93,12 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             }
         }
     }
+
+
+
+
+
+
+
+
 }
