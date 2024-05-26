@@ -110,7 +110,16 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
 
 
 
-
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            val lineId=  mViewModel.getLineId()
+            "line id in Data frgament $lineId".log("192")
+            if (lineId != null) {
+                mViewModel.getDashboardAnalytics(lineId.toInt())
+            }
+        }
+    }
 
 
 

@@ -239,13 +239,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
         }
 
-        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
 
-            lineId = qualityViewModel.getLineId()?.toInt() ?: 0
-            networkChecker {
-                qualityViewModel.getHeatmap(lineId)
-            }
-        }
 
     }
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
@@ -256,6 +250,16 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+
+            lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                qualityViewModel.getHeatmap(lineId)
+            }
+        }
+    }
 
 
 

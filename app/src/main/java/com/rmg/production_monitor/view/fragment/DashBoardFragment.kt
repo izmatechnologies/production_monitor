@@ -101,12 +101,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
             binding.textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
         }
 
-        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
-            networkChecker {
-                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
-            }
-        }
+
     }
 
 
@@ -119,6 +114,15 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+            lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+            }
+        }
+    }
 
 
 

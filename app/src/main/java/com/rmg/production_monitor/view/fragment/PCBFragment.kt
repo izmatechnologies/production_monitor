@@ -84,14 +84,6 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
             setUpRecycleView()
         }
 
-        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-
-            lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
-            networkChecker {
-                cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-            }
-        }
-
     }
 
     override fun setUpRecycleView() {
@@ -102,6 +94,16 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
+
+            lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+            networkChecker {
+                cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+            }
+        }
+    }
 
 
 
