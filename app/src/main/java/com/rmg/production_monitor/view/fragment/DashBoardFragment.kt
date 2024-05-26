@@ -1,6 +1,10 @@
 package com.rmg.production_monitor.view.fragment
 
 import android.content.Context
+import android.graphics.Color
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
@@ -68,11 +72,22 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         super.initializeData()
 
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
-            "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
-            "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
-            "Buyer - ${cumulativeDashboardSummaryPayload.buyerName}".also { binding.textViewBuyer.text = it }
-            "PO - ${cumulativeDashboardSummaryPayload.poNumber}".also { binding.textViewPO.text = it }
-            "Hour ${cumulativeDashboardSummaryPayload.hour}".also { binding.textViewHour.text = it }
+//            "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
+//            "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
+//            "Buyer - ${cumulativeDashboardSummaryPayload.buyerName}".also { binding.textViewBuyer.text = it }
+//            "PO - ${cumulativeDashboardSummaryPayload.poNumber}".also { binding.textViewPO.text = it }
+//            "Hour ${cumulativeDashboardSummaryPayload.hour}".also { binding.textViewHour.text = it }
+
+            binding.textViewStyle.text = changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
+            binding.textViewColor.text = changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
+            binding.textViewBuyer.text = changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
+            binding.tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.RunningDay}", 9)
+            binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.RununningHour}", 13)
+            if (cumulativeDashboardSummaryPayload.poNumber.isNotEmpty()){
+                binding.textViewPO.text = changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber, 2)
+            }
+            
+            
             binding.textTargetValue.text = cumulativeDashboardSummaryPayload.target
             binding.textActualValue.text = cumulativeDashboardSummaryPayload.actual
             binding.textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
@@ -94,6 +109,12 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         }
     }
 
+    private fun changeEndTextColor(text: String, start: Int): SpannableString {
+        val spannableString = SpannableString(text)
+        val white = ForegroundColorSpan(Color.WHITE)
+        spannableString.setSpan(white, start, text.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
+        return spannableString
+    }
 
 
     override fun onAttach(context: Context) {

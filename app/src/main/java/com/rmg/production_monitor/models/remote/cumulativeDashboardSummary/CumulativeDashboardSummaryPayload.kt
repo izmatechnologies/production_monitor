@@ -10,6 +10,10 @@ data class CumulativeDashboardSummaryPayload(
     val actualEfficiency: String,
     @SerializedName("BuyerName")
     val buyerName: String,
+    @SerializedName("RunningDay")
+    val RunningDay: Int,
+    @SerializedName("RununningHour")
+    val RununningHour: Int,
     @SerializedName("ColorName")
     val colorName: String,
     @SerializedName("DHU")
