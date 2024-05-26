@@ -5,43 +5,45 @@ import com.google.gson.annotations.SerializedName
 
 data class CumulativeDashboardSummaryPayload(
     @SerializedName("Actual")
-    val `actual`: String,
+    val `actual`: String?,
     @SerializedName("ActualEfficiency")
-    val actualEfficiency: String,
+    val actualEfficiency: Double?,
     @SerializedName("BuyerName")
-    val buyerName: String,
-    @SerializedName("RunningDay")
-    val RunningDay: Int,
-    @SerializedName("RununningHour")
-    val RununningHour: Int,
+    val buyerName: String?,
+    @SerializedName("RunDay")
+    val runDay: Int?,
+    @SerializedName("RunningHour")
+    val runningHour: Int?,
     @SerializedName("ColorName")
-    val colorName: String,
+    val colorName: String?,
     @SerializedName("DHU")
-    val dHU: String,
+    val dHU: Double?,
     @SerializedName("Helpers")
-    val helpers: String,
+    val helpers: String?,
     @SerializedName("Hour")
-    val hour: String,
-    @SerializedName("IronMan")
-    val ironMan: String,
+    val hour: String?,
+    @SerializedName("IronMen")
+    val ironMen: String?,
     @SerializedName("LineId")
-    val lineId: Int,
+    val lineId: Int?,
     @SerializedName("LineName")
-    val lineName: String,
+    val lineName: String?,
     @SerializedName("Operations")
-    val operations: String,
+    val operations: String?,
     @SerializedName("PlannedEfficiency")
-    val plannedEfficiency: String,
+    val plannedEfficiency: Double?,
     @SerializedName("PoNumber")
-    val poNumber: String,
+    val poNumber: String?,
     @SerializedName("StyleName")
-    val styleName: String,
+    val styleName: String?,
     @SerializedName("Target")
-    val target: String,
+    val target: String?,
     @SerializedName("Trend")
-    val trend: String,
+    val trend: String?,
     @SerializedName("Variance")
-    val variance: String,
+    val variance: String?,
     @SerializedName("WipTotal")
-    val wipTotal: String
+    val wipTotal: String?,
+    @SerializedName("Operators")
+    val operators: String?
 )
