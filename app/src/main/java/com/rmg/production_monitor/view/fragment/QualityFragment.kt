@@ -160,15 +160,17 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             binding.textViewStyle.text = changeEndTextColor("Style - ${qualityPayload.style}", 6)
             binding.textViewColor.text = changeEndTextColor("Color - ${qualityPayload.color}", 6)
             binding.textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
+            binding.tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
+            binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
             if (qualityPayload.po.isNotEmpty()){
                 binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
             }
 
-            "OVERALL DHU ${qualityPayload.overAllDhu}".also { binding.textViewOverallDHU.text = it }
+            //OverAll DHU count
+            "OVERALL DHU    ${qualityPayload.overAllDhu}".also { binding.tvOverAllDHU.text = it }
 
-
+            //Station wise DHU  list
             if (dhuList.isNotEmpty())dhuList.clear()
-            //Station wise DHU
             val dhuValue=qualityPayload.stationWiseDhus.map {
                 DhuValueList(
                     it.stationName,
@@ -191,7 +193,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 adapter=dhuAdapter
             }
 
-            //Defect Issue
+            //Defect Issue list
             if (issuesList.isNotEmpty())issuesList.clear()
             val issues= qualityPayload.heatMapIssues.map {
                 TopProductionsIssue(
@@ -231,9 +233,8 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 adapter=operationsAdapter
             }
 
-            "${qualityPayload.remainingDiffective}".also {
-                binding.tvRemDefectCount.text = it
-            }
+            //defect and reject count
+            "${qualityPayload.remainingDiffective}".also {binding.tvRemDefectCount.text = it }
             "${qualityPayload.totalReject}".also { binding.tvRejectsCount.text = it }
 
         }

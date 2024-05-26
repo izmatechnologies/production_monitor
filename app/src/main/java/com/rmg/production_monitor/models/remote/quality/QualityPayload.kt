@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class QualityPayload(
     @SerializedName("Buyer")
     val buyer: String,
+    @SerializedName("RunningDay")
+    val RunningDay: Int,
+    @SerializedName("RununningHour")
+    val RununningHour: Int,
     @SerializedName("Color")
     val color: String,
     @SerializedName("HeatMapIssues")

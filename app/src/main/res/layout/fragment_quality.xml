@@ -29,7 +29,7 @@
             android:paddingStart="10dp"
             android:text="Style  -"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewColor"
             app:layout_constraintHorizontal_bias="0.5"
@@ -45,7 +45,7 @@
             android:paddingStart="10dp"
             android:text="Color  -"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewBuyer"
             app:layout_constraintHorizontal_bias="0.5"
@@ -61,7 +61,7 @@
             android:paddingStart="10dp"
             android:text="Buyer  -"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewPO"
             app:layout_constraintHorizontal_bias="0.5"
@@ -77,43 +77,43 @@
             android:paddingStart="10dp"
             android:text="PO  -"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/tvRunDay"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/textViewBuyer"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvRunDay"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/line"
             android:paddingStart="10dp"
             android:text="-"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp"
+            android:textColor="#FFBF00"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView9"
+            app:layout_constraintEnd_toStartOf="@+id/tvRuningHour"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/textViewPO"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tvRuningHour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
             android:text="Hour 8Hr"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/tvRunDay"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -178,15 +178,15 @@
             app:layout_constraintStart_toEndOf="@+id/frameLayout"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewOverallDHU"
+            <TextView
+                android:id="@+id/tvOverAllDHU"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_view_card_dash_board"
                 android:padding="4dp"
-                android:text="OVERALL DHU%"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_8ssp"
+                tools:text="OverAllDHU "
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +202,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/constraint_top_issue_operations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewOverallDHU">
+                app:layout_constraintTop_toBottomOf="@+id/tvOverAllDHU">
 
                 <TextView
                     android:id="@+id/textViewStationWiseDHU"
@@ -219,22 +219,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/views"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:background="@color/black_80"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewStationWiseDHU" />
+<!--                <View-->
+<!--                    android:id="@+id/views"-->
+<!--                    android:layout_width="1dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:background="@color/black_80"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/textViewStationWiseDHU" />-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_dhu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/textview_outline_box_border"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/views"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewStationWiseDHU"
                     app:reverseLayout="false"
                     app:spanCount="2"
@@ -399,6 +400,7 @@
                         android:gravity="center"
                         tools:text="200"
                         android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"
@@ -445,6 +447,7 @@
                         android:gravity="center"
                         tools:text="200"
                         android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="1"

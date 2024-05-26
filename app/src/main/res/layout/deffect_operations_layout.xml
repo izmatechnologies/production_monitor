@@ -15,7 +15,7 @@
         android:padding="@dimen/_2sdp"
         android:text="A B C Issue"
         android:textColor="@color/white"
-        android:textSize="@dimen/_8ssp"
+        android:textSize="@dimen/_7ssp"
         app:layout_constraintEnd_toStartOf="@+id/tv_issue_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />/ >
