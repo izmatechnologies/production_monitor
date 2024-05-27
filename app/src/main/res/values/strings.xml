@@ -58,4 +58,15 @@
     <string name="cancel">Cancel</string>
     <string name="inside">inside</string>
     <string name="operators">Operators</string>
+    <string name="ironman">Ironman</string>
+    <string name="day_target">DAY TARGET</string>
+    <string name="man_power">MAN POWER</string>
+    <string name="wip_total">WIP TOTAL</string>
+    <string name="production">PRODUCTION</string>
+    <string name="actual"><u> Actual </u></string>
+    <string name="efficiency">EFFICIENCY</string>
+    <string name="trend">TREND</string>
+    <string name="variance"><u> Variance </u></string>
+    <string name="target"> <u> Target </u></string>
+    <string name="helpers">Helpers</string>
 </resources>

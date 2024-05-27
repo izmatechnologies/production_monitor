@@ -2,7 +2,9 @@ package com.rmg.production_monitor.view.fragment
 
 import android.R
 import android.graphics.Color
+import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
@@ -26,7 +28,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
     private var flag: Boolean = false
     var lineId = 0
-
+    private lateinit var spannableStringBuilder: SpannableStringBuilder
     override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
         return FragmentDashBoardBinding.inflate(inflater)
     }
@@ -75,7 +77,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun initializeData() {
         super.initializeData()
-
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
 //            "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
 //            "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
@@ -106,17 +107,12 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 textActualValue.text = cumulativeDashboardSummaryPayload.actual
                 textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
                 textTrendValue.text = cumulativeDashboardSummaryPayload.trend
-                textDHUValue.text = "${cumulativeDashboardSummaryPayload.dHU} %"
-                textDHUValue.text=changeTextSize("DHU ${cumulativeDashboardSummaryPayload.dHU}%")
+                textDHUValue.text=changeTextSize("DHU","${cumulativeDashboardSummaryPayload.dHU}%")
 
                 textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
-                textActualPercentValue.text =
-                    "${cumulativeDashboardSummaryPayload.actualEfficiency} %"
-                progressBar.progress =
-                    cumulativeDashboardSummaryPayload.actualEfficiency?.toInt() ?: 0
-
-                textActualPlannedValue.text =
-                    "${cumulativeDashboardSummaryPayload.plannedEfficiency} %"
+                textActualPercentValue.text = "${cumulativeDashboardSummaryPayload.actualEfficiency} %"
+                progressBar.progress = cumulativeDashboardSummaryPayload.actualEfficiency?.toInt() ?: 0
+                textActualPlannedValue.text = changeTextSize("Planned","${cumulativeDashboardSummaryPayload.plannedEfficiency}%")
                 textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
                 textOperationValue.text = cumulativeDashboardSummaryPayload.operators
                 textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
@@ -128,10 +124,12 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
 
-    private fun changeTextSize(text: String):SpannableString {
-        val ss1 = SpannableString(text)
-        ss1.setSpan(RelativeSizeSpan(2f), 0, 5, 0) // set size
-        return ss1
+    private fun changeTextSize(word1:String,word2:String): SpannableStringBuilder {
+        spannableStringBuilder=SpannableStringBuilder()
+        spannableStringBuilder.append(word1, RelativeSizeSpan(1.5f), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableStringBuilder.append(" ")
+        spannableStringBuilder.append(word2, RelativeSizeSpan(5.0f), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return spannableStringBuilder
     }
 
     private fun changeEndTextColor(text: String, start: Int): SpannableString {

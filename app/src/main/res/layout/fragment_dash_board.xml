@@ -11,7 +11,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#808080"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Style  -"
+            tools:text="Style  -"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewColor"
             app:layout_constraintHorizontal_bias="0.5"
@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Color  -"
+            tools:text="Color  -"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewBuyer"
 
@@ -59,7 +59,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Buyer  -"
+            tools:text="Buyer  -"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewPO"
             app:layout_constraintHorizontal_bias="0.5"
@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="PO  -"
+            tools:text="PO  -"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvRunDay"
             app:layout_constraintHorizontal_bias="0.5"
@@ -87,7 +87,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="-"
+            tools:text="-"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvRuningHour"
             app:layout_constraintHorizontal_bias="0.5"
@@ -100,7 +100,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:paddingStart="10dp"
-            android:text="Hour 8Hr"
+            tools:text="Hour 8Hr"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -123,14 +123,18 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
             <TextView
                 android:id="@+id/tv_production_title"
-                style="@style/whiteText25"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="PRODUCTION"
+                android:text="@string/production"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:padding="4dp"
+                android:background="@drawable/textview_outline_box_border"
+                android:fontFamily="@font/nanum_gothic_extra_bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -174,10 +178,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:text="Target"
+                    android:text="@string/target"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9ssp"
+                    android:padding="4dp"
+                    android:fontFamily="@font/nanum_gothic_regular"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -189,6 +194,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_28ssp"
+                    android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toTopOf="@+id/guideline_h_33"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -215,52 +221,55 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:text="Actual"
+                        android:padding="4dp"
+                        android:text="@string/actual"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_9ssp"
+                        android:fontFamily="@font/nanum_gothic_regular"
                         app:layout_constraintBottom_toTopOf="@+id/guideline_v"
                         app:layout_constraintEnd_toStartOf="@+id/guideline_v"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/guideline_h_33" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                         android:id="@+id/textActualValue"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:gravity="center"
+                        android:padding="2dp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_28ssp"
-                        android:padding="2dp"
+                        android:fontFamily="@font/nanum_gothic_bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideline_v"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textActual"
-                        tools:text="000d00" />
+                        tools:text="00000" />
                     <!-- end actual-->
-                    
+
                     <!--Variance -->
                     <TextView
                         android:id="@+id/textVariance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:text="Variance"
+                        android:text="@string/variance"
+                        android:padding="4dp"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_9ssp" 
+                        android:textSize="@dimen/_9ssp"
+                        android:fontFamily="@font/nanum_gothic_regular"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline_v"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textVarianceValue"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:gravity="center"
+                        android:padding="2dp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_28ssp"
-                        android:padding="2dp"
+                        android:fontFamily="@font/nanum_gothic_bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/guideline_v"
@@ -281,60 +290,62 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_trend_v"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".30" />
+            <!-- <androidx.constraintlayout.widget.Guideline
+                 android:id="@+id/guideline_trend_v"
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical"
+                 app:layout_constraintGuide_percent=".30" />-->
             <!-- horizontal -->
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_trend_h"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".50" />
+                app:layout_constraintGuide_percent=".30" />
 
 
-            <TextView
-                style="@style/whiteText25"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="TREND"
-                app:layout_constraintBottom_toTopOf="@+id/guideline_trend_h"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_trend_v"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/textTrendValue"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_28ssp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_trend_h"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/guideline_trend_v"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="0000" />
-
-
-            <TextView
-                style="@style/whiteText25"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="DHU%"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_trend_v"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideline_trend_h" />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_outline_box_border"
+                    android:fontFamily="@font/nanum_gothic_extra_bold"
+                    android:padding="4dp"
+                    android:text="@string/trend"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/textTrendValue"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/nanum_gothic_bold"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_28ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    tools:text="0000" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textDHUValue"
@@ -342,12 +353,11 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:gravity="center"
-                android:paddingLeft="10dp"
                 android:textColor="@color/txt_dhu"
-                android:textSize="@dimen/_2ssp"
+                android:fontFamily="@font/nanum_gothic_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline_trend_v"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/guideline_trend_h"
                 tools:text="0%" />
 
@@ -357,100 +367,97 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
             <TextView
                 android:id="@+id/titleEfficiency"
-                style="@style/whiteText25"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="EFFICIENCY"
+                android:background="@drawable/textview_outline_box_border"
+                android:fontFamily="@font/nanum_gothic_extra_bold"
+                android:padding="4dp"
+                android:text="@string/efficiency"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/bg_view_card_dash_board"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleEfficiency">
 
 
                 <!-- vertical -->
-                <androidx.constraintlayout.widget.Guideline
+<!--                <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_efficiency_v"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent=".3" />
+                    app:layout_constraintGuide_percent=".3" />-->
                 <!-- horizontal -->
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_efficiency_h"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".5" />
+                    app:layout_constraintGuide_percent=".7" />
 
-                <TextView
-                    android:id="@+id/textActualPercent"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="start|center"
-                    android:text="Actual"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintBottom_toTopOf="@id/guideline_efficiency_h"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_efficiency_v"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textActualPercentValue"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_18ssp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline_efficiency_h"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textActualPercent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="0%" />
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="12dp"
-                    android:background="@drawable/dashboard_actual_circule"
-                    android:indeterminate="false"
-                    android:progressDrawable="@drawable/dashboard_actual_progres_bar"
-                    android:textAlignment="center"
-                    android:progress="50"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline_efficiency_h"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textActualPercent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/textPlanned"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="start|center"
-                    android:text="Planned"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_9ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_efficiency_v"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/guideline_efficiency_h" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textActualPercent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/actual"
+                        android:padding="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_9ssp"
+                        android:fontFamily="@font/nanum_gothic_regular"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textActualPercentValue"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fontFamily="@font/nanum_gothic_bold"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+                        app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                        app:layout_constraintTop_toBottomOf="@+id/textActualPercent"
+                        tools:text="0%" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="0dp"
+                        android:indeterminate="false"
+                        android:progress="35"
+                        android:progressDrawable="@drawable/dashboard_actual_progres_bar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textActualPercent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textActualPlannedValue"
@@ -458,10 +465,10 @@
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_28ssp"
+                    android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/guideline_efficiency_v"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/guideline_efficiency_h"
                     tools:text="0%" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -476,7 +483,7 @@
     <LinearLayout
         android:id="@+id/layoutMain3"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutMain2">
@@ -487,22 +494,26 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_dayTarget_h"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".3" />
+                app:layout_constraintGuide_percent=".19" />
 
             <TextView
                 android:id="@+id/titleDayTarget"
-                style="@style/whiteText25"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center"
-                android:text="DAY TARGET"
+                android:gravity="start|center"
+                android:background="@drawable/textview_outline_box_border"
+                android:fontFamily="@font/nanum_gothic_extra_bold"
+                android:padding="4dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/day_target"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_dayTarget_h"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -517,6 +528,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_28ssp"
+                android:fontFamily="@font/nanum_gothic_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -529,14 +541,18 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
             <TextView
                 android:id="@+id/titlePower"
-                style="@style/whiteText25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="MAN POWER"
+                android:background="@drawable/textview_outline_box_border"
+                android:fontFamily="@font/nanum_gothic_extra_bold"
+                android:padding="4dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/man_power"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -553,6 +569,7 @@
                     android:id="@+id/textOperationValue"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:fontFamily="@font/nanum_gothic_bold"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20ssp"
@@ -565,12 +582,15 @@
 
                 <TextView
                     android:id="@+id/textOperation"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="12dp"
                     android:text="@string/operators"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9ssp"
+                    android:fontFamily="@font/nanum_gothic_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -595,6 +615,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20ssp"
+                    android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toTopOf="@+id/textHelpers"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -604,12 +625,15 @@
 
                 <TextView
                     android:id="@+id/textHelpers"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Helpers"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="12dp"
+                    android:text="@string/helpers"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9ssp"
+                    android:fontFamily="@font/nanum_gothic_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -633,6 +657,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20ssp"
+                    android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toTopOf="@+id/textIronman"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -643,11 +668,14 @@
                 <TextView
                     android:id="@+id/textIronman"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Ironman"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="12dp"
+                    android:text="@string/ironman"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9ssp"
+                    android:fontFamily="@font/nanum_gothic_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -663,23 +691,25 @@
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@color/bg_view_card_dash_board">
+            android:background="@drawable/textview_outline_box_border">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_wiptotal_h"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".3" />
+                app:layout_constraintGuide_percent=".19" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:text="WIP TOTAL"
+                android:gravity="start|center"
+                android:background="@drawable/textview_outline_box_border"
+                android:fontFamily="@font/nanum_gothic_extra_bold"
+                android:padding="4dp"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_9ssp"
+                android:textSize="@dimen/_10ssp"
+                android:text="@string/wip_total"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_wiptotal_h"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -694,6 +724,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_28ssp"
+                android:fontFamily="@font/nanum_gothic_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
