@@ -14,6 +14,7 @@ class TopProductionsIssueAdapter(
     private val context:Context,
     private var topIssues: List<TopProductionsIssue>
 ) : RecyclerView.Adapter<TopProductionsIssueAdapter.DefectOperationsViewHolder>() {
+
     fun submit(topIssues: List<TopProductionsIssue>){
         this.topIssues=topIssues
         notifyDataSetChanged()

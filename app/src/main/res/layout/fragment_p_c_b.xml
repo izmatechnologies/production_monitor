@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Style  -"
+            tools:text="Style  -"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
 
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Color  -"
+            tools:text="Color  -"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
 
@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="Buyer  -"
+            tools:text="Buyer  -"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
 
@@ -63,118 +63,49 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="PO  -"
+            tools:text="PO  -"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
 
         <TextView
+            android:id="@+id/tvRunDay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
-            android:text="-"
-            android:textColor="@color/white"
+            tools:text="-"
+            android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
 
         <TextView
-            android:id="@+id/textViewHour"
+            android:id="@+id/tvRunningHour"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingStart="10dp"
-            android:text="Hour 8Hr"
+            tools:text="Hour 8Hr"
             android:textColor="#FFBF00"
             android:textSize="@dimen/_9ssp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_below="@+id/linearLayout2"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="HOUR"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="HOURLY [PCS] ACTUAL / PLAN"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="CUM. [PCS] ACTUAL / PLAN"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="VARIANCE [PCS] HOURLY / CUM."
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="CUM.SAH [PCS] ACTUAL / CUM."
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="DHU"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="ACTUAL EFF%"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingStart="10dp"
-            android:text="EFF.VARIANCE%"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-    </LinearLayout>
+        app:spanCount="8"
+        tools:itemCount="8"
+        tools:listitem="@layout/row_p_c_b_top_column_name" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout3"
+        android:layout_below="@+id/recyclerView_top"
         android:layout_alignParentBottom="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_p_c_b" />
+        tools:listitem="@layout/row_p_c_b_main" />
 </RelativeLayout>

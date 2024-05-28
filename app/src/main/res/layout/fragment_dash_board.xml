@@ -122,7 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_weight=".9"
             android:background="@drawable/textview_outline_box_border">
 
             <TextView
@@ -149,22 +149,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_production_title">
-                <!-- vertical -->
-                <!-- horizontal -->
-                <!--        <androidx.constraintlayout.widget.Guideline
-                            android:id="@+id/guideline_h_33"
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            app:layout_constraintGuide_percent=".33" />-->
-
-                <!--                <androidx.constraintlayout.widget.Guideline-->
-                <!--                    android:id="@+id/guideline_h_66"-->
-                <!--                    android:layout_width="1dp"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:orientation="horizontal"-->
-                <!--                    app:layout_constraintGuide_percent=".66" />-->
-
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_h_33"
@@ -304,10 +288,11 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent=".30" />
+                app:layout_constraintGuide_percent=".4" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline_trend_h"
@@ -321,6 +306,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_outline_box_border"
                     android:fontFamily="@font/nanum_gothic_extra_bold"
+                    android:gravity="center"
                     android:padding="4dp"
                     android:text="@string/trend"
                     android:textColor="@color/white"
@@ -335,8 +321,8 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:fontFamily="@font/nanum_gothic_bold"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
+                    android:gravity="center|top"
+                    android:paddingTop="20dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_28ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -347,18 +333,33 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textDhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nanum_gothic_regular"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/dhu"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline_trend_h" />
+
             <TextView
                 android:id="@+id/textDHUValue"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_margin="10dp"
+                android:padding="4dp"
+                android:fontFamily="@font/nanum_gothic_bold"
                 android:gravity="center"
                 android:textColor="@color/txt_dhu"
-                android:fontFamily="@font/nanum_gothic_bold"
+                android:textSize="@dimen/_44ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideline_trend_h"
+                app:layout_constraintTop_toBottomOf="@+id/textDhu"
                 tools:text="0%" />
 
 
@@ -483,7 +484,7 @@
     <LinearLayout
         android:id="@+id/layoutMain3"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="@dimen/_80sdp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutMain2">
@@ -507,7 +508,7 @@
                 android:id="@+id/titleDayTarget"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:background="@drawable/textview_outline_box_border"
                 android:fontFamily="@font/nanum_gothic_extra_bold"
                 android:padding="4dp"
@@ -533,7 +534,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/guideline_dayTarget_h"
-                tools:text="0%" />
+                tools:text="0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -547,6 +548,7 @@
                 android:id="@+id/titlePower"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:background="@drawable/textview_outline_box_border"
                 android:fontFamily="@font/nanum_gothic_extra_bold"
                 android:padding="4dp"
@@ -572,7 +574,7 @@
                     android:fontFamily="@font/nanum_gothic_bold"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_16ssp"
                     app:layout_constraintBottom_toTopOf="@+id/textOperation"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -614,7 +616,7 @@
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_16ssp"
                     android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toTopOf="@+id/textHelpers"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -656,7 +658,7 @@
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_20ssp"
+                    android:textSize="@dimen/_16ssp"
                     android:fontFamily="@font/nanum_gothic_bold"
                     app:layout_constraintBottom_toTopOf="@+id/textIronman"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -703,7 +705,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="start|center"
+                android:gravity="center"
                 android:background="@drawable/textview_outline_box_border"
                 android:fontFamily="@font/nanum_gothic_extra_bold"
                 android:padding="4dp"

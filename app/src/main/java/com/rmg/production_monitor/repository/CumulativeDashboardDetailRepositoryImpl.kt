@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.service.ApiService
-import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.CumulativeDashboardDetailModel
+import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.CumulativeDashboardDetailModel
 import org.json.JSONObject
 import javax.inject.Inject
 

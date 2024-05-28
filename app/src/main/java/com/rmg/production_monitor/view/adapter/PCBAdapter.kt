@@ -1,17 +1,26 @@
 package com.rmg.production_monitor.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.rmg.production_monitor.databinding.RowPCBBinding
-import com.rmg.production_monitor.models.remote.CumulativeDashboardDetail.HourlyDetail
+import com.rmg.production_monitor.databinding.RowPCBMainBinding
+import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.HourlyDetail
 
 class PCBAdapter(
-    private val hourlyDetailList: List<HourlyDetail>
+    private val context: Context,
+    private var hourlyDetailList: List<HourlyDetail?>
 ) : RecyclerView.Adapter<PCBAdapter.PCBViewHolder>() {
 
+    fun submit(hourlyDetailList: List<HourlyDetail?>){
+        this.hourlyDetailList=hourlyDetailList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PCBViewHolder {
-        return PCBViewHolder(RowPCBBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return PCBViewHolder(RowPCBMainBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -20,21 +29,25 @@ class PCBAdapter(
 
     override fun onBindViewHolder(holder: PCBViewHolder, position: Int) {
         val item = hourlyDetailList[position]
-        holder.bind(item)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class PCBViewHolder(
-        private val binding: RowPCBBinding
+        private val binding: RowPCBMainBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: HourlyDetail) {
-            binding.textView1.text = item.hour.toString()
-            binding.textView2.text = item.hourlyPcsActualPlan
-            binding.textView3.text = item.cumulativePcsActualPlan
-            binding.textView4.text = item.variancePcsHourlyCum
-//            binding.textView5.text = item.string5
-//            binding.textView6.text = item.string6
-//            binding.textView7.text = item.string7
-//            binding.textView8.text = item.string8
+            binding.apply {
+                textHour.text = item.hour.toString()
+
+                val pcbChildAdapter= item.columnValues?.let { PCBChildAdapter(it) }
+
+                recyclerView.apply {
+                    adapter=pcbChildAdapter
+                }
+
+            }
         }
     }
 }

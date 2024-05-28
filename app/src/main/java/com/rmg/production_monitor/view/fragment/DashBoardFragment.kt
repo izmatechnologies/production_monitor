@@ -78,41 +78,32 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     override fun initializeData() {
         super.initializeData()
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
-//            "Style - ${cumulativeDashboardSummaryPayload.styleName}".also { binding.textViewStyle.text = it }
-//            "Color - ${cumulativeDashboardSummaryPayload.colorName}".also { binding.textViewColor.text = it }
-//            "Buyer - ${cumulativeDashboardSummaryPayload.buyerName}".also { binding.textViewBuyer.text = it }
-//            "PO - ${cumulativeDashboardSummaryPayload.poNumber}".also { binding.textViewPO.text = it }
-//            "Hour ${cumulativeDashboardSummaryPayload.hour}".also { binding.textViewHour.text = it }
 
-            binding.textViewStyle.text =
-                changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
-            binding.textViewColor.text =
-                changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
-            binding.textViewBuyer.text =
-                changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
-            binding.tvRunDay.text =
-                changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.runDay}", 9)
-            binding.tvRuningHour.text = changeEndTextColor(
-                "Running Hour - ${cumulativeDashboardSummaryPayload.runningHour}",
-                13
-            )
-            if (cumulativeDashboardSummaryPayload.poNumber?.isNotEmpty() == true) {
-                binding.textViewPO.text =
-                    changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber ?: "", 2)
-            }
+
 
 
             binding.apply {
+                textViewStyle.text = changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
+                textViewColor.text = changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
+                textViewBuyer.text = changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
+                tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.runDay}", 9)
+                tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.runningHour}", 13)
+                if (cumulativeDashboardSummaryPayload.poNumber?.isNotEmpty() == true) {
+                    textViewPO.text = changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber ?: "", 2)
+                }
+
+
                 textTargetValue.text = cumulativeDashboardSummaryPayload.target
                 textActualValue.text = cumulativeDashboardSummaryPayload.actual
                 textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
                 textTrendValue.text = cumulativeDashboardSummaryPayload.trend
-                textDHUValue.text=changeTextSize("DHU","${cumulativeDashboardSummaryPayload.dHU}%")
+//                textDHUValue.text=changeTextSize("${cumulativeDashboardSummaryPayload.dHU}%",5.5f,"DHU",1.0f,)
+                textDHUValue.text="${cumulativeDashboardSummaryPayload.dHU}%"
 
                 textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
                 textActualPercentValue.text = "${cumulativeDashboardSummaryPayload.actualEfficiency} %"
                 progressBar.progress = cumulativeDashboardSummaryPayload.actualEfficiency?.toInt() ?: 0
-                textActualPlannedValue.text = changeTextSize("Planned","${cumulativeDashboardSummaryPayload.plannedEfficiency}%")
+                textActualPlannedValue.text = changeTextSize("Planned",.5f,"${cumulativeDashboardSummaryPayload.plannedEfficiency}%",4.0f)
                 textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
                 textOperationValue.text = cumulativeDashboardSummaryPayload.operators
                 textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
@@ -124,11 +115,11 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     }
 
 
-    private fun changeTextSize(word1:String,word2:String): SpannableStringBuilder {
+    private fun changeTextSize(word1:String,word1Size:Float,word2:String,word2Size:Float): SpannableStringBuilder {
         spannableStringBuilder=SpannableStringBuilder()
-        spannableStringBuilder.append(word1, RelativeSizeSpan(1.5f), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableStringBuilder.append(word1, RelativeSizeSpan(word1Size), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableStringBuilder.append(" ")
-        spannableStringBuilder.append(word2, RelativeSizeSpan(5.0f), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableStringBuilder.append(word2, RelativeSizeSpan(word2Size), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return spannableStringBuilder
     }
 
