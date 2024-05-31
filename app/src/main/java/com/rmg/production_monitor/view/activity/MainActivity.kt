@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         initializeData()
         setUpAdapter()
 
-        val handler = Handler(Looper.getMainLooper())
+        handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
                 updateTime()
@@ -89,17 +89,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-//        binding.btnPause.setOnClickListener{
-//            if (!flag){
-//                flag=true
-//                handler.removeCallbacks(runnable)
-//            }else{
-//                startAutoScroll()
-//                flag=false
-//            }
-//
-//        }
     }
 
     private fun updateTime() {
@@ -123,14 +112,6 @@ class MainActivity : AppCompatActivity() {
             startAutoScroll()
             mViewModel.saveSliderValue(false)
         }
-
-
-//        binding.imgBtnRefresh.setOnClickListener {
-//            toolbarInterface?.onRefreshButtonClick()
-//        }
-
-
-
         binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.tvPageTitle.text= fragmentList[position].fragmentTitle
@@ -141,8 +122,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initializeData() {
-
+    private fun initializeData() {
         fragmentList.add(DisplayFragment("Quality",QualityFragment()))
         fragmentList.add(DisplayFragment("PCB",PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..",DashBoardFragment()))
@@ -152,13 +132,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun setUpAdapter() {
+    private fun setUpAdapter() {
 
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager, lifecycle, fragmentList)
         binding.viewPager.adapter = pagerAdapter
     }
 
-    fun startAutoScroll() {
+    private fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
           //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
@@ -172,11 +152,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        handler.removeCallbacks(runnable)
+        handler.removeCallbacksAndMessages(null)
     }
 
 
-    fun stopScrolling() {
+    private fun stopScrolling() {
         handler.removeCallbacksAndMessages(null)
     }
 

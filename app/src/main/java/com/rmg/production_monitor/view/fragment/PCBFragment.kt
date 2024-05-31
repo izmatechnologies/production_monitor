@@ -2,10 +2,13 @@ package com.rmg.production_monitor.view.fragment
 
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -31,6 +34,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     private lateinit var pcbTopColumnNameAdapter: PCBTopColumnNameAdapter
     private var flag: Boolean = false
     var lineId = 0
+    private lateinit var handler: Handler
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentPCBBinding {
         return FragmentPCBBinding.inflate(inflater)
@@ -38,7 +42,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
-        lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+        lineId = cumulativeDashboardDetailViewModel.getLineId()?: 0
         networkChecker {
             cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
         }
@@ -151,17 +155,31 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
         return spannableString
     }
 
+    private fun updateData() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                callInitialApi()
+                handler.postDelayed(this, 10000)
+            }
+        })
+    }
 
     override fun onResume() {
         super.onResume()
+        updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-
             lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
             networkChecker {
                 cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
             }
         }
     }
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
+    }
+
 
 
 }

@@ -1,8 +1,10 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -11,7 +13,6 @@ import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.view.activity.MainActivity
-
 import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +23,7 @@ import javax.inject.Inject
 class DataFragment : BaseFragment<FragmentDataBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
     private var flag: Boolean = false
+    private lateinit var handler: Handler
 
     @Inject
     lateinit var daAdapter: DAAdapter
@@ -107,11 +109,21 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         }
 }
 
+    private fun updateData() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                callInitialApi()
+                handler.postDelayed(this, 10000)
+            }
+        })
+    }
 
 
 
     override fun onResume() {
         super.onResume()
+        updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
             val lineId=  mViewModel.getLineId()
             "line id in Data frgament $lineId".log("192")
@@ -119,6 +131,11 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                 mViewModel.getDashboardAnalytics(lineId.toInt())
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
     }
 
 

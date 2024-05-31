@@ -3,10 +3,14 @@ package com.rmg.production_monitor.view.fragment
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
@@ -16,6 +20,7 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.R
+import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.Error
 import com.rmg.production_monitor.core.data.NetworkResult.Loading
@@ -50,18 +55,21 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private lateinit var issuesAdapter:TopProductionsIssueAdapter
     private lateinit var operationsAdapter:TopProductionsIssueAdapter
     var lineId =  0
-
+    private lateinit var handler: Handler
     // The list of coordinates for the dots
     // Declare dotCoordinates globally
     private var dotCoordinates: Array<DataPoint>? = null
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentQualityBinding {
+
+
+
         return FragmentQualityBinding.inflate(inflater)
     }
 
     override fun callInitialApi() {
         super.callInitialApi()
-        lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+        lineId = qualityViewModel.getLineId()?: 0
         networkChecker {
             qualityViewModel.getHeatmap(lineId)
         }
@@ -104,156 +112,165 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
     override fun initializeData() {
         super.initializeData()
+        binding.apply {
+            dhuList= mutableListOf()
+            issuesList= mutableListOf()
+            operationsList= mutableListOf()
 
+            //DHU Adapter
+            dhuAdapter=StationWiseDHUAdapter(dhuList)
+            rvDhu.apply {
+                setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.HORIZONTAL
+                ))
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
+                adapter=dhuAdapter
+            }
 
-        dhuList= mutableListOf()
-        issuesList= mutableListOf()
-        operationsList= mutableListOf()
+            //Defect Issue list
+            issuesAdapter= TopProductionsIssueAdapter(requireContext(),issuesList.sortedBy {it.value }.reversed())
+            rvViewIssues.apply {
+                setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
+                adapter=issuesAdapter
+            }
 
-        //DHU Adapter
-        dhuAdapter=StationWiseDHUAdapter(dhuList)
-        binding.rvDhu.apply {
-            setHasFixedSize(true)
-            addItemDecoration( DividerItemDecoration(
-                activity,
-                DividerItemDecoration.HORIZONTAL
-            ))
-            addItemDecoration( DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            ))
-            adapter=dhuAdapter
+            //operations List
+            operationsAdapter= TopProductionsIssueAdapter(requireContext(),operationsList.sortedBy { it.value }.reversed())
+            rvViewOperations.apply {
+                setHasFixedSize(true)
+                addItemDecoration( DividerItemDecoration(
+                    activity,
+                    DividerItemDecoration.VERTICAL
+                ))
+                adapter=operationsAdapter
+            }
+
+            imageView.viewTreeObserver.addOnGlobalLayoutListener {
+                // Get the width and height of the imageView
+                finalWidth = imageView.width.toFloat()
+                finalHeight = imageView.height.toFloat()
+
+            }
         }
+    }
 
-        //Defect Issue list
-        issuesAdapter= TopProductionsIssueAdapter(requireContext(),issuesList.sortedBy {it.value }.reversed())
-        binding.rvViewIssues.apply {
-            setHasFixedSize(true)
-            addItemDecoration( DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            ))
-            adapter=issuesAdapter
-        }
-
-        //operations List
-        operationsAdapter= TopProductionsIssueAdapter(requireContext(),operationsList.sortedBy { it.value }.reversed())
-        binding.rvViewOperations.apply {
-            setHasFixedSize(true)
-            addItemDecoration( DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            ))
-            adapter=operationsAdapter
-        }
-
-        binding.imageView.viewTreeObserver.addOnGlobalLayoutListener {
-            // Get the width and height of the imageView
-            finalWidth = binding.imageView.width.toFloat()
-            finalHeight = binding.imageView.height.toFloat()
-
-        }
-
+    private fun updateData() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                callInitialApi()
+                handler.postDelayed(this, 10000)
+            }
+        })
     }
 
     private fun heatMapData(){
         if (::qualityPayload.isInitialized) {
-            imagePath = qualityPayload.imageUrl.replace("\\", "/")
-            "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
+            binding.apply {
+                imagePath = qualityPayload.imageUrl.replace("\\", "/")
+                "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
 
-            dotCoordinates = qualityPayload.heatMapPositions.map { position ->
-                DataPoint(position.x.toDouble(), position.y.toDouble())
-            }.toTypedArray()
-
-
-
-            Glide.with(requireContext()).asBitmap().load(imagePath).error(R.drawable.chart_image)
-                .into(object : BitmapImageViewTarget(binding.imageView) {
-                    override fun onResourceReady(
-                        resource: Bitmap, transition: Transition<in Bitmap>?
-                    ) {
-                        // Make a mutable copy of the bitmap to draw on
-                        mutableBitmap = resource.copy(Bitmap.Config.ARGB_8888, true)
-                        // Set the modified bitmap to the ImageView
-                        binding.imageView.setImageBitmap(mutableBitmap)
-                    }
-                })
-
-            binding.graph.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE // Disable grid lines
-
-            binding.graph.gridLabelRenderer.isHorizontalLabelsVisible = false // Hide horizontal labels (X-axis)
-
-            binding.graph.gridLabelRenderer.isVerticalLabelsVisible = false // Hide vertical labels (Y-axis)
-
-
-            binding.graph.viewport.isYAxisBoundsManual = true
-            binding.graph.viewport.setMinY(0.0)
-            binding.graph.viewport.setMaxY(10.0)
-
-            binding.graph.viewport.isXAxisBoundsManual = true
-            binding.graph.viewport.setMinX(0.0)
-            binding.graph.viewport.setMaxX(5.0)
-
-            // Add the data points to the graph
-            val dotSeries = PointsGraphSeries(dotCoordinates)
-            dotSeries.color = Color.RED // Set color of the dots
-            dotSeries.size = 6f // Set size of the dots
-            binding.graph.addSeries(dotSeries)
+                dotCoordinates = qualityPayload.heatMapPositions.map { position ->
+                    DataPoint(position.x.toDouble(), position.y.toDouble())
+                }.toTypedArray()
 
 
 
-            binding.textViewStyle.text = changeEndTextColor("Style - ${qualityPayload.style}", 6)
-            binding.textViewColor.text = changeEndTextColor("Color - ${qualityPayload.color}", 6)
-            binding.textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
-            binding.tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
-            binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
-            if (qualityPayload.po.isNotEmpty()){
-                binding.textViewPO.text = changeEndTextColor("PO-${qualityPayload.po?:""}", 2)
+                Glide.with(requireContext()).asBitmap().load(imagePath).error(R.drawable.chart_image)
+                    .into(object : BitmapImageViewTarget(imageView) {
+                        override fun onResourceReady(
+                            resource: Bitmap, transition: Transition<in Bitmap>?
+                        ) {
+                            // Make a mutable copy of the bitmap to draw on
+                            mutableBitmap = resource.copy(Bitmap.Config.ARGB_8888, true)
+                            // Set the modified bitmap to the ImageView
+                            imageView.setImageBitmap(mutableBitmap)
+                        }
+                    })
+
+                graph.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.NONE // Disable grid lines
+
+                graph.gridLabelRenderer.isHorizontalLabelsVisible = false // Hide horizontal labels (X-axis)
+
+                graph.gridLabelRenderer.isVerticalLabelsVisible = false // Hide vertical labels (Y-axis)
+
+
+                graph.viewport.isYAxisBoundsManual = true
+                graph.viewport.setMinY(0.0)
+                graph.viewport.setMaxY(10.0)
+
+                graph.viewport.isXAxisBoundsManual = true
+                graph.viewport.setMinX(0.0)
+                graph.viewport.setMaxX(5.0)
+
+                // Add the data points to the graph
+                val dotSeries = PointsGraphSeries(dotCoordinates)
+                dotSeries.color = Color.RED // Set color of the dots
+                dotSeries.size = 6f // Set size of the dots
+                graph.addSeries(dotSeries)
+                textViewStyle.text = changeEndTextColor("Style - ${qualityPayload.style}", 6)
+                textViewColor.text = changeEndTextColor("Color - ${qualityPayload.color}", 6)
+                textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
+                tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
+                tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
+                if (qualityPayload.po.isNotEmpty()){
+                    textViewPO.text = changeEndTextColor("PO-${qualityPayload.po?:""}", 2)
+                }
+
+                //OverAll DHU count
+                "OVERALL DHU    ${qualityPayload.overAllDhu}".also { tvOverAllDHU.text = it }
+
+                //Station wise DHU  list
+                if (dhuList.isNotEmpty())dhuList.clear()
+                val dhuValue=qualityPayload.stationWiseDhus.map {
+                    DhuValueList(
+                        it.stationName,
+                        it.dHU
+                    )
+                }
+                dhuList.addAll(dhuValue)
+                dhuAdapter.submit(dhuList)
+
+
+
+                //Defect Issue list
+                if (issuesList.isNotEmpty())issuesList.clear()
+                val issues= qualityPayload.heatMapIssues.map {
+                    TopProductionsIssue(
+                        it.issueName,
+                        it.count
+                    )
+                }
+                issuesList.addAll(issues)
+                issuesAdapter.submit(issuesList.sortedBy { it.value }.reversed())
+
+
+                //operations List
+                if (operationsList.isNotEmpty())operationsList.clear()
+                val operations= qualityPayload.heatMapOperations.map {
+                    TopProductionsIssue(
+                        it.operationName,
+                        it.count
+                    )
+                }
+                operationsList.addAll(operations)
+                operationsAdapter.submit(operationsList.sortedBy { it.value }.reversed())
+
+
+                //defect and reject count
+                "${qualityPayload.remainingDiffective}".also {tvRemDefectCount.text = it }
+                "${qualityPayload.totalReject}".also { tvRejectsCount.text = it }
+
             }
-
-            //OverAll DHU count
-            "OVERALL DHU    ${qualityPayload.overAllDhu}".also { binding.tvOverAllDHU.text = it }
-
-            //Station wise DHU  list
-            if (dhuList.isNotEmpty())dhuList.clear()
-            val dhuValue=qualityPayload.stationWiseDhus.map {
-                DhuValueList(
-                    it.stationName,
-                    it.dHU
-                )
-            }
-            dhuList.addAll(dhuValue)
-            dhuAdapter.submit(dhuList)
-
-
-
-            //Defect Issue list
-            if (issuesList.isNotEmpty())issuesList.clear()
-            val issues= qualityPayload.heatMapIssues.map {
-                TopProductionsIssue(
-                    it.issueName,
-                    it.count
-                )
-            }
-            issuesList.addAll(issues)
-            issuesAdapter.submit(issuesList.sortedBy { it.value }.reversed())
-
-
-            //operations List
-            if (operationsList.isNotEmpty())operationsList.clear()
-            val operations= qualityPayload.heatMapOperations.map {
-                TopProductionsIssue(
-                    it.operationName,
-                    it.count
-                )
-            }
-            operationsList.addAll(operations)
-            operationsAdapter.submit(operationsList.sortedBy { it.value }.reversed())
-
-
-            //defect and reject count
-            "${qualityPayload.remainingDiffective}".also {binding.tvRemDefectCount.text = it }
-            "${qualityPayload.totalReject}".also { binding.tvRejectsCount.text = it }
 
         }
     }
@@ -267,6 +284,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
     override fun onResume() {
         super.onResume()
+        updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
             lineId = qualityViewModel.getLineId()?.toInt() ?: 0
             networkChecker {
@@ -275,6 +293,11 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         }
     }
 
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
+    }
 
 
 

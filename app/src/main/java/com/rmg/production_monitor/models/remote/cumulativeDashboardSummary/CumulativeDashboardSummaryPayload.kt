@@ -24,6 +24,8 @@ data class CumulativeDashboardSummaryPayload(
     val hour: String?,
     @SerializedName("IronMen")
     val ironMen: String?,
+    @SerializedName("DayTarget")
+    val dayTarget: String?,
     @SerializedName("LineId")
     val lineId: Int?,
     @SerializedName("LineName")

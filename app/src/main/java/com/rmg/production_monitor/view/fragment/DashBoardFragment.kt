@@ -2,6 +2,8 @@ package com.rmg.production_monitor.view.fragment
 
 import android.R
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -10,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -28,6 +31,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
     private var flag: Boolean = false
     var lineId = 0
+    private lateinit var handler: Handler
     private lateinit var spannableStringBuilder: SpannableStringBuilder
     override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
         return FragmentDashBoardBinding.inflate(inflater)
@@ -107,6 +111,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
                 textOperationValue.text = cumulativeDashboardSummaryPayload.operators
                 textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
+                textDayTarget.text = cumulativeDashboardSummaryPayload.dayTarget
             }
 
         }
@@ -133,12 +138,28 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun onResume() {
         super.onResume()
+        updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
             lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
             networkChecker {
                 cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
             }
         }
+    }
+
+    private fun updateData() {
+        handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                callInitialApi()
+                handler.postDelayed(this, 10000)
+            }
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        handler.removeCallbacksAndMessages(null)
     }
 
 
