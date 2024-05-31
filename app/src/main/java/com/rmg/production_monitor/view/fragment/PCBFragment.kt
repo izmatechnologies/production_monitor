@@ -106,8 +106,10 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
                 if (cumulativeDashboardDetailPayload.poNumber?.isNotEmpty() == true) {
                     textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardDetailPayload.poNumber?:""}", 2)
                 }
+
+                if (hourlyDetailList.isNotEmpty())hourlyDetailList.clear()
                 cumulativeDashboardDetailPayload.hourlyDetails?.let { hourlyDetailList.addAll(it) }
-                pcbAdapter.submit(hourlyDetailList)
+                pcbAdapter.submit(hourlyDetailList.sortedBy { it?.hour })
 
             }
 
@@ -135,7 +137,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
         pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
         binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
 
-        pcbAdapter = PCBAdapter(requireContext(), hourlyDetailList)
+        pcbAdapter = PCBAdapter(requireContext(), hourlyDetailList.sortedBy { it?.hour })
         binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter = pcbAdapter
