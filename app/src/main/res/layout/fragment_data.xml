@@ -178,7 +178,7 @@
             style="@style/whiteText"
             android:layout_width="160dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center|end"
             android:textSize="@dimen/_9ssp"
             android:text="@string/total_wip"
             app:layout_constraintEnd_toStartOf="@id/textTotalWip"
