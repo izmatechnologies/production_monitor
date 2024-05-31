@@ -208,7 +208,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             binding.tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
             binding.tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
             if (qualityPayload.po.isNotEmpty()){
-                binding.textViewPO.text = changeEndTextColor(qualityPayload.po, 2)
+                binding.textViewPO.text = changeEndTextColor("PO-${qualityPayload.po?:""}", 2)
             }
 
             //OverAll DHU count

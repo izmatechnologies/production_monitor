@@ -38,8 +38,10 @@ class PCBChildAdapter(
                     textPcb.text="${item.singleValue}${item.symbol}"
                     if (item.isUp == true){
                         textPcb.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_up_24, 0)
+                        textPcb.compoundDrawablePadding=5
                     }else{
                         textPcb.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_arrow_drop_down_24, 0)
+                        textPcb.compoundDrawablePadding=5
                     }
                 }
             }

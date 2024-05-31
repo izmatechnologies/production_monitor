@@ -104,8 +104,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
                     13
                 )
                 if (cumulativeDashboardDetailPayload.poNumber?.isNotEmpty() == true) {
-                    textViewPO.text =
-                        changeEndTextColor(cumulativeDashboardDetailPayload.poNumber ?: "", 2)
+                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardDetailPayload.poNumber?:""}", 2)
                 }
                 cumulativeDashboardDetailPayload.hourlyDetails?.let { hourlyDetailList.addAll(it) }
                 pcbAdapter.submit(hourlyDetailList)

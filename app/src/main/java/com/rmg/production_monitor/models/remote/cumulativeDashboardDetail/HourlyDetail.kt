@@ -3,6 +3,7 @@ package com.rmg.production_monitor.models.remote.cumulativeDashboardDetail
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.descriptors.PrimitiveKind
 
 @Keep
 data class HourlyDetail(
@@ -15,7 +16,7 @@ data class HourlyDetail(
 @Keep
 data class ColumnValue(
     @SerializedName("Actual")
-    val `actual`: Int?,
+    val `actual`: Double?,
     @SerializedName("ColumnName")
     val columnName: String?,
     @SerializedName("ColumnType")
@@ -23,9 +24,9 @@ data class ColumnValue(
     @SerializedName("IsUp")
     val isUp: Boolean?,
     @SerializedName("Planned")
-    val planned: Int?,
+    val planned: Double?,
     @SerializedName("SingleValue")
-    val singleValue: Int?,
+    val singleValue: Double?,
     @SerializedName("Symbol")
     val symbol: String?
 )

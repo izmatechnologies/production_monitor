@@ -184,9 +184,9 @@
             style="@style/whiteText"
             android:layout_width="160dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center|end"
             android:textSize="20dp"
-            android:text="Total WIP"
+            android:text="Total WIP ="
             app:layout_constraintEnd_toStartOf="@id/textTotalWip"
             app:layout_constraintTop_toTopOf="parent" />
 

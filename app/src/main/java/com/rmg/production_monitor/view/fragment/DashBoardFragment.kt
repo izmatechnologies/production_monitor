@@ -89,7 +89,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.runDay}", 9)
                 tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.runningHour}", 13)
                 if (cumulativeDashboardSummaryPayload.poNumber?.isNotEmpty() == true) {
-                    textViewPO.text = changeEndTextColor(cumulativeDashboardSummaryPayload.poNumber ?: "", 2)
+                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardSummaryPayload.poNumber?:""}", 2)
                 }
 
 
