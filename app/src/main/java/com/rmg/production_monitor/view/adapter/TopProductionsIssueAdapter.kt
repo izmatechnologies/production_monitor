@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.databinding.DeffectOperationsLayoutBinding
-import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
 
 class TopProductionsIssueAdapter(

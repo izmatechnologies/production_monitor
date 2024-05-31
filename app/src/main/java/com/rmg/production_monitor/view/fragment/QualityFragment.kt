@@ -1,16 +1,13 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
@@ -20,7 +17,6 @@ import com.jjoe64.graphview.GridLabelRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.R
-import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult.Error
 import com.rmg.production_monitor.core.data.NetworkResult.Loading
@@ -33,7 +29,6 @@ import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
 import com.rmg.production_monitor.view.activity.MainActivity
-
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import com.rmg.production_monitor.viewModel.QualityViewModel
@@ -223,7 +218,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
                 tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
                 if (qualityPayload.po.isNotEmpty()){
-                    textViewPO.text = changeEndTextColor("PO-${qualityPayload.po?:""}", 2)
+                    textViewPO.text = changeEndTextColor("PO-${qualityPayload.po}", 2)
                 }
 
                 //OverAll DHU count
@@ -286,7 +281,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = qualityViewModel.getLineId()?.toInt() ?: 0
+            lineId = qualityViewModel.getLineId()?: 0
             networkChecker {
                 qualityViewModel.getHeatmap(lineId)
             }

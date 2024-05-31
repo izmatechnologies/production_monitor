@@ -1,6 +1,5 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.R
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -11,8 +10,6 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -29,7 +26,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
     private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
-    private var flag: Boolean = false
     var lineId = 0
     private lateinit var handler: Handler
     private lateinit var spannableStringBuilder: SpannableStringBuilder
@@ -39,7 +35,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
-        lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+        lineId = cumulativeDashboardSummaryViewModel.getLineId()?: 0
         networkChecker {
             cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
         }
@@ -101,7 +97,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 textActualValue.text = cumulativeDashboardSummaryPayload.actual
                 textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
                 textTrendValue.text = cumulativeDashboardSummaryPayload.trend
-//                textDHUValue.text=changeTextSize("${cumulativeDashboardSummaryPayload.dHU}%",5.5f,"DHU",1.0f,)
                 textDHUValue.text="${cumulativeDashboardSummaryPayload.dHU}%"
 
                 textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
@@ -113,7 +108,6 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
                 textDayTarget.text = cumulativeDashboardSummaryPayload.dayTarget
             }
-
         }
 
 
@@ -140,7 +134,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = cumulativeDashboardSummaryViewModel.getLineId()?.toInt() ?: 0
+            lineId = cumulativeDashboardSummaryViewModel.getLineId()?: 0
             networkChecker {
                 cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
             }

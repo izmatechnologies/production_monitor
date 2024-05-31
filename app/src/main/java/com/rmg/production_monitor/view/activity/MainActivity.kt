@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
     private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
-    private var autoSliderFragmentFlag: Boolean = false
-
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
 
     private val mViewModel by viewModels<MainActivityViewModel>()

@@ -8,7 +8,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -32,7 +31,6 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     private lateinit var columnName: MutableList<ColumnName>
     private lateinit var pcbAdapter: PCBAdapter
     private lateinit var pcbTopColumnNameAdapter: PCBTopColumnNameAdapter
-    private var flag: Boolean = false
     var lineId = 0
     private lateinit var handler: Handler
 
@@ -141,7 +139,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
         pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
         binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
 
-        pcbAdapter = PCBAdapter(requireContext(), hourlyDetailList.sortedBy { it?.hour })
+        pcbAdapter = PCBAdapter(hourlyDetailList.sortedBy { it?.hour })
         binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter = pcbAdapter
@@ -169,7 +167,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = cumulativeDashboardDetailViewModel.getLineId()?.toInt() ?: 0
+            lineId = cumulativeDashboardDetailViewModel.getLineId() ?: 0
             networkChecker {
                 cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
             }

@@ -10,11 +10,6 @@ class PCBTopColumnNameAdapter(
     private var hourlyDetailList: List<ColumnName>
 ) : RecyclerView.Adapter<PCBTopColumnNameAdapter.PCBViewHolder>() {
 
-    fun submit(hourlyDetailList: List<ColumnName>){
-        this.hourlyDetailList=hourlyDetailList
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PCBViewHolder {
         return PCBViewHolder(RowPCBTopColumnNameBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }

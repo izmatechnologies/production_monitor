@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
@@ -22,7 +21,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DataFragment : BaseFragment<FragmentDataBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
-    private var flag: Boolean = false
     private lateinit var handler: Handler
 
     @Inject
@@ -49,7 +47,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
         super.callInitialApi()
 
         networkChecker {
-            mViewModel.getLineId()?.toInt()?.let { mViewModel.getDashboardAnalytics(it) }
+            mViewModel.getLineId()?.let { mViewModel.getDashboardAnalytics(it) }
 
         }
     }
@@ -65,10 +63,7 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                     "success".log("192")
                     Log.i("rakib1", "setupObserver: ${it.data?.payload}")
                     binding.apply {
-                   //     texttimeHour.text = "${it.data?.payload?.workingHour.toString()} Hr"
                         textTotalWip.text = it.data?.payload?.totalWip.toString()
-                   //     textlineName.text = "Line ${it.data?.payload?.lineId.toString()}"
-
                     }
                     setUpRecyclerView(it.data?.payload?.wipPos)
                 }

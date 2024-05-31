@@ -1,16 +1,12 @@
 package com.rmg.production_monitor.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.rmg.production_monitor.databinding.RowPCBBinding
 import com.rmg.production_monitor.databinding.RowPCBMainBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.HourlyDetail
 
 class PCBAdapter(
-    private val context: Context,
     private var hourlyDetailList: List<HourlyDetail?>
 ) : RecyclerView.Adapter<PCBAdapter.PCBViewHolder>() {
 
