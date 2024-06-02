@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -11,6 +12,7 @@ import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
+import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.DAAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
@@ -78,9 +80,18 @@ class DataFragment : BaseFragment<FragmentDataBinding>() {
                 }
 
                 is NetworkResult.SessionOut -> {
-                    //  qualityViewModel.clearSession()
-                    showTokenExpiredToast()
-                    //(requireActivity() as MainActivity).logout()
+                     // qualityViewModel.clearSession()
+                    "User token expired".toast()
+                    mViewModel.clearSession()
+
+                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    requireActivity().finishAfterTransition()
+
+
+                 //   showTokenExpiredToast()
+                 //   (requireActivity() as MainActivity).logout()
                 }
 
                 else -> {

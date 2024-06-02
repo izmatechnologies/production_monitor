@@ -23,6 +23,10 @@ class DashboardViewModel @Inject constructor(private  val repository:DashboardRe
         return mainActivityRepository.getLine()
     }
 
+    fun clearSession(){
+
+        mainActivityRepository.clearSession()
+    }
 
 
 }
