@@ -27,7 +27,9 @@ class CumulativeDashboardSummaryViewModel @Inject constructor(
         return mainActivityRepository.getLine()
     }
 
-
+fun clearSelection(){
+    mainActivityRepository.clearSession()
+}
 
 
 }

@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,7 @@ import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
+import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,7 +67,16 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
                 }
 
                 is NetworkResult.SessionOut -> {
-                    showTokenExpiredToast()
+
+                    "User token expired".toast()
+                    cumulativeDashboardSummaryViewModel.clearSelection()
+
+                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    requireActivity().finishAfterTransition()
+
+                    // showTokenExpiredToast()
                 }
 
                 else -> {

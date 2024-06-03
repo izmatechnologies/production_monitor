@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.view.fragment
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Handler
@@ -28,6 +29,7 @@ import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.remote.quality.DhuValueList
 import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
+import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
@@ -93,8 +95,17 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 }
 
                 is SessionOut -> {
-                //    qualityViewModel.clearSession()
-                    showTokenExpiredToast()
+
+                    "User token expired".toast()
+                    qualityViewModel.clearSession()
+
+                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    requireActivity().finishAfterTransition()
+
+                    //qualityViewModel.c()
+                  //  showTokenExpiredToast()
                     //(requireActivity() as MainActivity).logout()
                 }
 

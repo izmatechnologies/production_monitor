@@ -1,6 +1,7 @@
 package com.rmg.production_monitor.view.fragment
 
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,7 @@ import com.rmg.production_monitor.databinding.FragmentPCBBinding
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.ColumnName
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.CumulativeDashboardDetailPayload
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.HourlyDetail
+import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.PCBAdapter
 import com.rmg.production_monitor.view.adapter.PCBTopColumnNameAdapter
@@ -64,6 +66,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
                 is NetworkResult.Error -> {
                     hideLoader()
                     it.message.toString().toast()
+
                 }
 
                 is NetworkResult.Loading -> {
@@ -71,7 +74,15 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
                 }
 
                 is NetworkResult.SessionOut -> {
-                    showTokenExpiredToast()
+                    "User token expired".toast()
+                    cumulativeDashboardDetailViewModel.clearSession()
+
+                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    requireActivity().finishAfterTransition()
+
+                    // showTokenExpiredToast()
                 }
 
                 else -> {

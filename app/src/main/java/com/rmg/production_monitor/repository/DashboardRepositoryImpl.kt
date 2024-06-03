@@ -7,6 +7,7 @@ import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.service.ApiService
 import com.rmg.production_monitor.models.remote.authentication.AuthenticateModel
+import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryModel
 import com.rmg.production_monitor.models.remote.dasboard.DashboardAnalyticsResponse
 import org.json.JSONObject
 import javax.inject.Inject
@@ -26,7 +27,16 @@ class DashboardRepositoryImpl @Inject constructor(
         try {
             if (response.isSuccessful) {
                 if (response.body() != null && response.body() is DashboardAnalyticsResponse) {
-                    _dashboardAnalyticsData.postValue(NetworkResult.Success(response.body()!!))
+                    if (response.body()!!.success) {
+                        _dashboardAnalyticsData.postValue(
+                            NetworkResult.Success(
+                                response.body()!!
+                            )
+                        )
+                    } else {
+                        _dashboardAnalyticsData.postValue(NetworkResult.Error("Not Available Data "))
+                    }
+
                 } else {
                     _dashboardAnalyticsData.postValue(NetworkResult.Error("not available Data "))
                 }

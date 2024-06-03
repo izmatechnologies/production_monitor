@@ -22,9 +22,9 @@ class QualityViewModel @Inject constructor(
     }
 
     // Clear Session
-//    fun clearSession(){
-//        qualityRepository.clearSession()
-//    }
+    fun clearSession(){
+        mainActivityRepository.clearSession()
+    }
 
     fun getLineId(): Int? {
         return mainActivityRepository.getLine()

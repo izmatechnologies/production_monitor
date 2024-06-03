@@ -27,5 +27,7 @@ class CumulativeDashboardDetailViewModel @Inject constructor(
     fun getLineId(): Int? {
         return mainActivityRepository.getLine()
     }
-
+fun clearSession(){
+    mainActivityRepository.clearSession()
+}
 }
