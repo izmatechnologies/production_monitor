@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.core.base
 
+
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.rmg.production_monitor.R
+import com.rmg.production_monitor.core.Config
+import com.rmg.production_monitor.core.data.Ping
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.showNoInternetConnectionDialog
 import com.rmg.production_monitor.core.listener.LoaderController
 import com.rmg.production_monitor.core.managers.network.NetworkManager
-
-
-
+import com.rmg.production_monitor.core.managers.network.PingManager
+import com.rmg.production_monitor.view.dialog.NoInternetConnectionDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URI
+import java.net.URL
 import javax.inject.Inject
 
 
@@ -33,6 +44,9 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
 
 
     @Inject lateinit var networkManager: NetworkManager
+    @Inject lateinit var pinManager: PingManager
+    private lateinit var dialog: NoInternetConnectionDialog
+//    private var ping:Ping?=null
 
     var argumentOfFragment: Bundle
         get() = _argumentOfFragment!!                                  // getter
@@ -89,25 +103,68 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
 
         setDrawerLocked()
 
-
+        dialog = NoInternetConnectionDialog(requireContext(), R.style.NetworkConnectivityAlertDialog,null,null)
 
     }
 
 
+
+
+
    fun networkChecker(getData: () -> Unit) {
-        if (networkManager.hasInternetConnection()) {
+       lifecycleScope.launch(Dispatchers.IO) {
+          val ping=pinManager.doPing(URL(Config.BASE_URL))
+           // invoke some suspend functions or execute potentially long running code
 
-            getData()
-        } else {
+           // to switch context in this case and be able to update UI
+           withContext(Dispatchers.Main) {
+               // updateUI
+               if (ping.ip.isNotEmpty()){
+                   try {
+                       dialog.dismiss()
+                   } catch (e: Exception) {
+                       e.printStackTrace()
+                       e.toString().log("dialog")
+                   }
+                   getData()
+               }else{
+                   try {
+                       dialog.show()
+                   } catch (e: Exception) {
+                       e.printStackTrace()
+                       e.toString().log("dialog")
+                   }
+//                   showNoInternetConnectionDialog(requireContext(),
+//                       onRetryButtonClick = {
+//                           networkChecker { getData() }
+//                       }
+//                   )
+               }
+           }
+       }
+//       CoroutineScope(Dispatchers.IO).launch{
+//           ping=pinManager.doPing(URL(Config.BASE_URL))
+////           if (networkManager.hasInternetConnection()) {
+////
+////           } else {
+////               showNoInternetConnectionDialog(requireContext(),
+////                   onRetryButtonClick = {
+////                       networkChecker { getData() }
+////                   }
+////               )
+////
+////           }
+//       }
+//       if (ping?.isServerAlive == true){
+//           getData()
+//       }else{
+//           showNoInternetConnectionDialog(requireContext(),
+//               onRetryButtonClick = {
+//                   networkChecker { getData() }
+//               }
+//           )
+//       }
 
-            showNoInternetConnectionDialog(requireContext(),
-                onRetryButtonClick = {
-                    networkChecker { getData() }
-                }
-                )
-
-
-        }
     }
 
     fun showTokenExpiredToast(){

@@ -1,5 +1,6 @@
 package com.rmg.production_monitor.core.managers.network
 
+import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.data.Ping
 import java.net.InetAddress
@@ -15,10 +16,10 @@ class PingManagerImp  @Inject constructor(
     override fun doPing(url: URL): Ping {
         var ping = Ping()
         if (networkManager.hasInternetConnection()){
-            ping.net= networkManager?.getNetworkType().toString()
+            ping.net= networkManager.getNetworkType().toString()
             try {
                 val start=System.currentTimeMillis()
-                var hostAddress:String = InetAddress.getByName(url.host).hostAddress?.toString() ?: "dim"
+                var hostAddress:String = InetAddress.getByName(url.host).hostAddress?.toString() ?:Config.BASE_URL
                 val dnsResolved=System.currentTimeMillis()
                 val socket:Socket= Socket(hostAddress,url.port)
                 socket.close()
@@ -27,6 +28,7 @@ class PingManagerImp  @Inject constructor(
                 ping.cnt =  (probeFinish - dnsResolved)
                 ping.host = url.host;
                 ping.ip = hostAddress;
+                ping.isServerAlive=true
             }catch ( ex:Exception) {
                 "Unable to ping".log("ping")
             }

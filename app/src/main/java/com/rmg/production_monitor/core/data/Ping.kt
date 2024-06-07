@@ -7,6 +7,7 @@ data class Ping (
     var host : String = "",
     var ip: String  = "",
     var dns : Long = Long.MAX_VALUE,
-    var cnt : Long= Long.MAX_VALUE
+    var cnt : Long= Long.MAX_VALUE,
+    var isServerAlive: Boolean=false
 )
 

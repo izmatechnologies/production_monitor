@@ -5,6 +5,8 @@ package com.rmg.production_monitor.core.di
 
 import com.rmg.production_monitor.core.managers.network.NetworkManager
 import com.rmg.production_monitor.core.managers.network.NetworkManagerImpl
+import com.rmg.production_monitor.core.managers.network.PingManager
+import com.rmg.production_monitor.core.managers.network.PingManagerImp
 import com.rmg.production_monitor.core.managers.preference.AppPreference
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 
@@ -25,5 +27,8 @@ interface ManagerModule {
 
     @Binds
     fun provideNetworkManage(networkManagerImpl: NetworkManagerImpl): NetworkManager
+
+    @Binds
+    fun providePinManage(pinManagerImp: PingManagerImp): PingManager
 
 }
