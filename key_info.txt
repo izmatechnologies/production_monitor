@@ -1,0 +1,9 @@
+password:tusuka2024
+alias:tusukaMonitor
+first & last name:faisal.mohammad
+organizational unit:kg
+organization: tusuka
+city:dhaka
+state:dhaka
+country code:880
+
