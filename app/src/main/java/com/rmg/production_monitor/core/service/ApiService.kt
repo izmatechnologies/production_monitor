@@ -21,7 +21,7 @@ interface ApiService {
 
 //    @Deprecated("don't this authenticate_deprecated method", replaceWith = ReplaceWith("authenticate( requestBody: AuthenticationRequest)")
 //        , level = DeprecationLevel.ERROR)
-    @POST("/api/AnalyticAppAuth/Authenticate")
+    @POST("/api/Auth/Authenticate2")
     suspend fun authenticate(@Body requestBody: AuthenticationRequest): Response<AuthenticateModel>
 
     // Heat map
