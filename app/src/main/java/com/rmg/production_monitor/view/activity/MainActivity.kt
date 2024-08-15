@@ -2,6 +2,7 @@ package com.rmg.production_monitor.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
@@ -19,8 +20,16 @@ import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable.isActive
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -32,11 +41,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
-
+    private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
+
     // var toolbarInterface:ToolbarInterface? = null
-
-
+    private var countDownTimer: CountDownTimer? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,21 +57,14 @@ class MainActivity : AppCompatActivity() {
 
         initializeData()
         setUpAdapter()
-
-        handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
-                updateTime()
-                handler.postDelayed(this, delayMS)
-            }
-        })
+        startCounter()
 
 
         binding.btnExit.setOnClickListener {
             showLogoutDialog(
                 this,
                 onYesButtonClick = {
-                  mViewModel.clearSession()
+                    mViewModel.clearSession()
 
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -76,25 +78,18 @@ class MainActivity : AppCompatActivity() {
             if (!mViewModel.getSliding()) {
 
                 mViewModel.saveSliderValue(true)
-               // autoSliderFragmentFlag = true
+                // autoSliderFragmentFlag = true
                 binding.btnPause.setImageResource(R.drawable.outline_play_circle_outline_24)
                 stopScrolling()
             } else {
                 binding.btnPause.setImageResource(R.drawable.ic_pause)
                 startAutoScroll()
                 mViewModel.saveSliderValue(false)
-              //  autoSliderFragmentFlag = false
+                //  autoSliderFragmentFlag = false
             }
 
         }
     }
-
-    private fun updateTime() {
-        val sdf = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
-        val currentDate = sdf.format(Date())
-        binding.textTime.text = currentDate.toString()
-    }
-
 
     override fun onResume() {
         super.onResume()
@@ -112,19 +107,17 @@ class MainActivity : AppCompatActivity() {
         }
         binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                binding.tvPageTitle.text= fragmentList[position].fragmentTitle
+                binding.tvPageTitle.text = fragmentList[position].fragmentTitle
             }
         })
-
-
 
     }
 
     private fun initializeData() {
-        fragmentList.add(DisplayFragment("Quality",QualityFragment()))
-        fragmentList.add(DisplayFragment("PCB",PCBFragment()))
-        fragmentList.add(DisplayFragment("Swing..",DashBoardFragment()))
-        fragmentList.add(DisplayFragment("WIP",DataFragment()))
+        fragmentList.add(DisplayFragment("Quality", QualityFragment()))
+        fragmentList.add(DisplayFragment("PCB", PCBFragment()))
+        fragmentList.add(DisplayFragment("Swing..", DashBoardFragment()))
+        fragmentList.add(DisplayFragment("WIP", DataFragment()))
 
         handler = Handler(Looper.getMainLooper())
 
@@ -139,21 +132,39 @@ class MainActivity : AppCompatActivity() {
     private fun startAutoScroll() {
         runnable = Runnable {
             binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
-          //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
+            //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
             currentPage++
             handler.postDelayed(runnable, delayMS)
 
-       }
+        }
 
         handler.postDelayed(runnable, delayMS)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        handler.removeCallbacksAndMessages(null)
+    private fun startCounter() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            while (isActive) {
+                updateTime()
+                delay(1000) // 1000 ms = 1 second
+            }
+        }
     }
 
+    private suspend fun updateTime() {
+        val sdf = SimpleDateFormat("hh:mm:ss a", Locale.getDefault())
+        val currentDate = sdf.format(Date())
 
+        // Update the UI on the main thread
+        withContext(Dispatchers.Main) {
+            binding.textTime.text = currentDate
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job?.cancel()
+        handler.removeCallbacksAndMessages(null)
+    }
     private fun stopScrolling() {
         handler.removeCallbacksAndMessages(null)
     }
