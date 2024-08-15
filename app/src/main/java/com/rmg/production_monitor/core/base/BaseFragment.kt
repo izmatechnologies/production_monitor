@@ -103,9 +103,12 @@ abstract class BaseFragment<Vb:ViewBinding> : Fragment() , LoaderController {
 
         setDrawerLocked()
 
-
+        dialog = NoInternetConnectionDialog(requireContext(), R.style.NetworkConnectivityAlertDialog,null,null)
 
     }
+
+
+
 
 
    fun networkChecker(getData: () -> Unit) {
