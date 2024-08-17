@@ -1,11 +1,11 @@
-package com.faisal.quc.view.fragments
+package com.rmg.production_monitor.view.fragment
 
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import com.faisal.quc.core.base.BaseFragment
-import com.faisal.quc.databinding.FragmentUrlSetupBinding
-import com.faisal.quc.viewModel.AuthenticationViewModel
+import com.rmg.production_monitor.core.base.BaseFragment
+import com.rmg.production_monitor.databinding.FragmentUrlSetupBinding
+import com.rmg.production_monitor.viewModel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
