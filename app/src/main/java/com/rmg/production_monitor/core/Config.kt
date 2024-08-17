@@ -1,13 +1,15 @@
 package com.rmg.production_monitor.core
 
 import android.util.Log
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 
 
 object  Config {
 
-    const val Production_URL = "http://118.67.215.180:82/"
-    const val dev_URL = "https://rmgapi.mahfuj.site/"
+     val Stataging_URL = "http://118.67.215.180:82/"
+     val Production_URL = "http://192.168.5.233:88/"
+     val dev_URL = "https://rmgapi.mahfuj.site/"
 //    const val BASE_URL = Production_URL
     const val INTERVAL_SECOND:Long=5
     const val SCREEN_ROTATION_INTERVAL:Long=INTERVAL_SECOND*1000
@@ -22,12 +24,10 @@ object  Config {
         val preferenceBaseUrl = appPreferenceImpl.baseUrl
         if (!preferenceBaseUrl.isNullOrEmpty()){
             BASE_URL = appPreferenceImpl.baseUrl.toString()
-            Log.d("BASE_URL", BASE_URL)
         }else{
             BASE_URL = Production_URL
-            Log.d("BASE_URL2", BASE_URL)
         }
-
+        "BASE_URL to show $BASE_URL".log("192_dim")
     }
 
 

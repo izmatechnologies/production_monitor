@@ -57,4 +57,8 @@ class AuthenticationViewModel @Inject constructor(
         appPreference.baseUrl = url
     }
 
+    fun getUrl():String {
+       return appPreference.baseUrl.toString()
+    }
+
 }

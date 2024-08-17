@@ -1,18 +1,18 @@
 package com.rmg.production_monitor.view.activity
 
+import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
-import com.rmg.production_monitor.R
-import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.databinding.ActivityUrlSetUpBinding
 import com.rmg.production_monitor.viewModel.AuthenticationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class UrlSetUpActivity : AppCompatActivity() {
     lateinit var binding: ActivityUrlSetUpBinding
     private val authenticationViewModel by viewModels<AuthenticationViewModel>()
@@ -26,8 +26,15 @@ class UrlSetUpActivity : AppCompatActivity() {
                 binding.urlInput.text?.startsWith("https://", false) == true
             ) {
                 authenticationViewModel.saveUrl(binding.urlInput.text.toString())
-                Toast.makeText(this, "Url Saved", Toast.LENGTH_SHORT).show()
-                finishAfterTransition()
+                val  b_url=authenticationViewModel.getUrl()
+                Toast.makeText(this, "Url Saved $b_url", Toast.LENGTH_SHORT).show()
+
+                val intent: Intent? =getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(getBaseContext().getPackageName())
+                intent?.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                Process.killProcess(Process.myPid())
+                System.exit(0)
 
             } else {
                 Toast.makeText(this, "Please Input write Url", Toast.LENGTH_SHORT).show()
@@ -35,4 +42,5 @@ class UrlSetUpActivity : AppCompatActivity() {
 
         }
     }
+
 }
