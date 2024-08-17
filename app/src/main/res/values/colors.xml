@@ -44,5 +44,7 @@
     <color name="d44d25">#d44d25</color>
     <color name="cc7944">#cc7944</color>
     <color name="b4a14f">#b4a14f</color>
+    <color name="dhu_warning">#d44d25</color>
+    <color name="dhu_normal">#35CC9A</color>
 
 </resources>

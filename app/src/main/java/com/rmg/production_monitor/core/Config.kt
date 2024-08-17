@@ -11,7 +11,7 @@ object  Config {
      val Production_URL = "http://192.168.5.233:88/"
      val dev_URL = "https://rmgapi.mahfuj.site/"
 //    const val BASE_URL = Production_URL
-    const val INTERVAL_SECOND:Long=5
+    const val INTERVAL_SECOND:Long=30
     const val SCREEN_ROTATION_INTERVAL:Long=INTERVAL_SECOND*1000
     //const val BASE_URL = BuildConfig.
 
