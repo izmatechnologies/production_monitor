@@ -71,4 +71,5 @@
     <string name="helpers">Helpers</string>
     <string name="dhu"><u> DHU </u></string>
     <string name="total_wip">Total WIP =</string>
+    <string name="set_your_url">Set your URL</string>
 </resources>

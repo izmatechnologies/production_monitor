@@ -41,9 +41,12 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         }
 
 
-
         binding.inputEmail.setText(resources.getString(R.string.swing_in_user_name))
         binding.inputPassword.setText(resources.getString(R.string.swing_in_password))
+        binding.btnSettings.setOnClickListener {
+            val intent = Intent(this, UrlSetUpActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
