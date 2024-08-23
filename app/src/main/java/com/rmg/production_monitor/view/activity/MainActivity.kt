@@ -15,7 +15,7 @@ import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
-import com.rmg.production_monitor.view.fragment.DataFragment
+import com.rmg.production_monitor.view.fragment.WipFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         fragmentList.add(DisplayFragment("Quality", QualityFragment()))
         fragmentList.add(DisplayFragment("PCB", PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..", DashBoardFragment()))
-        fragmentList.add(DisplayFragment("WIP", DataFragment()))
+        fragmentList.add(DisplayFragment("WIP", WipFragment()))
 
         handler = Handler(Looper.getMainLooper())
 

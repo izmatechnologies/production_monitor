@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DataFragment : BaseFragment<FragmentDataBinding>() {
+class WipFragment : BaseFragment<FragmentDataBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
     private lateinit var handler: Handler
 

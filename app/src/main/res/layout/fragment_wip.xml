@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:paddingEnd="10dp"
-                android:text="Active Style"
+                android:text="@string/active_style"
                 android:textSize="@dimen/_10ssp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,7 +93,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="STYLE"
+                android:text="@string/style"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="COLOR"
+                android:text="@string/color"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="LINE CUM IN"
+                android:text="@string/line_in"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
@@ -131,7 +131,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="LINE COME OUT"
+                android:text="@string/line_out"
                 android:textSize="@dimen/_9ssp" />
 
 
@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="REJECT"
+                android:text="@string/reject"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
@@ -150,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="WIP"
+                android:text="@string/wip"
                 android:textSize="@dimen/_9ssp" />
 
         </LinearLayout>
