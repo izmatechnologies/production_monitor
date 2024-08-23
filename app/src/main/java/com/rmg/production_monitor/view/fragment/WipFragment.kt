@@ -14,7 +14,7 @@ import com.rmg.production_monitor.databinding.FragmentDataBinding
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.view.adapter.DAAdapter
+import com.rmg.production_monitor.view.adapter.WIPAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class WipFragment : BaseFragment<FragmentDataBinding>() {
     private lateinit var handler: Handler
 
     @Inject
-    lateinit var daAdapter: DAAdapter
+    lateinit var WIPAdapter: WIPAdapter
     override fun getViewBinding(inflater: LayoutInflater): FragmentDataBinding {
         return FragmentDataBinding.inflate(inflater)
     }
@@ -106,12 +106,12 @@ class WipFragment : BaseFragment<FragmentDataBinding>() {
 
 
         payload?.apply {
-            daAdapter.differ.submitList(toList())
+            WIPAdapter.differ.submitList(toList())
 
         }
 
         binding.recyclerView.apply {
-            adapter = daAdapter
+            adapter = WIPAdapter
         }
 }
 

@@ -9,15 +9,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.rmg.production_monitor.databinding.RowMonitorDataItemBinding
+import com.rmg.production_monitor.databinding.RowItemWipBinding
+
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import javax.inject.Inject
 
 
-class DAAdapter  @Inject constructor(): RecyclerView.Adapter<DAAdapter.ActiveConsultantViewHolder>() {
+class WIPAdapter  @Inject constructor(): RecyclerView.Adapter<WIPAdapter.ActiveConsultantViewHolder>() {
  //   var listener: MediaRouter.SimpleCallback<QcStatusPayload>? = null
 
-    inner class ActiveConsultantViewHolder(val binding: RowMonitorDataItemBinding) :
+    inner class ActiveConsultantViewHolder(val binding: RowItemWipBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
@@ -35,8 +36,7 @@ class DAAdapter  @Inject constructor(): RecyclerView.Adapter<DAAdapter.ActiveCon
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveConsultantViewHolder {
 
-        val binding =
-            RowMonitorDataItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RowItemWipBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ActiveConsultantViewHolder(binding)
 
     }
