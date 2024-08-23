@@ -10,7 +10,8 @@ import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
-import com.rmg.production_monitor.databinding.FragmentDataBinding
+import com.rmg.production_monitor.databinding.FragmentWipBinding
+
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
@@ -21,14 +22,14 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class WipFragment : BaseFragment<FragmentDataBinding>() {
+class WipFragment : BaseFragment<FragmentWipBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
     private lateinit var handler: Handler
 
     @Inject
     lateinit var WIPAdapter: WIPAdapter
-    override fun getViewBinding(inflater: LayoutInflater): FragmentDataBinding {
-        return FragmentDataBinding.inflate(inflater)
+    override fun getViewBinding(inflater: LayoutInflater): FragmentWipBinding {
+        return FragmentWipBinding.inflate(inflater)
     }
 
     override fun initializeData() {

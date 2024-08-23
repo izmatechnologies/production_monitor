@@ -3,7 +3,8 @@ package com.rmg.production_monitor.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.rmg.production_monitor.databinding.RowMonitorDataItemBinding
+import com.rmg.production_monitor.databinding.RowItemWipBinding
+
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 
 class DashboardAnalyticsAdapter(
@@ -15,7 +16,7 @@ class DashboardAnalyticsAdapter(
         viewType: Int
     ): DashboardAnalyticsViewHolder {
         return DashboardAnalyticsViewHolder(
-            RowMonitorDataItemBinding.inflate(
+            RowItemWipBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ), parent, false
@@ -33,7 +34,7 @@ class DashboardAnalyticsAdapter(
     }
 
     inner class DashboardAnalyticsViewHolder(
-        private val binding: RowMonitorDataItemBinding
+        private val binding: RowItemWipBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WipPo) {
             binding.apply {
