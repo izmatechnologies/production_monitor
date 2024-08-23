@@ -7,6 +7,7 @@ import android.os.Process
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.databinding.ActivityUrlSetUpBinding
 import com.rmg.production_monitor.viewModel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +22,7 @@ class UrlSetUpActivity : AppCompatActivity() {
         binding=ActivityUrlSetUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.tvConnectedUrl.text="Connected URL:: ${Config.BASE_URL}"
         binding.saveButton.setOnClickListener {
             if (binding.urlInput.text?.startsWith("http://", false) == true ||
                 binding.urlInput.text?.startsWith("https://", false) == true

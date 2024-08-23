@@ -17,7 +17,7 @@ object  Config {
 
     private lateinit var appPreferenceImpl: AppPreferenceImpl
 
-    var BASE_URL = Production_URL
+    var BASE_URL = Stataging_URL
 
     fun init(appPreferenceImpl: AppPreferenceImpl) {
         this.appPreferenceImpl = appPreferenceImpl
@@ -25,7 +25,7 @@ object  Config {
         if (!preferenceBaseUrl.isNullOrEmpty()){
             BASE_URL = appPreferenceImpl.baseUrl.toString()
         }else{
-            BASE_URL = Production_URL
+            BASE_URL = Stataging_URL
         }
         "BASE_URL to show $BASE_URL".log("192_dim")
     }
