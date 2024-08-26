@@ -19,11 +19,11 @@ import com.rmg.production_monitor.viewModel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity :BaseActivity<ActivityLoginBinding>() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
     private val authenticationViewModel by viewModels<AuthenticationViewModel>()
     override fun getViewBinding(inflater: LayoutInflater): ActivityLoginBinding {
-      return ActivityLoginBinding.inflate(inflater)
+        return ActivityLoginBinding.inflate(inflater)
 
 
     }
@@ -33,13 +33,17 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 
         val token = authenticationViewModel.getAuthToken()
 
-        binding.tvBuildVersion.text="Build Version: ${BuildConfig.VERSION_NAME}"
+        binding.tvBuildVersion.text = "Build Version: ${BuildConfig.VERSION_NAME}"
+
+
         if (!token.isNullOrEmpty()) {
-            val intent: Intent = Intent(
-                this,
-                MainActivity::class.java
-            )
-            startActivity(intent)
+            if (authenticationViewModel.getPlantLineName().isNotEmpty()){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }else{
+                authenticationViewModel.clearSession()
+            }
+
         }
 
 
@@ -85,7 +89,7 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         authenticationViewModel.authenticate.observe(this) {
             when (it) {
                 is NetworkResult.Success -> {
-                      hideLoader()
+                    hideLoader()
                     //val responseData = response.data as? AuthenticateModel ?: return
                     val token = it.data?.authenticatePayload?.accessToken
                     if (!token.isNullOrEmpty()) {
@@ -98,23 +102,32 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 //                        authenticationViewModel.saveUserName(userName)
 //                        authenticationViewModel.saveUserType(userTypeName)
 
-                            val intent = Intent(this, UnitPlantActivity::class.java)
-                            val bundle = Bundle()
-                            bundle.putString(Constants.FragmentKey.LINE_IN_LIST, Gson().toJson(it.data.authenticatePayload.userLines))
-                            bundle.putString(Constants.FragmentKey.UNIT_LIST, Gson().toJson(it.data.authenticatePayload.userPlantUnits))
-                            bundle.putString(Constants.FragmentKey.PLANT_LIST, Gson().toJson(it.data.authenticatePayload.userPlants))
-                            intent.putExtras(bundle)
-                            startActivity(intent)
+                        val intent = Intent(this, UnitPlantActivity::class.java)
+                        val bundle = Bundle()
+                        bundle.putString(
+                            Constants.FragmentKey.LINE_IN_LIST,
+                            Gson().toJson(it.data.authenticatePayload.userLines)
+                        )
+                        bundle.putString(
+                            Constants.FragmentKey.UNIT_LIST,
+                            Gson().toJson(it.data.authenticatePayload.userPlantUnits)
+                        )
+                        bundle.putString(
+                            Constants.FragmentKey.PLANT_LIST,
+                            Gson().toJson(it.data.authenticatePayload.userPlants)
+                        )
+                        intent.putExtras(bundle)
+                        startActivity(intent)
 
                     }
                 }
 
                 is NetworkResult.Error -> {
-                      hideLoader()
+                    hideLoader()
                 }
 
                 is NetworkResult.Loading -> {
-                     showLoader()
+                    showLoader()
                 }
 
                 is NetworkResult.SessionOut -> {
@@ -146,7 +159,6 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
         }
         return true
     }
-
 
 
 }

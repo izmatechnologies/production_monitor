@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 //import com.faisal.quc.base.Resource
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
-import com.rmg.production_monitor.core.managers.preference.AppPreference
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.repository.AuthenticationRepository
+import com.rmg.production_monitor.repository.MainActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthenticationViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
-     private val appPreference: AppPreferenceImpl
+    private val appPreference: AppPreferenceImpl,
+    private val mainActivityRepository: MainActivityRepository
 ) : ViewModel() {
 
 
@@ -59,6 +60,18 @@ class AuthenticationViewModel @Inject constructor(
 
     fun getUrl():String {
        return appPreference.baseUrl.toString()
+    }
+
+    fun setPlantLineName(line:String){
+        appPreference.selectedLineName=line
+    }
+    fun getPlantLineName():String{
+        return appPreference.selectedLineName?:""
+    }
+
+    fun clearSession(){
+
+        mainActivityRepository.clearSession()
     }
 
 }

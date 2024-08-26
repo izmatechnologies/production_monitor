@@ -31,7 +31,6 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
     private var lineList = emptyList<UserLine>()
     private var selectedline: Int = -1
     private lateinit var selectedLineName:String
-    private lateinit var appPreference:AppPreferenceImpl
     override fun getViewBinding(inflater: LayoutInflater): ActivityUnitPlantBinding {
         return ActivityUnitPlantBinding.inflate(inflater)
     }
@@ -47,7 +46,6 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         val unitkeyList = intent.getStringExtra(unitKey) ?: ""
         val plantkeyList = intent.getStringExtra(plantKey) ?: ""
         val lineInkeyList = intent.getStringExtra(lineInKey) ?: ""
-        appPreference=AppPreferenceImpl(this)
         val unitListType: Type = object : TypeToken<List<UserPlantUnit>>() {}.type
         unitList = Gson().fromJson(unitkeyList, unitListType)
 
@@ -69,7 +67,7 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
                 authenticationViewModel.savePlant(selectedPlant)
                 authenticationViewModel.saveLine(selectedline)
                 "save".toast()
-                appPreference.selectedLineName=selectedLineName
+                authenticationViewModel.setPlantLineName(selectedLineName)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -79,25 +77,25 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
 
         binding.autoCompleteUnit.setOnItemClickListener { _, _, position, _ ->
-            selectedUnit = unitList[position].plantUnitId!!
-            if (selectedUnit != -1) {
-                binding.text1.text = "Plant Unit Name  : ${unitList[position].plantUnitName.toString()}"
-            }
+            selectedUnit = unitList[position].plantUnitId?:0
+//            if (selectedUnit != -1) {
+//                binding.text1.text = "Plant Unit Name  : ${unitList[position].plantUnitName.toString()}"
+//            }
         }
 
         binding.autoCompletePlant.setOnItemClickListener { _, _, position, _ ->
-            selectedPlant = plantList[position].plantId!!
-            if (selectedPlant != -1) {
-                binding.text2.text = "Plant  Name  :" + plantList[position].plantName.toString()
-            }
+            selectedPlant = plantList[position].plantId?:0
+//            if (selectedPlant != -1) {
+//                binding.text2.text = "Plant  Name  :" + plantList[position].plantName.toString()
+//            }
         }
 
         binding.autoCompleteLine.setOnItemClickListener { _, _, position, _ ->
-            selectedline = lineList[position].lineId!!
-            if (selectedline != -1) {
-                selectedLineName=lineList[position].lineName.toString()
-                binding.text3.text = "User Line  Name  : $selectedLineName"
-            }
+            selectedline = lineList[position].lineId?:0
+            selectedLineName=lineList[position].lineName.toString()
+//            if (selectedline != -1) {
+//                binding.text3.text = "User Line  Name  : $selectedLineName"
+//            }
         }
 
     }
@@ -119,15 +117,15 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
     private fun validation(): Boolean {
         // todo validate to model view
-        if (binding.text2.text.toString().isEmpty()) {
+        if (selectedPlant== -1) {
             "Select Plant Name".toast()
             return false
         }
-        if (binding.text1.text.toString().isEmpty()) {
+        if (selectedUnit == -1) {
             "Select Plant Unit  Name".toast()
             return false
         }
-        if (binding.text3.text.toString().isEmpty()) {
+        if (selectedline== -1) {
             "Select User Line Name".toast()
             return false
         }

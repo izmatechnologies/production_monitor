@@ -6,59 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.UnitPlantActivity">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/text2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:hint="Plant Name"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:backgroundTint="@color/white"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/text1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/text2"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Plant Name"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="15dp"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:cornerRadius="5dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/text1"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:strokeColor="@color/black"-->
+<!--        app:strokeWidth="1dp" />-->
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/text1"
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/text1"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Plant Unit Name"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="15dp"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:cornerRadius="5dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/text2"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:strokeColor="@color/black"-->
+<!--        app:strokeWidth="1dp" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/text3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="User Line"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="15dp"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:cornerRadius="5dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/text2"-->
+<!--        app:strokeColor="@color/black"-->
+<!--        app:strokeWidth="1dp" />-->
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/nanum_gothic_bold"
         android:gravity="center"
-        android:hint="Plant Unit Name"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:backgroundTint="@color/white"
-        app:cornerRadius="5dp"
+        android:text="Please Selecet Plant Name,Unit Name, and User Line !!"
+        android:textColor="@color/bg_view_card_data"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginStart="5dp"
-        android:gravity="center"
-        android:hint="User Line"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:backgroundTint="@color/white"
-        app:cornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text2"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_complete"
@@ -66,7 +80,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
         android:enabled="true"
         android:padding="4dp"
         android:text="Complete"
@@ -75,7 +88,9 @@
         android:textStyle="bold"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -93,7 +108,7 @@
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/autoCompleteUnit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Select Plant Unit Name "
             android:inputType="none"
             android:paddingVertical="1dp"
@@ -117,7 +132,7 @@
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/autoCompleteLine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Select User Line "
             android:inputType="none"
             android:paddingVertical="1dp"
@@ -130,18 +145,17 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_weight="2"
         app:boxStrokeColor="@color/grey"
         app:hintEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_40sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/autoCompletePlant"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Select Plant Name"
             android:inputType="none"
             android:paddingVertical="1dp"

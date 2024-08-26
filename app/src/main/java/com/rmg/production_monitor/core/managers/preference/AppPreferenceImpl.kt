@@ -145,6 +145,8 @@ class AppPreferenceImpl @Inject constructor(
         remove(LINE_ID)
         remove(UNIT_ID)
         remove(PLANT_ID)
+        remove(NEW_BASE_URL)
+        remove(SELECTED_LINE_NAME)
 
     }
 }

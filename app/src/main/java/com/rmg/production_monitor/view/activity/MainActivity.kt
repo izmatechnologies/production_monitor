@@ -44,12 +44,7 @@ class MainActivity : AppCompatActivity() {
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
-
-    private lateinit var appPreference: AppPreferenceImpl
-    // var toolbarInterface:ToolbarInterface? = null
-    private var countDownTimer: CountDownTimer? = null
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -57,8 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel.saveSliderValue(false)
 
-        appPreference=AppPreferenceImpl(this)
-        binding.textlineName.text=appPreference.selectedLineName?:""
+        binding.textlineName.text=mViewModel.getPlantLineName()
         initializeData()
         setUpAdapter()
         startCounter()
