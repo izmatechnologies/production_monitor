@@ -31,19 +31,26 @@
             android:background="@drawable/line"
             android:paddingStart="10dp"
             tools:text="Style  -"
+            android:maxLines="2"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
+            android:ellipsize="end"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
 
         <TextView
             android:id="@+id/textViewColor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
             android:background="@drawable/line"
             android:paddingStart="10dp"
             tools:text="Color  -"
+            android:visibility="gone"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
 
         <TextView
             android:id="@+id/textViewBuyer"
@@ -52,20 +59,28 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
             tools:text="Buyer  -"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
 
         <TextView
             android:id="@+id/textViewPO"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
             android:background="@drawable/line"
             android:paddingStart="10dp"
             tools:text="PO  -"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
 
         <TextView
             android:id="@+id/tvRunDay"
@@ -74,9 +89,13 @@
             android:layout_weight="1"
             android:background="@drawable/line"
             android:paddingStart="10dp"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
             tools:text="-"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
 
         <TextView
             android:id="@+id/tvRunningHour"
@@ -84,9 +103,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingStart="10dp"
+            android:paddingEnd="4dp"
+            android:gravity="center|start"
             tools:text="Hour 8Hr"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="#FFBF00"
-            android:textSize="@dimen/_9ssp" />
+            android:textSize="@dimen/_7ssp" />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_top"

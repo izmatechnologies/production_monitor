@@ -32,6 +32,7 @@
             android:id="@+id/layoutActivity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/layoutDivider">
 
             <TextView
@@ -69,13 +70,13 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutActivity">
 
             <TextView
-
                 style="@style/blackText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="#"
+                android:visibility="gone"
                 android:textSize="@dimen/_9ssp" />
 
             <TextView
@@ -132,6 +133,15 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/line_out"
+                android:textSize="@dimen/_9ssp" />
+
+            <TextView
+                style="@style/blackText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rem_def"
                 android:textSize="@dimen/_9ssp" />
 
 

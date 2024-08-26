@@ -20,37 +20,39 @@ data class DashboardAnalyticsResponse(
 @Keep
 data class Payload(
     @SerializedName("LineId")
-    val lineId: Int,
+    val lineId: Int?,
     @SerializedName("TotalWip")
-    val totalWip: Int,
+    val totalWip: Int?,
     @SerializedName("WipPos")
     val wipPos: List<WipPo>,
     @SerializedName("WorkingHour")
-    val workingHour: Int
+    val workingHour: Int?
 )
 
 @Keep
 data class WipPo(
     @SerializedName("BuyerId")
-    val buyerId: Int,
+    val buyerId: Int?,
     @SerializedName("BuyerName")
-    val buyerName: String,
+    val buyerName: String?,
     @SerializedName("ColorName")
-    val colorName: String,
+    val colorName: String?,
     @SerializedName("LineCumIn")
-    val lineCumIn: Int,
+    val lineCumIn: Int?,
     @SerializedName("LineCumOut")
-    val lineCumOut: Int,
+    val lineCumOut: Int?,
     @SerializedName("LineWip")
-    val lineWip: Int,
+    val lineWip: Int?,
     @SerializedName("PoId")
-    val poId: Int,
+    val poId: Int?,
     @SerializedName("PoNumber")
-    val poNumber: String,
+    val poNumber: String?,
+    @SerializedName("RemDef")
+    val remDef: String?,
     @SerializedName("StyleId")
-    val styleId: Int,
+    val styleId: Int?,
     @SerializedName("StyleName")
-    val styleName: String,
+    val styleName: String?,
     @SerializedName("TotalReject")
-    val totalReject: Int
+    val totalReject: Int?
 )

@@ -124,7 +124,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             operationsList= mutableListOf()
 
             //DHU Adapter
-            dhuAdapter=StationWiseDHUAdapter(dhuList)
+            dhuAdapter=StationWiseDHUAdapter(requireContext(),dhuList)
             rvDhu.apply {
                 setHasFixedSize(true)
                 addItemDecoration( DividerItemDecoration(
@@ -182,7 +182,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private fun heatMapData(){
         if (::qualityPayload.isInitialized) {
             binding.apply {
-                imagePath = qualityPayload.imageUrl.replace("\\", "/")
+                imagePath = qualityPayload.imageUrl?.replace("\\", "/")
                 "${qualityPayload.heatMapPositions} = dotPositions".log("dim")
 
                 dotCoordinates = qualityPayload.heatMapPositions.map { position ->
@@ -228,7 +228,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                 textViewBuyer.text = changeEndTextColor("Buyer - ${qualityPayload.buyer}", 6)
                 tvRunDay.text = changeEndTextColor("Run Day - ${qualityPayload.RunningDay}", 9)
                 tvRuningHour.text = changeEndTextColor("Running Hour - ${qualityPayload.RununningHour}", 13)
-                if (qualityPayload.po.isNotEmpty()){
+                if (qualityPayload.po?.isNotEmpty() == true){
                     textViewPO.text = changeEndTextColor("PO-${qualityPayload.po}", 2)
                 }
 

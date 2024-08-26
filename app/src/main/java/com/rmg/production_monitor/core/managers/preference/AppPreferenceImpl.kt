@@ -25,6 +25,7 @@ class AppPreferenceImpl @Inject constructor(
         const val UNIT_ID = "unit_id"
         const val PLANT_ID = "plait_id"
         const val NEW_BASE_URL = "base_url"
+        const val SELECTED_LINE_NAME = "selected_line_name"
 
     }
 
@@ -93,6 +94,15 @@ class AppPreferenceImpl @Inject constructor(
         }
 
 
+    var selectedLineName:String?
+        get() {
+            return prefs.getString(SELECTED_LINE_NAME,"")
+        }
+
+        set(value) {
+            val lineName=value?:""
+            storeSting(SELECTED_LINE_NAME,lineName)
+        }
 
 
     private fun getEditor(): Editor {

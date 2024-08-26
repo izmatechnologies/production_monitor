@@ -13,6 +13,7 @@ import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
 import com.rmg.production_monitor.core.extention.showLogoutDialog
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.WipFragment
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
 
+    private lateinit var appPreference: AppPreferenceImpl
     // var toolbarInterface:ToolbarInterface? = null
     private var countDownTimer: CountDownTimer? = null
 
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel.saveSliderValue(false)
 
+        appPreference=AppPreferenceImpl(this)
+        binding.textlineName.text=appPreference.selectedLineName?:""
         initializeData()
         setUpAdapter()
         startCounter()

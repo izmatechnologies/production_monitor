@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class QualityPayload(
     @SerializedName("Buyer")
-    val buyer: String,
+    val buyer: String?,
     @SerializedName("RunningDay")
-    val RunningDay: Int,
+    val RunningDay: Int?,
     @SerializedName("RununningHour")
-    val RununningHour: Int,
+    val RununningHour: Int?,
     @SerializedName("Color")
-    val color: String,
+    val color: String?,
     @SerializedName("HeatMapIssues")
     val heatMapIssues: List<HeatMapIssue>,
     @SerializedName("HeatMapOperations")
@@ -18,19 +18,19 @@ data class QualityPayload(
     @SerializedName("HeatMapPositions")
     val heatMapPositions: List<HeatMapPosition>,
     @SerializedName("ImageUrl")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("MarkingImageUrl")
-    val markingImageUrl: String,
+    val markingImageUrl: String?,
     @SerializedName("OverAllDhu")
-    val overAllDhu: String,
+    val overAllDhu: String?,
     @SerializedName("Po")
-    val po: String,
+    val po: String?,
     @SerializedName("RemainingDiffective")
-    val remainingDiffective: Int,
+    val remainingDiffective: Int?,
     @SerializedName("StationWiseDhus")
     val stationWiseDhus: List<StationWiseDhu>,
     @SerializedName("Style")
-    val style: String,
+    val style: String?,
     @SerializedName("TotalReject")
     val totalReject: Int
 )

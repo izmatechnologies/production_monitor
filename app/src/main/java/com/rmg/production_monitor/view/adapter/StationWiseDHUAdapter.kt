@@ -1,12 +1,15 @@
 package com.rmg.production_monitor.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.rmg.production_monitor.R
 import com.rmg.production_monitor.databinding.StationWisezDhuLayoutBinding
 import com.rmg.production_monitor.models.remote.quality.DhuValueList
 
 class StationWiseDHUAdapter(
+    private val context: Context,
     private var dhuList: List<DhuValueList>
 ) : RecyclerView.Adapter<StationWiseDHUAdapter.StationWiseDHUHolder>() {
 
@@ -38,8 +41,14 @@ class StationWiseDHUAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DhuValueList) {
             binding.apply {
+
                 tvName.text=item.name
                 tvValue.text=item.value
+                if ((item.value?.replace("%","")?.toDouble()?:0.0) > 3.00){
+                    tvValue.setTextColor(context.getColorStateList(R.color.red))
+                }else{
+                    tvValue.setTextColor(context.getColorStateList(R.color.green_light))
+                }
             }
         }
     }

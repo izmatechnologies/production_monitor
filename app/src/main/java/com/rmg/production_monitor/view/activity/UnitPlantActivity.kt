@@ -1,15 +1,17 @@
 package com.rmg.production_monitor.view.activity
 
-import android.R
+
 import android.content.Intent
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
 import com.rmg.production_monitor.core.extention.toast
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityUnitPlantBinding
 import com.rmg.production_monitor.models.remote.authentication.UserLine
 import com.rmg.production_monitor.models.remote.authentication.UserPlant
@@ -28,6 +30,8 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
     private var lineList = emptyList<UserLine>()
     private var selectedline: Int = -1
+    private lateinit var selectedLineName:String
+    private lateinit var appPreference:AppPreferenceImpl
     override fun getViewBinding(inflater: LayoutInflater): ActivityUnitPlantBinding {
         return ActivityUnitPlantBinding.inflate(inflater)
     }
@@ -43,7 +47,7 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         val unitkeyList = intent.getStringExtra(unitKey) ?: ""
         val plantkeyList = intent.getStringExtra(plantKey) ?: ""
         val lineInkeyList = intent.getStringExtra(lineInKey) ?: ""
-
+        appPreference=AppPreferenceImpl(this)
         val unitListType: Type = object : TypeToken<List<UserPlantUnit>>() {}.type
         unitList = Gson().fromJson(unitkeyList, unitListType)
 
@@ -65,6 +69,7 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
                 authenticationViewModel.savePlant(selectedPlant)
                 authenticationViewModel.saveLine(selectedline)
                 "save".toast()
+                appPreference.selectedLineName=selectedLineName
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -76,8 +81,7 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         binding.autoCompleteUnit.setOnItemClickListener { _, _, position, _ ->
             selectedUnit = unitList[position].plantUnitId!!
             if (selectedUnit != -1) {
-                binding.text1.text =
-                    "Plant Unit Name  :" + unitList[position].plantUnitName.toString()
+                binding.text1.text = "Plant Unit Name  : ${unitList[position].plantUnitName.toString()}"
             }
         }
 
@@ -91,7 +95,8 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
         binding.autoCompleteLine.setOnItemClickListener { _, _, position, _ ->
             selectedline = lineList[position].lineId!!
             if (selectedline != -1) {
-                binding.text3.text = "User Line  Name  :" + lineList[position].lineName.toString()
+                selectedLineName=lineList[position].lineName.toString()
+                binding.text3.text = "User Line  Name  : $selectedLineName"
             }
         }
 
@@ -100,14 +105,14 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
     override fun setUpAdapter() {
         super.setUpAdapter()
 
-        val adapterUnit = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, unitList)
+        val adapterUnit = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, unitList)
         binding.autoCompleteUnit.setAdapter(adapterUnit)
 
 
-        val adapterPlant = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, plantList)
+        val adapterPlant = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, plantList)
         binding.autoCompletePlant.setAdapter(adapterPlant)
 
-        val adapterLine = ArrayAdapter(this, R.layout.simple_dropdown_item_1line, lineList)
+        val adapterLine = ArrayAdapter(this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, lineList)
         binding.autoCompleteLine.setAdapter(adapterLine)
     }
 

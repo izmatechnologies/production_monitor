@@ -28,9 +28,6 @@ interface ApiService {
     @GET("api/HeeatMap/GetHeatmap")
     suspend fun getHeatmap(@Query("lineid") lineId: Int): Response<QualityModel>
 
-    @GET("api/AnalyticsDashboard/GetWip?lineId=1")
-    suspend fun getDashboardAnalytics(): Response<DashboardAnalyticsResponse>
-
     @GET("api/CumulativeDashboard/GetCumulativeDashboardSummary")
     suspend fun getCumulativeDashboardSummary(
         @Query("lineid") lineId: Int

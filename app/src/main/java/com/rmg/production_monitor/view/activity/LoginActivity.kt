@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.google.gson.Gson
+import com.rmg.production_monitor.BuildConfig
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Constants
 import com.rmg.production_monitor.core.base.BaseActivity
@@ -32,6 +33,7 @@ class LoginActivity :BaseActivity<ActivityLoginBinding>() {
 
         val token = authenticationViewModel.getAuthToken()
 
+        binding.tvBuildVersion.text="Build Version: ${BuildConfig.VERSION_NAME}"
         if (!token.isNullOrEmpty()) {
             val intent: Intent = Intent(
                 this,

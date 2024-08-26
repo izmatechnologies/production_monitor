@@ -20,12 +20,10 @@ import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class WipFragment : BaseFragment<FragmentWipBinding>() {
     private val mViewModel by viewModels<DashboardViewModel>()
     private lateinit var handler: Handler
-
     @Inject
     lateinit var WIPAdapter: WIPAdapter
     override fun getViewBinding(inflater: LayoutInflater): FragmentWipBinding {

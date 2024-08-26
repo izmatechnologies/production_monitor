@@ -72,11 +72,13 @@
     <string name="dhu"><u> DHU </u></string>
     <string name="total_wip">Total WIP =</string>
     <string name="set_your_url">Set your URL</string>
-    <string name="line_in">LINE IN</string>
+    <string name="line_in"> IN</string>
     <string name="color">COLOR</string>
-    <string name="line_out">LINE OUT</string>
+    <string name="line_out">OUT</string>
     <string name="reject">REJECT</string>
     <string name="active_style">Active Style</string>
     <string name="style">STYLE</string>
     <string name="wip">WIP</string>
+    <string name="rem_def">REM. DEF</string>
+    <string name="selectedlinename">selectedLineName</string>
 </resources>

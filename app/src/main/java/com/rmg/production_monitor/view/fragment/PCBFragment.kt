@@ -109,11 +109,11 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
                     6
                 )
                 tvRunDay.text = changeEndTextColor(
-                    "Run Day - ${cumulativeDashboardDetailPayload.runDay ?: 0}",
+                    "Run Day - ${cumulativeDashboardDetailPayload.runDay ?: ""}",
                     9
                 )
                 tvRunningHour.text = changeEndTextColor(
-                    "Running Hour - ${cumulativeDashboardDetailPayload.runningHour ?: 0}",
+                    "Running Hour - ${cumulativeDashboardDetailPayload.runningHour ?:""}",
                     13
                 )
                 if (cumulativeDashboardDetailPayload.poNumber?.isNotEmpty() == true) {

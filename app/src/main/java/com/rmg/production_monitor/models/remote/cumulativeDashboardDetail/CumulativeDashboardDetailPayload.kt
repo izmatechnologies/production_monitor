@@ -21,7 +21,7 @@ data class CumulativeDashboardDetailPayload(
     @SerializedName("StyleName")
     val styleName: String?,
     @SerializedName("RunDay")
-    val runDay: Int?,
+    val runDay: String?,
     @SerializedName("RunningHour")
-    val runningHour: Int?,
+    val runningHour: String?,
 )

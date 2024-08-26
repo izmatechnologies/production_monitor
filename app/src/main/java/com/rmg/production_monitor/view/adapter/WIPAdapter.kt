@@ -56,6 +56,7 @@ class WIPAdapter  @Inject constructor(): RecyclerView.Adapter<WIPAdapter.ActiveC
                 textBuyer.text=qcStatus.buyerName
                 textStyle.text = qcStatus.styleName
                 textPo.text =qcStatus.poNumber
+                textRemDef.text =qcStatus.remDef
                 textColor.text = qcStatus.colorName
                 textLineCumOut.text = qcStatus.lineCumOut.toString()
                 textIineCunIn.text = qcStatus.lineCumIn.toString()

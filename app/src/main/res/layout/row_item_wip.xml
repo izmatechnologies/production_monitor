@@ -7,7 +7,9 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
         android:background="@color/bg_view_card_data"
         android:orientation="horizontal">
 
@@ -19,7 +21,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="1"
-            android:textSize="12dp" />
+            android:visibility="gone"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/textBuyer"
@@ -28,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="LPP::LLP" />
 
         <TextView
@@ -38,7 +41,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="ZB5655" />
 
         <TextView
@@ -48,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="ZB5655" />
 
         <TextView
@@ -58,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="1356456" />
 
 
@@ -69,7 +72,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="356555" />
 
         <TextView
@@ -79,7 +82,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
+            tools:text="7676" />
+
+        <TextView
+            android:id="@+id/textRemDef"
+            style="@style/whiteText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="16dp"
             tools:text="7676" />
 
         <TextView
@@ -89,7 +102,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="7676" />
 
         <TextView
@@ -100,7 +113,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/yellow"
-            android:textSize="12dp"
+            android:textSize="16dp"
             tools:text="455" />
 
     </LinearLayout>
