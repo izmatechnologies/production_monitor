@@ -17,8 +17,8 @@ import javax.inject.Singleton
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.service.ApiService
 
-private const val TIME_OUT = 60L
-private const val CONNECTION_TIME_OUT = 30L
+private const val TIME_OUT = 6L
+private const val CONNECTION_TIME_OUT = 3L
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
@@ -38,9 +38,9 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .connectionPool(ConnectionPool(0, 1, TimeUnit.NANOSECONDS))
             .protocols(listOf(Protocol.HTTP_1_1))
-            .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.SECONDS)
-            .readTimeout(TIME_OUT, TimeUnit.SECONDS)
-            .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.MINUTES)
+            .readTimeout(TIME_OUT, TimeUnit.MINUTES)
+            .writeTimeout(TIME_OUT, TimeUnit.MINUTES)
             .addInterceptor(getLogInterceptors())
             .addInterceptor(authInterceptor)
             .followRedirects(false)
