@@ -9,9 +9,7 @@ import com.rmg.production_monitor.core.Config
 
 
 @Database(
-    entities = [
-        QcOperationEntity::class,
-               ],
+    entities = [QcOperationEntity::class, ],
     version = Config.Storage.APPLICATION_DATABASE_VERSION,
     exportSchema = false
 )

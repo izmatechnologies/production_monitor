@@ -14,12 +14,12 @@ class PingManagerImp  @Inject constructor(
 
 
     override fun doPing(url: URL): Ping {
-        var ping = Ping()
+        val ping = Ping()
         if (networkManager.hasInternetConnection()){
             ping.net= networkManager.getNetworkType().toString()
             try {
                 val start=System.currentTimeMillis()
-                var hostAddress:String = InetAddress.getByName(url.host).hostAddress?.toString() ?:Config.BASE_URL
+                val hostAddress:String = InetAddress.getByName(url.host).hostAddress?.toString() ?:Config.BASE_URL
                 val dnsResolved=System.currentTimeMillis()
                 val socket:Socket= Socket(hostAddress,url.port)
                 socket.close()
