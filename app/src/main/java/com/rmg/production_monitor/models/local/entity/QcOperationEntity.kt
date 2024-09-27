@@ -1,4 +1,4 @@
-package com.faisal.quc.models.local.entity
+package com.rmg.production_monitor.models.local.entity
 
 import androidx.annotation.Keep
 import androidx.room.Entity

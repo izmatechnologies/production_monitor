@@ -1,25 +1,40 @@
 package com.rmg.production_monitor.view.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.google.gson.Gson
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
+import com.rmg.production_monitor.core.data.NetworkResult.Error
+import com.rmg.production_monitor.core.data.NetworkResult.Loading
+import com.rmg.production_monitor.core.data.NetworkResult.SessionOut
+import com.rmg.production_monitor.core.data.NetworkResult.Success
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.showLogoutDialog
-import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
+import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.ActivityMainBinding
+import com.rmg.production_monitor.models.local.entity.HeatMapEntity
+import com.rmg.production_monitor.models.local.entity.HeatMapIssue
+import com.rmg.production_monitor.models.local.entity.HeatMapOperation
+import com.rmg.production_monitor.models.local.entity.HeatMapPosition
+import com.rmg.production_monitor.models.local.entity.QualityPayload
+import com.rmg.production_monitor.models.local.entity.StationWiseDhu
+import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
-import com.rmg.production_monitor.view.fragment.WipFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
+import com.rmg.production_monitor.view.fragment.WipFragment
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
+import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +59,12 @@ class MainActivity : AppCompatActivity() {
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
-    
+    private val qualityViewModel by viewModels<QualityViewModel>()
+    var lineId =  0
+    private  var loaderDialog: Dialog?=null
+
+    /*Local DB*/
+    private lateinit var heatmapLocalViewModel: HeatmapLocalViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -87,12 +107,100 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        qualityViewModel.heatMapLiveData.observe(this@MainActivity) {
+            when (it) {
+                is Success -> {
+                    hideLoader()
+                    it.data?.payload?.let { payload ->
+//                        qualityPayload = payload
+//                        initializeData()
+//                        heatMapData()
+                        val insertPayload=HeatMapEntity(0, QualityPayload(
+                            payload.buyer,
+                            payload.RunningDay,
+                            payload.RununningHour,
+                            payload.color,
+                            payload.heatMapIssues.map { issue->
+                                HeatMapIssue(
+                                    issue.issueName,
+                                    issue.count
+                                )
+                            },
+                            payload.heatMapOperations.map {operations->
+                               HeatMapOperation(
+                                   operations.operationName,
+                                   operations.count
+                               )
+                            },
+                            payload.heatMapPositions.map {positions->
+                                HeatMapPosition(
+                                    positions.x,
+                                    positions.y
+                                )
+                            },
+                            payload.imageUrl,
+                            payload.markingImageUrl,
+                            payload.overAllDhu,
+                            payload.po,
+                            payload.remainingDiffective,
+                            payload.stationWiseDhus.map { dhu->
+                                StationWiseDhu(
+                                    dhu.dHU,
+                                    dhu.stationName
+                                )
+                            },
+                            payload.style,
+                            payload.totalReject
+
+                        ))
+                        heatmapLocalViewModel.insertHeatmapData(insertPayload)
+                        (Gson().toJson(insertPayload)).log()
+
+                    }
+                }
+
+                is Error -> {
+                    hideLoader()
+                    it.message.toString().toast()
+                }
+
+                is Loading -> {
+
+                }
+
+                is SessionOut -> {
+
+                    "User token expired".toast()
+                    qualityViewModel.clearSession()
+
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    finishAfterTransition()
+                }
+
+                else -> {
+
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
         //startAutoScroll()
+        heatmapLocalViewModel=ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
+        /*startApiCall*/
+        lineId = qualityViewModel.getLineId()?: 0
+        qualityViewModel.getHeatmap(lineId)
+
+
 
         if (mViewModel.getSliding()) {
             mViewModel.saveSliderValue(true)
@@ -165,6 +273,16 @@ class MainActivity : AppCompatActivity() {
     }
     private fun stopScrolling() {
         handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun hideLoader() {
+        if (loaderDialog == null) {
+            return
+        }
+        loaderDialog?.hide()
+        loaderDialog?.dismiss()
+        loaderDialog?.cancel()
+        loaderDialog=null
     }
 
 }

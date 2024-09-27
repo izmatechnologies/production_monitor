@@ -15,11 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <!--        <androidx.appcompat.widget.Toolbar-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:id="@+id/toolbar"-->
-        <!--            android:background="@color/cadet_blue">-->
+
         <View
             android:id="@+id/layoutDivider"
             android:layout_width="match_parent"
@@ -105,7 +101,7 @@
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_pause"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
@@ -117,7 +113,7 @@
                     android:textStyle="bold"
                     />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_btn_refresh"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
@@ -129,7 +125,7 @@
                     android:textStyle="bold"
                     app:tint="@color/white" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_exit"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="0dp"
@@ -148,16 +144,6 @@
                 android:layout_height="match_parent"
                 android:background="@color/white" />
         </LinearLayout>
-        <!--            <TextView-->
-        <!--                android:text="Pause"-->
-        <!--                android:textSize="16dp"-->
-        <!--                android:textStyle="bold"-->
-        <!--                android:textColor="@color/white"-->
-        <!--                android:padding="10dp"-->
-        <!--                android:layout_gravity="end|center"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"/>-->
-        <!--        </androidx.appcompat.widget.Toolbar>-->
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -166,9 +152,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-91dp" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

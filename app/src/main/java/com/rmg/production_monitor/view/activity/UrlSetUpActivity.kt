@@ -11,6 +11,7 @@ import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.databinding.ActivityUrlSetUpBinding
 import com.rmg.production_monitor.viewModel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.exitProcess
 
 
 @AndroidEntryPoint
@@ -31,12 +32,12 @@ class UrlSetUpActivity : AppCompatActivity() {
                 val  b_url=authenticationViewModel.getUrl()
                 Toast.makeText(this, "Url Saved $b_url", Toast.LENGTH_SHORT).show()
 
-                val intent: Intent? =getBaseContext().getPackageManager()
-                    .getLaunchIntentForPackage(getBaseContext().getPackageName())
+                val intent: Intent? = baseContext.packageManager
+                    .getLaunchIntentForPackage(baseContext.packageName)
                 intent?.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
                 Process.killProcess(Process.myPid())
-                System.exit(0)
+                exitProcess(0)
 
             } else {
                 Toast.makeText(this, "Please Input write Url", Toast.LENGTH_SHORT).show()

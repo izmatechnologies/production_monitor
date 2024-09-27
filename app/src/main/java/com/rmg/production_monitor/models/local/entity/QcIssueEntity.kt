@@ -6,8 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 //import com.faisal.quc.models.remote.SewingQcIssueModel
 import com.google.gson.annotations.SerializedName
-
-
+import com.rmg.production_monitor.models.local.entity.QcOperationEntity
 
 
 @Keep

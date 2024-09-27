@@ -81,4 +81,9 @@
     <string name="wip">WIP</string>
     <string name="rem_def">REM. DEF</string>
     <string name="selectedlinename">selectedLineName</string>
+    <string name="please_select_plant_name_unit_name_and_user_line">Please Select Plant Name,Unit Name, and User Line !!</string>
+    <string name="complete">Complete</string>
+    <string name="select_plant_unit_name">Select Plant Unit Name</string>
+    <string name="select_plant_name">Select Plant Name</string>
+    <string name="select_user_line">Select User Line</string>
 </resources>

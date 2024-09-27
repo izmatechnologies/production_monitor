@@ -17,8 +17,7 @@ class QualityRepositoryImpl @Inject constructor(
 ) : QualityRepository {
     // Heat map
     private val _heatMapLiveData = MutableLiveData<NetworkResult<QualityModel>>()
-    override val heatMapLiveData: LiveData<NetworkResult<QualityModel>>
-        get() = _heatMapLiveData
+    override val heatMapLiveData: LiveData<NetworkResult<QualityModel>> get() = _heatMapLiveData
 
     override suspend fun getHeatmap(lineId: Int) {
         _heatMapLiveData.postValue(NetworkResult.Loading())

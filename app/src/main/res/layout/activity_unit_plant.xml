@@ -6,59 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.UnitPlantActivity">
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/text2"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="Plant Name"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="15dp"-->
-<!--        app:backgroundTint="@color/white"-->
-<!--        app:cornerRadius="5dp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/text1"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:strokeColor="@color/black"-->
-<!--        app:strokeWidth="1dp" />-->
-
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/text1"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="Plant Unit Name"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="15dp"-->
-<!--        app:backgroundTint="@color/white"-->
-<!--        app:cornerRadius="5dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/text2"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:strokeColor="@color/black"-->
-<!--        app:strokeWidth="1dp" />-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/text3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="10dp"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:gravity="center"-->
-<!--        android:hint="User Line"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="15dp"-->
-<!--        app:backgroundTint="@color/white"-->
-<!--        app:cornerRadius="5dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/text2"-->
-<!--        app:strokeColor="@color/black"-->
-<!--        app:strokeWidth="1dp" />-->
-
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView2"
@@ -67,7 +14,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/nanum_gothic_bold"
         android:gravity="center"
-        android:text="Please Selecet Plant Name,Unit Name, and User Line !!"
+        android:text="@string/please_select_plant_name_unit_name_and_user_line"
         android:textColor="@color/bg_view_card_data"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +29,7 @@
         android:layout_marginBottom="20dp"
         android:enabled="true"
         android:padding="4dp"
-        android:text="Complete"
+        android:text="@string/complete"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -109,11 +56,11 @@
             android:id="@+id/autoCompleteUnit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Select Plant Unit Name "
+            android:hint="@string/select_plant_unit_name"
             android:inputType="none"
             android:paddingVertical="1dp"
             android:textColor="#000000"
-            android:textSize="14dp" />
+            android:textSize="@dimen/_12ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -133,11 +80,11 @@
             android:id="@+id/autoCompleteLine"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Select User Line "
+            android:hint="@string/select_user_line"
             android:inputType="none"
             android:paddingVertical="1dp"
             android:textColor="#000000"
-            android:textSize="14dp" />
+            android:textSize="@dimen/_12ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -156,11 +103,11 @@
             android:id="@+id/autoCompletePlant"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Select Plant Name"
+            android:hint="@string/select_plant_name"
             android:inputType="none"
             android:paddingVertical="1dp"
             android:textColor="#000000"
-            android:textSize="14dp" />
+            android:textSize="@dimen/_12ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,9 @@
-package com.faisal.quc.models.local.dao
+package com.rmg.production_monitor.models.local.dao
 
 
 
 import androidx.room.*
-import com.faisal.quc.models.local.entity.QcOperationEntity
-
-import kotlinx.coroutines.flow.Flow
+import com.rmg.production_monitor.models.local.entity.QcOperationEntity
 
 
 @Dao

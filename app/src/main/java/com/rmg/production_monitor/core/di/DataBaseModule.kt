@@ -2,8 +2,8 @@ package com.rmg.production_monitor.core.di
 
 import android.app.Application
 import com.rmg.production_monitor.core.db.AppDatabase
-import com.faisal.quc.models.local.dao.QcIssueDao
-import com.faisal.quc.models.local.dao.QcOperationDao
+import com.rmg.production_monitor.models.local.dao.HeatMapDao
+import com.rmg.production_monitor.models.local.dao.QcOperationDao
 
 import dagger.Module
 import dagger.Provides
@@ -30,6 +30,12 @@ class DataBaseModule {
     @Singleton
     fun provideQcOperationDao(appDatabase: AppDatabase): QcOperationDao {
         return appDatabase.getQcOperationDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHeatMapDao(appDatabase: AppDatabase):HeatMapDao{
+        return appDatabase.getHeatMapDao()
     }
 
 

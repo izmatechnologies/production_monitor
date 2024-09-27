@@ -68,6 +68,8 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
                 authenticationViewModel.saveLine(selectedline)
                 "save".toast()
                 authenticationViewModel.setPlantLineName(selectedLineName)
+
+
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
@@ -77,25 +79,17 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
 
         binding.autoCompleteUnit.setOnItemClickListener { _, _, position, _ ->
-            selectedUnit = unitList[position].plantUnitId?:0
-//            if (selectedUnit != -1) {
-//                binding.text1.text = "Plant Unit Name  : ${unitList[position].plantUnitName.toString()}"
+            selectedUnit = unitList[position].plantUnitId?:-1
 //            }
         }
 
         binding.autoCompletePlant.setOnItemClickListener { _, _, position, _ ->
-            selectedPlant = plantList[position].plantId?:0
-//            if (selectedPlant != -1) {
-//                binding.text2.text = "Plant  Name  :" + plantList[position].plantName.toString()
-//            }
+            selectedPlant = plantList[position].plantId?:-1
         }
 
         binding.autoCompleteLine.setOnItemClickListener { _, _, position, _ ->
-            selectedline = lineList[position].lineId?:0
+            selectedline = lineList[position].lineId?:-1
             selectedLineName=lineList[position].lineName.toString()
-//            if (selectedline != -1) {
-//                binding.text3.text = "User Line  Name  : $selectedLineName"
-//            }
         }
 
     }
@@ -116,7 +110,6 @@ class UnitPlantActivity : BaseActivity<ActivityUnitPlantBinding>() {
 
 
     private fun validation(): Boolean {
-        // todo validate to model view
         if (selectedPlant== -1) {
             "Select Plant Name".toast()
             return false
