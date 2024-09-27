@@ -1,6 +1,9 @@
 package com.rmg.production_monitor.view.activity
 
+import android.app.AlarmManager
 import android.app.Dialog
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -29,6 +32,8 @@ import com.rmg.production_monitor.models.local.entity.HeatMapPosition
 import com.rmg.production_monitor.models.local.entity.QualityPayload
 import com.rmg.production_monitor.models.local.entity.StationWiseDhu
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
+import com.rmg.production_monitor.service.broadCastCallReceiver.ApiSchedulerService
+import com.rmg.production_monitor.service.broadCastCallReceiver.HeatmapCallReceiver
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
@@ -77,6 +82,14 @@ class MainActivity : AppCompatActivity() {
         setUpAdapter()
         startCounter()
 
+        /*startApiCall*/
+        lineId = qualityViewModel.getLineId()?: 0
+        qualityViewModel.getHeatmap(lineId)
+
+        val apiSchedulerService = ApiSchedulerService()
+        apiSchedulerService.heatMapScheduleApiCall(lineId)
+
+
 
         binding.btnExit.setOnClickListener {
             showLogoutDialog(
@@ -117,9 +130,6 @@ class MainActivity : AppCompatActivity() {
                 is Success -> {
                     hideLoader()
                     it.data?.payload?.let { payload ->
-//                        qualityPayload = payload
-//                        initializeData()
-//                        heatMapData()
                         val insertPayload=HeatMapEntity(0, QualityPayload(
                             payload.buyer,
                             payload.RunningDay,
@@ -196,11 +206,6 @@ class MainActivity : AppCompatActivity() {
         // Start auto-scrolling
         //startAutoScroll()
         heatmapLocalViewModel=ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
-        /*startApiCall*/
-        lineId = qualityViewModel.getLineId()?: 0
-        qualityViewModel.getHeatmap(lineId)
-
-
 
         if (mViewModel.getSliding()) {
             mViewModel.saveSliderValue(true)
@@ -270,7 +275,17 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         job?.cancel()
         handler.removeCallbacksAndMessages(null)
+        cancelApiCalls()
     }
+
+    private fun cancelApiCalls() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        // Cancel API 1
+        val api1Intent = Intent(this, HeatmapCallReceiver::class.java).apply { action = "heatmap_api" }
+        val api1PendingIntent = PendingIntent.getBroadcast(this, 0, api1Intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.cancel(api1PendingIntent)
+    }
+
     private fun stopScrolling() {
         handler.removeCallbacksAndMessages(null)
     }

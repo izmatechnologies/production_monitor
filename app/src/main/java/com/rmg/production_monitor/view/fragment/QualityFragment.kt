@@ -1,6 +1,5 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Handler
@@ -8,9 +7,7 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
@@ -22,29 +19,20 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.PointsGraphSeries
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.core.base.BaseFragment
-import com.rmg.production_monitor.core.data.NetworkResult.Error
-import com.rmg.production_monitor.core.data.NetworkResult.Loading
-import com.rmg.production_monitor.core.data.NetworkResult.SessionOut
-import com.rmg.production_monitor.core.data.NetworkResult.Success
 import com.rmg.production_monitor.core.extention.log
-import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentQualityBinding
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.models.remote.quality.DhuValueList
-import com.rmg.production_monitor.models.remote.quality.QualityPayload
 import com.rmg.production_monitor.models.remote.quality.TopProductionsIssue
-import com.rmg.production_monitor.view.activity.LoginActivity
 import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
-import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class QualityFragment : BaseFragment<FragmentQualityBinding>() {
-    private val qualityViewModel by viewModels<QualityViewModel>()
     private lateinit var qualityPayload: HeatMapEntity
     private var imagePath: String? = null
     private var finalHeight: Float = 0.0f
@@ -58,6 +46,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private lateinit var operationsAdapter:TopProductionsIssueAdapter
     var lineId =  0
     private lateinit var handler: Handler
+
     // The list of coordinates for the dots
     // Declare dotCoordinates globally
     private var dotCoordinates: Array<DataPoint>? = null
@@ -82,56 +71,10 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
             }
 
         }
-//        lineId = qualityViewModel.getLineId()?: 0
-//        networkChecker {
-//            qualityViewModel.getHeatmap(lineId)
-//        }
     }
 
     override fun setupObserver() {
         super.setupObserver()
-
-
-//        qualityViewModel.heatMapLiveData.observe(viewLifecycleOwner) {
-//            when (it) {
-//                is Success -> {
-//                    hideLoader()
-//                    it.data?.payload?.let { payload ->
-//                        qualityPayload = payload
-////                        initializeData()
-//                        heatMapData()
-//                    }
-//                }
-//
-//                is Error -> {
-//                    hideLoader()
-//                    it.message.toString().toast()
-//                }
-//
-//                is Loading -> {
-//                    showLoader()
-//                }
-//
-//                is SessionOut -> {
-//
-//                    "User token expired".toast()
-//                    qualityViewModel.clearSession()
-//
-//                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    startActivity(intent)
-//                    requireActivity().finishAfterTransition()
-//
-//                    //qualityViewModel.c()
-//                  //  showTokenExpiredToast()
-//                    //(requireActivity() as MainActivity).logout()
-//                }
-//
-//                else -> {
-//
-//                }
-//            }
-//        }
     }
 
     override fun initializeData() {
@@ -317,10 +260,9 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = qualityViewModel.getLineId()?: 0
             networkChecker {
                 callInitialApi()
-//                qualityViewModel.getHeatmap(lineId)
+
             }
         }
     }
