@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +25,7 @@ import com.rmg.production_monitor.core.data.NetworkResult.Success
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.showLogoutDialog
 import com.rmg.production_monitor.core.extention.toast
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
 import com.rmg.production_monitor.models.local.entity.HeatMapIssue
@@ -32,7 +34,6 @@ import com.rmg.production_monitor.models.local.entity.HeatMapPosition
 import com.rmg.production_monitor.models.local.entity.QualityPayload
 import com.rmg.production_monitor.models.local.entity.StationWiseDhu
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
-import com.rmg.production_monitor.service.broadCastCallReceiver.ApiSchedulerService
 import com.rmg.production_monitor.service.broadCastCallReceiver.HeatmapCallReceiver
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
@@ -40,6 +41,7 @@ import com.rmg.production_monitor.view.fragment.QualityFragment
 import com.rmg.production_monitor.view.fragment.WipFragment
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import com.rmg.production_monitor.viewModel.QualityViewModel
+import com.rmg.production_monitor.viewModel.demo.QualityDemoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,8 +67,12 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
     private val qualityViewModel by viewModels<QualityViewModel>()
+    private val qualityDemoViewModel by viewModels<QualityDemoViewModel>()
+//    private lateinit var qualityDemoViewModel:QualityDemoViewModel
+//    @Inject lateinit var qualityViewModel :QualityViewModel
     var lineId =  0
     private  var loaderDialog: Dialog?=null
+    private lateinit var prefs: AppPreferenceImpl
 
     /*Local DB*/
     private lateinit var heatmapLocalViewModel: HeatmapLocalViewModel
@@ -77,18 +83,20 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel.saveSliderValue(false)
 
+        prefs= AppPreferenceImpl(this)
         binding.textlineName.text=mViewModel.getPlantLineName()
         initializeData()
         setUpAdapter()
         startCounter()
 
-        /*startApiCall*/
+
+
         lineId = qualityViewModel.getLineId()?: 0
-        qualityViewModel.getHeatmap(lineId)
+        qualityDemoViewModel.getHeatmap(lineId)
 
-        val apiSchedulerService = ApiSchedulerService()
-        apiSchedulerService.heatMapScheduleApiCall(lineId)
-
+//        val apiSchedulerService = ApiSchedulerService(applicationContext)
+//        apiSchedulerService.heatMapScheduleApiCall(lineId)
+        scheduleApiCall(this,lineId)
 
 
         binding.btnExit.setOnClickListener {
@@ -120,16 +128,15 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        /*startApiCall*/
+
 
         setupObserver()
     }
 
     private fun setupObserver() {
-        qualityViewModel.heatMapLiveData.observe(this@MainActivity) {
-            when (it) {
-                is Success -> {
-                    hideLoader()
-                    it.data?.payload?.let { payload ->
+        qualityDemoViewModel.heatMapLiveData.observe(this@MainActivity){data->
+            data?.payload?.let { payload ->
                         val insertPayload=HeatMapEntity(0, QualityPayload(
                             payload.buyer,
                             payload.RunningDay,
@@ -172,33 +179,83 @@ class MainActivity : AppCompatActivity() {
                         (Gson().toJson(insertPayload)).log()
 
                     }
-                }
 
-                is Error -> {
-                    hideLoader()
-                    it.message.toString().toast()
-                }
-
-                is Loading -> {
-
-                }
-
-                is SessionOut -> {
-
-                    "User token expired".toast()
-                    qualityViewModel.clearSession()
-
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    finishAfterTransition()
-                }
-
-                else -> {
-
-                }
-            }
         }
+
+//        qualityDemoViewModel.heatMapLiveData.observe(this@MainActivity) {
+//            when (it) {
+//                is Success -> {
+//                    hideLoader()
+//                    it.data?.payload?.let { payload ->
+//                        val insertPayload=HeatMapEntity(0, QualityPayload(
+//                            payload.buyer,
+//                            payload.RunningDay,
+//                            payload.RununningHour,
+//                            payload.color,
+//                            payload.heatMapIssues.map { issue->
+//                                HeatMapIssue(
+//                                    issue.issueName,
+//                                    issue.count
+//                                )
+//                            },
+//                            payload.heatMapOperations.map {operations->
+//                               HeatMapOperation(
+//                                   operations.operationName,
+//                                   operations.count
+//                               )
+//                            },
+//                            payload.heatMapPositions.map {positions->
+//                                HeatMapPosition(
+//                                    positions.x,
+//                                    positions.y
+//                                )
+//                            },
+//                            payload.imageUrl,
+//                            payload.markingImageUrl,
+//                            payload.overAllDhu,
+//                            payload.po,
+//                            payload.remainingDiffective,
+//                            payload.stationWiseDhus.map { dhu->
+//                                StationWiseDhu(
+//                                    dhu.dHU,
+//                                    dhu.stationName
+//                                )
+//                            },
+//                            payload.style,
+//                            payload.totalReject
+//
+//                        ))
+//                        heatmapLocalViewModel.insertHeatmapData(insertPayload)
+//                        (Gson().toJson(insertPayload)).log()
+//
+//                    }
+//                }
+//
+//                is Error -> {
+//                    hideLoader()
+//                    it.message.toString().toast()
+//                }
+//
+//                is Loading -> {
+//
+//                }
+//
+//                is SessionOut -> {
+//
+//                    "User token expired".toast()
+//                    qualityViewModel.clearSession()
+//
+//                    val intent = Intent(this, LoginActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                    finishAfterTransition()
+//                }
+//
+//                else -> {
+//
+//                }
+//            }
+//        }
     }
 
     override fun onResume() {
@@ -225,6 +282,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeData() {
+
+
         fragmentList.add(DisplayFragment("Quality", QualityFragment()))
         fragmentList.add(DisplayFragment("PCB", PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..", DashBoardFragment()))
@@ -300,4 +359,25 @@ class MainActivity : AppCompatActivity() {
         loaderDialog=null
     }
 
+
+   private fun scheduleApiCall(context: Context,lineId: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, HeatmapCallReceiver::class.java).apply {
+            putExtra("LINE_ID", lineId.toString())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Set repeating alarm for API every 3 minutes
+        alarmManager.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(), // First trigger
+            1 * 60 * 1000, // Repeat every 3 minutes
+            pendingIntent
+        )
+    }
 }

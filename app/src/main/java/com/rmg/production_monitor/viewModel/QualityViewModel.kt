@@ -10,7 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QualityViewModel @Inject constructor(
-    private val qualityRepository: QualityRepository,  private val mainActivityRepository: MainActivityRepository
+    private val qualityRepository: QualityRepository,
+    private val mainActivityRepository: MainActivityRepository
 ) : ViewModel() {
     // Heat map
     val heatMapLiveData get() = qualityRepository.heatMapLiveData
