@@ -1,61 +1,34 @@
 package com.rmg.production_monitor.service.broadCastCallReceiver
 
-import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import androidx.work.workDataOf
-import com.rmg.production_monitor.viewModel.QualityViewModel
-import com.rmg.production_monitor.viewModel.demo.QualityDemoViewModel
-import com.rmg.production_monitor.workManager.HeatMapApiCallWorker
+import com.rmg.production_monitor.models.local.dao.HeatMapDao
+import com.rmg.production_monitor.models.local.entity.HeatMapEntity
+import com.rmg.production_monitor.repository.QualityRepositoryImpl
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HeatmapCallReceiver :BroadcastReceiver(){
+    @Inject
+    lateinit var qualityRepositoryImpl: QualityRepositoryImpl
+    @Inject
+    lateinit var heatMapDao: HeatMapDao
     override fun onReceive(context: Context?, intent: Intent?) {
-//        when(intent?.action){
-//            "heatmap_api"->{
-////                val qualityViewModel=ViewModelProvider.AndroidViewModelFactory.getInstance(context?.applicationContext as Application).create(QualityViewModel::class.java)
-//
-//            }
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val lineId=intent?.getStringExtra("LINE_ID")
 
-//        val qualityViewModel = ViewModelProvider(context as ViewModelStoreOwner)[QualityDemoViewModel::class.java]
-        val qualityViewModel=ViewModelProvider.AndroidViewModelFactory.getInstance(context?.applicationContext as Application).create(QualityDemoViewModel::class.java)
-        val lineId = intent?.getIntExtra("LINE_ID", -1) ?: -1
-        qualityViewModel.getHeatmap(lineId)
+            val response=qualityRepositoryImpl.getHeatmap(lineId?.toInt()?:-1)
 
-//        if (context != null) {
-//            val requestId = intent?.getStringExtra("REQUEST_ID") ?: return
-//            val workManager = WorkManager.getInstance(context)
-//
-//            val inputData = workDataOf("REQUEST_ID" to requestId)
-//
-//            val workRequest = OneTimeWorkRequestBuilder<HeatMapApiCallWorker>()
-//                .setInputData(inputData)
-//                .build()
-//
-//            workManager.enqueue(workRequest)
-//
-////            scheduleApiWork(context, 0)  // Immediate work after alarm triggers
-//        }
+            if (response.success){
+                heatMapDao.insertHeatMapData(HeatMapEntity(0,response.payload))
+            }
 
+        }
 
-
-    }
-
-    private fun scheduleApiWork(context: Context, delayInMinutes: Long) {
-        val workRequest = OneTimeWorkRequestBuilder<HeatMapApiCallWorker>()
-            .setInitialDelay(delayInMinutes, TimeUnit.MINUTES)
-            .build()
-
-        WorkManager.getInstance(context).enqueue(workRequest)
     }
 }

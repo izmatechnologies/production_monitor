@@ -2,7 +2,7 @@ package com.rmg.production_monitor.core
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.rmg.production_monitor.models.local.entity.QualityPayload
+import com.rmg.production_monitor.models.remote.quality.QualityPayload
 
 class Converters {
 

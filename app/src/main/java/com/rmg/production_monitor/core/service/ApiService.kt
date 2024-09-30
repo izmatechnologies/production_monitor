@@ -18,7 +18,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-
 //    @Deprecated("don't this authenticate_deprecated method", replaceWith = ReplaceWith("authenticate( requestBody: AuthenticationRequest)")
 //        , level = DeprecationLevel.ERROR)
     @POST("api/AnalyticAppAuth/Authenticate")
@@ -26,7 +25,7 @@ interface ApiService {
 
     // Heat map
     @GET("api/HeeatMap/GetHeatmap")
-    suspend fun getHeatmap(@Query("lineid") lineId: Int): Response<QualityModel>
+    suspend fun getHeatmap(@Query("lineid") lineId: Int): QualityModel
 
     @GET("api/CumulativeDashboard/GetCumulativeDashboardSummary")
     suspend fun getCumulativeDashboardSummary(

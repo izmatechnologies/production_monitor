@@ -19,46 +19,48 @@ class QualityRepositoryImpl @Inject constructor(
     private val _heatMapLiveData = MutableLiveData<NetworkResult<QualityModel>>()
     override val heatMapLiveData: LiveData<NetworkResult<QualityModel>> get() = _heatMapLiveData
 
-    override suspend fun getHeatmap(lineId: Int) {
-        _heatMapLiveData.postValue(NetworkResult.Loading())
-        val response = apiService.getHeatmap(lineId)
+    override suspend fun getHeatmap(lineId: Int):QualityModel {
+        return apiService.getHeatmap(lineId)
 
-        try {
-            if (response.isSuccessful) {
-                if (response.body() != null && response.body() is QualityModel) {
-                    if (response.body()!!.success) {
-                        _heatMapLiveData.postValue(
-                            NetworkResult.Success(
-                                response.body()!!
-                            )
-                        )
-                    } else {
-                        _heatMapLiveData.postValue(NetworkResult.Error("Not Available Data "))
-                    }
-
-                } else {
-                    _heatMapLiveData.postValue(NetworkResult.Error("not available Data "))
-                }
-            } else if (response.code() == 401) {
-
-                _heatMapLiveData.postValue(NetworkResult.SessionOut("Unauthorized"))
-
-            } else if (
-                response.code() == 500
-                || response.code() == 502
-                || response.code() == 503
-            ) {
-
-                _heatMapLiveData.postValue(NetworkResult.Error(" The server is currently unavailable"))
-
-            } else {
-                val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
-                _heatMapLiveData.postValue(NetworkResult.Error(errorObj.getString("message")))
-            }
-
-        } catch (e: Exception) {
-            Log.e("error", e.message.toString())
-        }
+//        _heatMapLiveData.postValue(NetworkResult.Loading())
+//        val response = apiService.getHeatmap(lineId)
+//
+//        try {
+//            if (response.isSuccessful) {
+//                if (response.body() != null && response.body() is QualityModel) {
+//                    if (response.body()!!.success) {
+//                        _heatMapLiveData.postValue(
+//                            NetworkResult.Success(
+//                                response.body()!!
+//                            )
+//                        )
+//                    } else {
+//                        _heatMapLiveData.postValue(NetworkResult.Error("Not Available Data "))
+//                    }
+//
+//                } else {
+//                    _heatMapLiveData.postValue(NetworkResult.Error("not available Data "))
+//                }
+//            } else if (response.code() == 401) {
+//
+//                _heatMapLiveData.postValue(NetworkResult.SessionOut("Unauthorized"))
+//
+//            } else if (
+//                response.code() == 500
+//                || response.code() == 502
+//                || response.code() == 503
+//            ) {
+//
+//                _heatMapLiveData.postValue(NetworkResult.Error(" The server is currently unavailable"))
+//
+//            } else {
+//                val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+//                _heatMapLiveData.postValue(NetworkResult.Error(errorObj.getString("message")))
+//            }
+//
+//        } catch (e: Exception) {
+//            Log.e("error", e.message.toString())
+//        }
     }
 //        if (response.isSuccessful && response.body() != null) {
 //            _heatMapLiveData.postValue(NetworkResult.Success(response.body()!!))

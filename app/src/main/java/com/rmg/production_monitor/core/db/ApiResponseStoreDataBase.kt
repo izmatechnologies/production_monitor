@@ -11,7 +11,7 @@ import com.rmg.production_monitor.models.local.dao.HeatMapDao
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
 
 @Database(
-    entities = [HeatMapEntity::class], version = 1 , exportSchema = false
+    entities = [HeatMapEntity::class], version = 2 , exportSchema = false
 )
 
 @TypeConverters(Converters::class)

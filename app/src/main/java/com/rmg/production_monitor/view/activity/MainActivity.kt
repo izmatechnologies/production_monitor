@@ -28,11 +28,6 @@ import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
-import com.rmg.production_monitor.models.local.entity.HeatMapIssue
-import com.rmg.production_monitor.models.local.entity.HeatMapOperation
-import com.rmg.production_monitor.models.local.entity.HeatMapPosition
-import com.rmg.production_monitor.models.local.entity.QualityPayload
-import com.rmg.production_monitor.models.local.entity.StationWiseDhu
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.service.broadCastCallReceiver.HeatmapCallReceiver
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
@@ -41,7 +36,6 @@ import com.rmg.production_monitor.view.fragment.QualityFragment
 import com.rmg.production_monitor.view.fragment.WipFragment
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import com.rmg.production_monitor.viewModel.QualityViewModel
-import com.rmg.production_monitor.viewModel.demo.QualityDemoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,11 +61,8 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
     private val qualityViewModel by viewModels<QualityViewModel>()
-    private val qualityDemoViewModel by viewModels<QualityDemoViewModel>()
-//    private lateinit var qualityDemoViewModel:QualityDemoViewModel
-//    @Inject lateinit var qualityViewModel :QualityViewModel
-    var lineId =  0
-    private  var loaderDialog: Dialog?=null
+    var lineId = 0
+    private var loaderDialog: Dialog? = null
     private lateinit var prefs: AppPreferenceImpl
 
     /*Local DB*/
@@ -83,20 +74,19 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel.saveSliderValue(false)
 
-        prefs= AppPreferenceImpl(this)
-        binding.textlineName.text=mViewModel.getPlantLineName()
+        prefs = AppPreferenceImpl(this)
+        binding.textlineName.text = mViewModel.getPlantLineName()
         initializeData()
         setUpAdapter()
         startCounter()
 
 
 
-        lineId = qualityViewModel.getLineId()?: 0
-        qualityDemoViewModel.getHeatmap(lineId)
-
+        lineId = qualityViewModel.getLineId() ?: 0
+        qualityViewModel.getHeatmap(lineId)
 //        val apiSchedulerService = ApiSchedulerService(applicationContext)
 //        apiSchedulerService.heatMapScheduleApiCall(lineId)
-        scheduleApiCall(this,lineId)
+        scheduleApiCall(this, lineId)
 
 
         binding.btnExit.setOnClickListener {
@@ -135,100 +125,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        qualityDemoViewModel.heatMapLiveData.observe(this@MainActivity){data->
-            data?.payload?.let { payload ->
-                        val insertPayload=HeatMapEntity(0, QualityPayload(
-                            payload.buyer,
-                            payload.RunningDay,
-                            payload.RununningHour,
-                            payload.color,
-                            payload.heatMapIssues.map { issue->
-                                HeatMapIssue(
-                                    issue.issueName,
-                                    issue.count
-                                )
-                            },
-                            payload.heatMapOperations.map {operations->
-                               HeatMapOperation(
-                                   operations.operationName,
-                                   operations.count
-                               )
-                            },
-                            payload.heatMapPositions.map {positions->
-                                HeatMapPosition(
-                                    positions.x,
-                                    positions.y
-                                )
-                            },
-                            payload.imageUrl,
-                            payload.markingImageUrl,
-                            payload.overAllDhu,
-                            payload.po,
-                            payload.remainingDiffective,
-                            payload.stationWiseDhus.map { dhu->
-                                StationWiseDhu(
-                                    dhu.dHU,
-                                    dhu.stationName
-                                )
-                            },
-                            payload.style,
-                            payload.totalReject
 
-                        ))
-                        heatmapLocalViewModel.insertHeatmapData(insertPayload)
-                        (Gson().toJson(insertPayload)).log()
+        qualityViewModel.heatMapLiveData.observe(this@MainActivity) {
+            it?.payload?.let { payload ->
+                val insertPayload = HeatMapEntity(0, payload)
 
-                    }
+                heatmapLocalViewModel.insertHeatmapData(insertPayload)
 
-        }
+                (Gson().toJson(insertPayload)).log()
 
-//        qualityDemoViewModel.heatMapLiveData.observe(this@MainActivity) {
+            }
 //            when (it) {
 //                is Success -> {
 //                    hideLoader()
-//                    it.data?.payload?.let { payload ->
-//                        val insertPayload=HeatMapEntity(0, QualityPayload(
-//                            payload.buyer,
-//                            payload.RunningDay,
-//                            payload.RununningHour,
-//                            payload.color,
-//                            payload.heatMapIssues.map { issue->
-//                                HeatMapIssue(
-//                                    issue.issueName,
-//                                    issue.count
-//                                )
-//                            },
-//                            payload.heatMapOperations.map {operations->
-//                               HeatMapOperation(
-//                                   operations.operationName,
-//                                   operations.count
-//                               )
-//                            },
-//                            payload.heatMapPositions.map {positions->
-//                                HeatMapPosition(
-//                                    positions.x,
-//                                    positions.y
-//                                )
-//                            },
-//                            payload.imageUrl,
-//                            payload.markingImageUrl,
-//                            payload.overAllDhu,
-//                            payload.po,
-//                            payload.remainingDiffective,
-//                            payload.stationWiseDhus.map { dhu->
-//                                StationWiseDhu(
-//                                    dhu.dHU,
-//                                    dhu.stationName
-//                                )
-//                            },
-//                            payload.style,
-//                            payload.totalReject
 //
-//                        ))
-//                        heatmapLocalViewModel.insertHeatmapData(insertPayload)
-//                        (Gson().toJson(insertPayload)).log()
-//
-//                    }
 //                }
 //
 //                is Error -> {
@@ -255,14 +165,15 @@ class MainActivity : AppCompatActivity() {
 //
 //                }
 //            }
-//        }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
         //startAutoScroll()
-        heatmapLocalViewModel=ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
+        heatmapLocalViewModel =
+            ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
 
         if (mViewModel.getSliding()) {
             mViewModel.saveSliderValue(true)
@@ -283,7 +194,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeData() {
 
-
         fragmentList.add(DisplayFragment("Quality", QualityFragment()))
         fragmentList.add(DisplayFragment("PCB", PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..", DashBoardFragment()))
@@ -294,7 +204,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpAdapter() {
-
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager, lifecycle, fragmentList)
         binding.viewPager.adapter = pagerAdapter
     }
@@ -340,8 +249,14 @@ class MainActivity : AppCompatActivity() {
     private fun cancelApiCalls() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         // Cancel API 1
-        val api1Intent = Intent(this, HeatmapCallReceiver::class.java).apply { action = "heatmap_api" }
-        val api1PendingIntent = PendingIntent.getBroadcast(this, 0, api1Intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val api1Intent =
+            Intent(this, HeatmapCallReceiver::class.java).apply { action = "heatmap_api" }
+        val api1PendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            api1Intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
         alarmManager.cancel(api1PendingIntent)
     }
 
@@ -356,11 +271,11 @@ class MainActivity : AppCompatActivity() {
         loaderDialog?.hide()
         loaderDialog?.dismiss()
         loaderDialog?.cancel()
-        loaderDialog=null
+        loaderDialog = null
     }
 
 
-   private fun scheduleApiCall(context: Context,lineId: Int) {
+    private fun scheduleApiCall(context: Context, lineId: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, HeatmapCallReceiver::class.java).apply {
             putExtra("LINE_ID", lineId.toString())

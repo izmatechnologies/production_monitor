@@ -8,6 +8,6 @@ interface QualityRepository {
     // Heat map
     val heatMapLiveData: LiveData<NetworkResult<QualityModel>>
 
-    suspend fun getHeatmap(lineId: Int)
+    suspend fun getHeatmap(lineId: Int):QualityModel
 
 }
