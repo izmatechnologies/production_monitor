@@ -9,7 +9,7 @@ interface DashboardRepository {
 
     val dashboardAnalyticsData: LiveData<NetworkResult<DashboardAnalyticsResponse>>
 
-    suspend fun getDashboardAnalytics(lineId:Int)
+    suspend fun getDashboardAnalytics(lineId:Int):DashboardAnalyticsResponse
 
 
 

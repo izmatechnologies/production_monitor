@@ -1,7 +1,9 @@
 package com.rmg.production_monitor.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryModel
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepository
 import com.rmg.production_monitor.repository.MainActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,11 +17,11 @@ class CumulativeDashboardSummaryViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Cumulative Dashboard Summary
-    val cumulativeDashboardSummaryLiveData get() = cumulativeDashboardSummaryRepository.cumulativeDashboardSummaryLiveData
+    val cumulativeDashboardSummaryLiveData = MutableLiveData<CumulativeDashboardSummaryModel>()
 
     fun getCumulativeDashboardSummary(lineId: Int) {
         viewModelScope.launch {
-            cumulativeDashboardSummaryRepository.getCumulativeDashboardSummary(lineId)
+            cumulativeDashboardSummaryLiveData.postValue(cumulativeDashboardSummaryRepository.getCumulativeDashboardSummary(lineId))
         }
     }
 

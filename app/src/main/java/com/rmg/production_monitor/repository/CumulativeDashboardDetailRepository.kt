@@ -9,6 +9,6 @@ interface CumulativeDashboardDetailRepository {
     // Cumulative Dashboard Detail
     val cumulativeDashboardDetailLiveData: LiveData<NetworkResult<CumulativeDashboardDetailModel>>
 
-    suspend fun getCumulativeDashboardDetail(lineId: Int)
+    suspend fun getCumulativeDashboardDetail(lineId: Int):CumulativeDashboardDetailModel
 
 }

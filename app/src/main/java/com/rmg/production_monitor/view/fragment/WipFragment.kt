@@ -6,11 +6,14 @@ import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentWipBinding
+import com.rmg.production_monitor.models.local.entity.WIPAnalyticsEntity
+import com.rmg.production_monitor.models.local.viewModel.WIPAnalyticsLocalViewModel
 
 import com.rmg.production_monitor.models.remote.dasboard.WipPo
 import com.rmg.production_monitor.view.activity.LoginActivity
@@ -22,10 +25,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WipFragment : BaseFragment<FragmentWipBinding>() {
-    private val mViewModel by viewModels<DashboardViewModel>()
+
     private lateinit var handler: Handler
     @Inject
     lateinit var WIPAdapter: WIPAdapter
+
+    /*Local DB*/
+    private lateinit var wipAnalyticsEntity: WIPAnalyticsEntity
+    private lateinit var wipAnalyticsLocalViewModel: WIPAnalyticsLocalViewModel
     override fun getViewBinding(inflater: LayoutInflater): FragmentWipBinding {
         return FragmentWipBinding.inflate(inflater)
     }
@@ -33,23 +40,22 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
     override fun initializeData() {
         super.initializeData()
         (requireActivity()as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            networkChecker {
-                val lineId=  mViewModel.getLineId()
-                "line id in Data frgament $lineId".log("192")
-                if (lineId != null) {
-                    mViewModel.getDashboardAnalytics(lineId.toInt())
-                }
-            }
+
+
         }
 
     }
 
     override fun callInitialApi() {
         super.callInitialApi()
+        wipAnalyticsLocalViewModel=ViewModelProvider(this)[WIPAnalyticsLocalViewModel::class.java]
+        wipAnalyticsLocalViewModel.getWIPListData.observe(this){
+            if (it !=null){
+                wipAnalyticsEntity=it
 
-        networkChecker {
-            mViewModel.getLineId()?.let { mViewModel.getDashboardAnalytics(it) }
+                setUpRecyclerView(wipAnalyticsEntity.payload?.wipPos)
 
+            }
         }
     }
 
@@ -57,52 +63,51 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
 
     override fun setupObserver() {
         super.setupObserver()
-        mViewModel.dashboardAnalyticLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResult.Success -> {
-                    hideLoader()
-                    "success".log("192")
-                    Log.i("rakib1", "setupObserver: ${it.data?.payload}")
-                    binding.apply {
-                        textTotalWip.text = it.data?.payload?.totalWip.toString()
-                    }
-                    setUpRecyclerView(it.data?.payload?.wipPos)
-                }
-
-                is NetworkResult.Error -> {
-                    hideLoader()
-                    it.message.toString().toast()
-                }
-
-                is NetworkResult.Loading -> {
-                    showLoader()
-                }
-
-                is NetworkResult.SessionOut -> {
-                     // qualityViewModel.clearSession()
-                    "User token expired".toast()
-                    mViewModel.clearSession()
-
-                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    requireActivity().finishAfterTransition()
-
-
-                 //   showTokenExpiredToast()
-                 //   (requireActivity() as MainActivity).logout()
-                }
-
-                else -> {
-
-                }
-            }
-        }
+//        mViewModel.dashboardAnalyticLiveData.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is NetworkResult.Success -> {
+//                    hideLoader()
+//                    "success".log("192")
+//                    Log.i("rakib1", "setupObserver: ${it.data?.payload}")
+//                    binding.apply {
+//                        textTotalWip.text = it.data?.payload?.totalWip.toString()
+//                    }
+//                    setUpRecyclerView(it.data?.payload?.wipPos)
+//                }
+//
+//                is NetworkResult.Error -> {
+//                    hideLoader()
+//                    it.message.toString().toast()
+//                }
+//
+//                is NetworkResult.Loading -> {
+//                    showLoader()
+//                }
+//
+//                is NetworkResult.SessionOut -> {
+//                     // qualityViewModel.clearSession()
+//                    "User token expired".toast()
+//                    mViewModel.clearSession()
+//
+//                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                    requireActivity().finishAfterTransition()
+//
+//
+//                 //   showTokenExpiredToast()
+//                 //   (requireActivity() as MainActivity).logout()
+//                }
+//
+//                else -> {
+//
+//                }
+//            }
+//        }
     }
 
 
     private fun setUpRecyclerView(payload: List<WipPo?>?) {
-
 
         payload?.apply {
             WIPAdapter.differ.submitList(toList())
@@ -130,11 +135,7 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            val lineId=  mViewModel.getLineId()
-            "line id in Data fragment $lineId".log("192")
-            if (lineId != null) {
-                mViewModel.getDashboardAnalytics(lineId.toInt())
-            }
+            callInitialApi()
         }
     }
 

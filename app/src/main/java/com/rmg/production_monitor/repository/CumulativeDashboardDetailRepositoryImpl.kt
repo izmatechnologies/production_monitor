@@ -21,52 +21,55 @@ class CumulativeDashboardDetailRepositoryImpl @Inject constructor(
     override val cumulativeDashboardDetailLiveData: LiveData<NetworkResult<CumulativeDashboardDetailModel>>
         get() = _cumulativeDashboardDetailLiveData
 
-    override suspend fun getCumulativeDashboardDetail(lineId: Int) {
-        _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Loading())
-        val response = apiService.getCumulativeDashboardDetail(lineId)
-        try {
-            if (response.isSuccessful) {
-                if (response.body() != null && response.body() is CumulativeDashboardDetailModel) {
-                    if (response.body()!!.success == true) {
-                        _cumulativeDashboardDetailLiveData.postValue(
-                            NetworkResult.Success(
-                                response.body()!!
-                            )
-                        )
-                    } else {
-                        _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error("Not Available Data "))
-                    }
-
-                } else {
-                    _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error("Not Available Data "))
-                }
-            } else if (response.code() == 401) {
-
-                _cumulativeDashboardDetailLiveData.postValue(NetworkResult.SessionOut("Unauthorized"))
-
-            } else if (
-                response.code() == 500
-                || response.code() == 502
-                || response.code() == 503
-            ) {
-
-                _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error(" The server is currently unavailable"))
-
-            } else {
-                val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
-                _cumulativeDashboardDetailLiveData.postValue(
-                    NetworkResult.Error(
-                        errorObj.getString(
-                            "message"
-                        )
-                    )
-                )
-            }
-
-        } catch (e: Exception) {
-            Log.e("error", e.message.toString())
-        }
+    override suspend fun getCumulativeDashboardDetail(lineId: Int):CumulativeDashboardDetailModel {
+//        _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Loading())
+        return apiService.getCumulativeDashboardDetail(lineId)
     }
+
+
+
+//        try {
+//            if (response.isSuccessful) {
+//                if (response.body() != null && response.body() is CumulativeDashboardDetailModel) {
+//                    if (response.body()!!.success == true) {
+//                        _cumulativeDashboardDetailLiveData.postValue(
+//                            NetworkResult.Success(
+//                                response.body()!!
+//                            )
+//                        )
+//                    } else {
+//                        _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error("Not Available Data "))
+//                    }
+//
+//                } else {
+//                    _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error("Not Available Data "))
+//                }
+//            } else if (response.code() == 401) {
+//
+//                _cumulativeDashboardDetailLiveData.postValue(NetworkResult.SessionOut("Unauthorized"))
+//
+//            } else if (
+//                response.code() == 500
+//                || response.code() == 502
+//                || response.code() == 503
+//            ) {
+//
+//                _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Error(" The server is currently unavailable"))
+//
+//            } else {
+//                val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+//                _cumulativeDashboardDetailLiveData.postValue(
+//                    NetworkResult.Error(
+//                        errorObj.getString(
+//                            "message"
+//                        )
+//                    )
+//                )
+//            }
+//
+//        } catch (e: Exception) {
+//            Log.e("error", e.message.toString())
+//        }
 
 //        if (response.isSuccessful && response.body() != null) {
 //            _cumulativeDashboardDetailLiveData.postValue(NetworkResult.Success(response.body()!!))

@@ -1,7 +1,9 @@
 package com.rmg.production_monitor.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.CumulativeDashboardDetailModel
 
 import com.rmg.production_monitor.repository.CumulativeDashboardDetailRepository
 import com.rmg.production_monitor.repository.MainActivityRepository
@@ -16,11 +18,12 @@ class CumulativeDashboardDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Cumulative Dashboard Detail
-    val cumulativeDashboardDetailLiveData get() = cumulativeDashboardDetailRepository.cumulativeDashboardDetailLiveData
+    val cumulativeDashboardDetailLiveData =MutableLiveData<CumulativeDashboardDetailModel>()
 
     fun getCumulativeDashboardDetail(lineId: Int) {
         viewModelScope.launch {
-            cumulativeDashboardDetailRepository.getCumulativeDashboardDetail(lineId)
+            cumulativeDashboardDetailLiveData.postValue( cumulativeDashboardDetailRepository.getCumulativeDashboardDetail(lineId))
+
         }
     }
 

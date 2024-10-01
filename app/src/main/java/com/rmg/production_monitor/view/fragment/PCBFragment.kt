@@ -10,10 +10,14 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
+import com.rmg.production_monitor.models.local.entity.PCBDashBoardDetailsEntity
+import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
+import com.rmg.production_monitor.models.local.viewModel.PCBDashBoardDetailsLocalViewModel
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.ColumnName
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.CumulativeDashboardDetailPayload
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.HourlyDetail
@@ -27,8 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
-    private val cumulativeDashboardDetailViewModel by viewModels<CumulativeDashboardDetailViewModel>()
-    private lateinit var cumulativeDashboardDetailPayload: CumulativeDashboardDetailPayload
+
     private lateinit var hourlyDetailList: MutableList<HourlyDetail?>
     private lateinit var columnName: MutableList<ColumnName>
     private lateinit var pcbAdapter: PCBAdapter
@@ -36,125 +39,132 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     var lineId = 0
     private lateinit var handler: Handler
 
+    /*Local DB*/
+    private lateinit var cumulativeDashboardDetailPayload: PCBDashBoardDetailsEntity
+    private lateinit var pcbDashBoardDetailsLocalViewModel: PCBDashBoardDetailsLocalViewModel
+
     override fun getViewBinding(inflater: LayoutInflater): FragmentPCBBinding {
         return FragmentPCBBinding.inflate(inflater)
     }
 
     override fun callInitialApi() {
         super.callInitialApi()
-        lineId = cumulativeDashboardDetailViewModel.getLineId()?: 0
-        networkChecker {
-            cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        pcbDashBoardDetailsLocalViewModel=
+            ViewModelProvider(this)[PCBDashBoardDetailsLocalViewModel::class.java]
+        pcbDashBoardDetailsLocalViewModel.getPCBDashBoardDetailsList.observe(viewLifecycleOwner){
+            if (it !=null){
+                cumulativeDashboardDetailPayload=it
+            }
         }
+
+
     }
 
     override fun setupObserver() {
         super.setupObserver()
 
-        cumulativeDashboardDetailViewModel.cumulativeDashboardDetailLiveData.observe(
-            viewLifecycleOwner
-        ) {
-            when (it) {
-                is NetworkResult.Success -> {
-                    hideLoader()
-                    it.data?.payload?.let { payload ->
-                        cumulativeDashboardDetailPayload = payload
-                        pcbApiCall()
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    hideLoader()
-                    it.message.toString().toast()
-
-                }
-
-                is NetworkResult.Loading -> {
-                    showLoader()
-                }
-
-                is NetworkResult.SessionOut -> {
-                    "User token expired".toast()
-                    cumulativeDashboardDetailViewModel.clearSession()
-
-                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    requireActivity().finishAfterTransition()
-
-                    // showTokenExpiredToast()
-                }
-
-                else -> {
-
-                }
-            }
-        }
+//        cumulativeDashboardDetailViewModel.cumulativeDashboardDetailLiveData.observe(
+//            viewLifecycleOwner
+//        ) {
+//            when (it) {
+//                is NetworkResult.Success -> {
+//                    hideLoader()
+//                    it.data?.payload?.let { payload ->
+//                        cumulativeDashboardDetailPayload = payload
+//                        pcbApiCall()
+//                    }
+//                }
+//
+//                is NetworkResult.Error -> {
+//                    hideLoader()
+//                    it.message.toString().toast()
+//
+//                }
+//
+//                is NetworkResult.Loading -> {
+//                    showLoader()
+//                }
+//
+//                is NetworkResult.SessionOut -> {
+//                    "User token expired".toast()
+//                    cumulativeDashboardDetailViewModel.clearSession()
+//
+//                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                    requireActivity().finishAfterTransition()
+//
+//                    // showTokenExpiredToast()
+//                }
+//
+//                else -> {
+//
+//                }
+//            }
+//        }
     }
 
-    private fun pcbApiCall() {
+    override fun initializeData() {
+        super.initializeData()
         if (::cumulativeDashboardDetailPayload.isInitialized) {
 
             binding.apply {
                 textViewStyle.text = changeEndTextColor(
-                    "Style - ${cumulativeDashboardDetailPayload.styleName ?: ""}",
+                    "Style - ${cumulativeDashboardDetailPayload.payload?.styleName ?: ""}",
                     6
                 )
                 textViewColor.text = changeEndTextColor(
-                    "Color - ${cumulativeDashboardDetailPayload.colorName ?: ""}",
+                    "Color - ${cumulativeDashboardDetailPayload.payload?.colorName ?: ""}",
                     6
                 )
                 textViewBuyer.text = changeEndTextColor(
-                    "Buyer - ${cumulativeDashboardDetailPayload.buyerName ?: ""}",
+                    "Buyer - ${cumulativeDashboardDetailPayload.payload?.buyerName ?: ""}",
                     6
                 )
                 tvRunDay.text = changeEndTextColor(
-                    "Run Day - ${cumulativeDashboardDetailPayload.runDay ?: ""}",
+                    "Run Day - ${cumulativeDashboardDetailPayload.payload?.runDay ?: ""}",
                     9
                 )
                 tvRunningHour.text = changeEndTextColor(
-                    "Running Hour - ${cumulativeDashboardDetailPayload.runningHour ?:""}",
+                    "Running Hour - ${cumulativeDashboardDetailPayload.payload?.runningHour ?:""}",
                     13
                 )
-                if (cumulativeDashboardDetailPayload.poNumber?.isNotEmpty() == true) {
-                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardDetailPayload.poNumber?:""}", 2)
+                if (cumulativeDashboardDetailPayload.payload?.poNumber?.isNotEmpty() == true) {
+                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardDetailPayload.payload?.poNumber?:""}", 2)
                 }
 
                 if (hourlyDetailList.isNotEmpty())hourlyDetailList.clear()
-                cumulativeDashboardDetailPayload.hourlyDetails?.let { hourlyDetailList.addAll(it) }
+                cumulativeDashboardDetailPayload.payload?.hourlyDetails?.let { hourlyDetailList.addAll(it) }
                 pcbAdapter.submit(hourlyDetailList.sortedBy { it?.hour })
 
             }
 
 
-        }
-
-    }
-
-    override fun initializeData() {
-        super.initializeData()
-        hourlyDetailList = mutableListOf()
-        columnName = mutableListOf()
-        columnName.addAll(
-            mutableListOf(
-                ColumnName("Hour"),
-                ColumnName("HOURLY [PCS] ACTUAL / PLAN"),
-                ColumnName("CUM. [PCS] ACTUAL / PLAN"),
-                ColumnName("VARIANCE [PCS] HOURLY / CUM."),
-                ColumnName("CUM.SAH [PCS] ACTUAL / CUM."),
-                ColumnName("DHU"),
-                ColumnName("ACTUAL EFF%"),
-                ColumnName("EFF.VARIANCE%"),
+            hourlyDetailList = mutableListOf()
+            columnName = mutableListOf()
+            columnName.addAll(
+                mutableListOf(
+                    ColumnName("Hour"),
+                    ColumnName("HOURLY [PCS] ACTUAL / PLAN"),
+                    ColumnName("CUM. [PCS] ACTUAL / PLAN"),
+                    ColumnName("VARIANCE [PCS] HOURLY / CUM."),
+                    ColumnName("CUM.SAH [PCS] ACTUAL / CUM."),
+                    ColumnName("DHU"),
+                    ColumnName("ACTUAL EFF%"),
+                    ColumnName("EFF.VARIANCE%"),
+                )
             )
-        )
-        pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
-        binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
+            pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
+            binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
 
-        pcbAdapter = PCBAdapter(hourlyDetailList.sortedBy { it?.hour })
-        binding.recyclerView.apply {
-            setHasFixedSize(true)
-            adapter = pcbAdapter
+            pcbAdapter = PCBAdapter(hourlyDetailList.sortedBy { it?.hour })
+            binding.recyclerView.apply {
+                setHasFixedSize(true)
+                adapter = pcbAdapter
+            }
+
         }
+
     }
 
     private fun changeEndTextColor(text: String, start: Int): SpannableString {
@@ -178,10 +188,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = cumulativeDashboardDetailViewModel.getLineId() ?: 0
-            networkChecker {
-                cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
-            }
+            callInitialApi()
         }
     }
     override fun onPause() {

@@ -1,4 +1,4 @@
-package com.rmg.production_monitor.service.broadCastCallReceiver
+package com.rmg.production_monitor.broadCastCallReceiver
 
 import android.app.AlarmManager
 import android.app.PendingIntent

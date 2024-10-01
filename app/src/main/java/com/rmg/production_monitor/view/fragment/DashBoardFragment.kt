@@ -1,6 +1,5 @@
 package com.rmg.production_monitor.view.fragment
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -11,113 +10,116 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.rmg.production_monitor.core.base.BaseFragment
-import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentDashBoardBinding
-import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
-import com.rmg.production_monitor.view.activity.LoginActivity
+import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
+import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
 import com.rmg.production_monitor.view.activity.MainActivity
-import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
-    private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
-    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
+
+//    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
     var lineId = 0
     private lateinit var handler: Handler
     private lateinit var spannableStringBuilder: SpannableStringBuilder
+    /*Local DB*/
+    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashBoardEntity
+    private lateinit var cumulativeDashBoardLocalViewModel: CumulativeDashBoardLocalViewModel
     override fun getViewBinding(inflater: LayoutInflater): FragmentDashBoardBinding {
         return FragmentDashBoardBinding.inflate(inflater)
     }
 
     override fun callInitialApi() {
         super.callInitialApi()
-        lineId = cumulativeDashboardSummaryViewModel.getLineId()?: 0
-        networkChecker {
-            cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+        cumulativeDashBoardLocalViewModel=ViewModelProvider(this)[CumulativeDashBoardLocalViewModel::class.java]
+        cumulativeDashBoardLocalViewModel.getCumulativeDashBoardList.observe(viewLifecycleOwner){
+            if (it !=null){
+                cumulativeDashboardSummaryPayload=it
+
+            }
         }
+
+
+
+
     }
 
     override fun setupObserver() {
         super.setupObserver()
-        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(
-            viewLifecycleOwner
-        ) {
-            when (it) {
-                is NetworkResult.Success -> {
-                    hideLoader()
-                    it.data?.payload?.let { payload ->
-                        cumulativeDashboardSummaryPayload = payload
-                        initializeData()
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    hideLoader()
-                    it.message.toString().toast()
-                }
-
-                is NetworkResult.Loading -> {
-                    showLoader()
-                }
-
-                is NetworkResult.SessionOut -> {
-
-                    "User token expired".toast()
-                    cumulativeDashboardSummaryViewModel.clearSelection()
-
-                    val intent = Intent(requireActivity(), LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    requireActivity().finishAfterTransition()
-
-                    // showTokenExpiredToast()
-                }
-
-                else -> {
-
-                }
-            }
-        }
+//        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(
+//            viewLifecycleOwner
+//        ) {
+//            when (it) {
+//                is NetworkResult.Success -> {
+//                    hideLoader()
+//                    it.data?.payload?.let { payload ->
+//                        cumulativeDashboardSummaryPayload = payload
+//                        initializeData()
+//                    }
+//                }
+//
+//                is NetworkResult.Error -> {
+//                    hideLoader()
+//                    it.message.toString().toast()
+//                }
+//
+//                is NetworkResult.Loading -> {
+//                    showLoader()
+//                }
+//
+//                is NetworkResult.SessionOut -> {
+//
+//                    "User token expired".toast()
+//                    cumulativeDashboardSummaryViewModel.clearSelection()
+//
+//                    val intent = Intent(requireActivity(), LoginActivity::class.java)
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    startActivity(intent)
+//                    requireActivity().finishAfterTransition()
+//
+//                    // showTokenExpiredToast()
+//                }
+//
+//                else -> {
+//
+//                }
+//            }
+//        }
     }
 
     override fun initializeData() {
         super.initializeData()
         if (::cumulativeDashboardSummaryPayload.isInitialized) {
-
-
-
-
             binding.apply {
-                textViewStyle.text = changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.styleName}", 6)
-                textViewColor.text = changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.colorName}", 6)
-                textViewBuyer.text = changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.buyerName}", 6)
-                tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.runDay}", 9)
-                tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.runningHour}", 13)
-                if (cumulativeDashboardSummaryPayload.poNumber?.isNotEmpty() == true) {
-                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardSummaryPayload.poNumber?:""}", 2)
+                textViewStyle.text = changeEndTextColor("Style - ${cumulativeDashboardSummaryPayload.payload?.styleName}", 6)
+                textViewColor.text = changeEndTextColor("Color - ${cumulativeDashboardSummaryPayload.payload?.colorName}", 6)
+                textViewBuyer.text = changeEndTextColor("Buyer - ${cumulativeDashboardSummaryPayload.payload?.buyerName}", 6)
+                tvRunDay.text = changeEndTextColor("Run Day - ${cumulativeDashboardSummaryPayload.payload?.runDay}", 9)
+                tvRuningHour.text = changeEndTextColor("Running Hour - ${cumulativeDashboardSummaryPayload.payload?.runningHour}", 13)
+                if (cumulativeDashboardSummaryPayload.payload?.poNumber?.isNotEmpty() == true) {
+                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardSummaryPayload.payload?.poNumber?:""}", 2)
                 }
 
 
-                textTargetValue.text = cumulativeDashboardSummaryPayload.target
-                textActualValue.text = cumulativeDashboardSummaryPayload.actual
-                textVarianceValue.text = cumulativeDashboardSummaryPayload.variance
-                textTrendValue.text = cumulativeDashboardSummaryPayload.trend
-                textDHUValue.text="${cumulativeDashboardSummaryPayload.dHU}%"
+                textTargetValue.text = cumulativeDashboardSummaryPayload.payload?.target
+                textActualValue.text = cumulativeDashboardSummaryPayload.payload?.actual
+                textVarianceValue.text = cumulativeDashboardSummaryPayload.payload?.variance
+                textTrendValue.text = cumulativeDashboardSummaryPayload.payload?.trend
+                textDHUValue.text="${cumulativeDashboardSummaryPayload.payload?.dHU}%"
 
-                textHelperValue.text = cumulativeDashboardSummaryPayload.helpers
-                textActualPercentValue.text = "${cumulativeDashboardSummaryPayload.actualEfficiency} %"
-                progressBar.progress = cumulativeDashboardSummaryPayload.actualEfficiency?.toInt() ?: 0
-                textActualPlannedValue.text = changeTextSize("Planned",.5f,"${cumulativeDashboardSummaryPayload.plannedEfficiency}%",4.0f)
-                textWipTotal.text = cumulativeDashboardSummaryPayload.wipTotal
-                textOperationValue.text = cumulativeDashboardSummaryPayload.operators
-                textIronmanValue.text = cumulativeDashboardSummaryPayload.ironMen
-                textDayTarget.text = cumulativeDashboardSummaryPayload.dayTarget
+                textHelperValue.text = cumulativeDashboardSummaryPayload.payload?.helpers
+                textActualPercentValue.text = "${cumulativeDashboardSummaryPayload.payload?.actualEfficiency} %"
+                progressBar.progress = cumulativeDashboardSummaryPayload.payload?.actualEfficiency?.toInt() ?: 0
+                textActualPlannedValue.text = changeTextSize("Planned",.5f,"${cumulativeDashboardSummaryPayload.payload?.plannedEfficiency}%",4.0f)
+                textWipTotal.text = cumulativeDashboardSummaryPayload.payload?.wipTotal
+                textOperationValue.text = cumulativeDashboardSummaryPayload.payload?.operators
+                textIronmanValue.text = cumulativeDashboardSummaryPayload.payload?.ironMen
+                textDayTarget.text = cumulativeDashboardSummaryPayload.payload?.dayTarget
             }
         }
 
@@ -145,10 +147,7 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            lineId = cumulativeDashboardSummaryViewModel.getLineId()?: 0
-            networkChecker {
-                cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
-            }
+            callInitialApi()
         }
     }
 

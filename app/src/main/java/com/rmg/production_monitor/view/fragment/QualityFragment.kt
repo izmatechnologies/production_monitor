@@ -33,7 +33,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class QualityFragment : BaseFragment<FragmentQualityBinding>() {
-    private lateinit var qualityPayload: HeatMapEntity
     private var imagePath: String? = null
     private var finalHeight: Float = 0.0f
     private var finalWidth: Float = 0.0f
@@ -51,6 +50,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     // Declare dotCoordinates globally
     private var dotCoordinates: Array<DataPoint>? = null
     /*Local DB*/
+    private lateinit var qualityPayload: HeatMapEntity
     private lateinit var heatmapLocalViewModel: HeatmapLocalViewModel
     override fun getViewBinding(inflater: LayoutInflater): FragmentQualityBinding {
 
@@ -260,10 +260,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            networkChecker {
-                callInitialApi()
-
-            }
+            callInitialApi()
         }
     }
 

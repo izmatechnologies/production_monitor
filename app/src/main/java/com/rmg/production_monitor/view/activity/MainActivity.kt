@@ -11,29 +11,38 @@ import android.os.Looper
 import android.os.SystemClock
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.gson.Gson
 import com.rmg.production_monitor.R
+import com.rmg.production_monitor.broadCastCallReceiver.CumulativeDashBoardSummaryCallReceiver
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
-import com.rmg.production_monitor.core.data.NetworkResult.Error
-import com.rmg.production_monitor.core.data.NetworkResult.Loading
-import com.rmg.production_monitor.core.data.NetworkResult.SessionOut
-import com.rmg.production_monitor.core.data.NetworkResult.Success
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.showLogoutDialog
-import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityMainBinding
+import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
+import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
-import com.rmg.production_monitor.service.broadCastCallReceiver.HeatmapCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.HeatmapCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.PCBDashboardDetailsApiCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.WIPAnalyticsApiCallReceiver
+import com.rmg.production_monitor.models.local.entity.PCBDashBoardDetailsEntity
+import com.rmg.production_monitor.models.local.entity.WIPAnalyticsEntity
+import com.rmg.production_monitor.models.local.viewModel.PCBDashBoardDetailsLocalViewModel
+import com.rmg.production_monitor.models.local.viewModel.WIPAnalyticsLocalViewModel
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
 import com.rmg.production_monitor.view.fragment.PCBFragment
 import com.rmg.production_monitor.view.fragment.QualityFragment
 import com.rmg.production_monitor.view.fragment.WipFragment
+import com.rmg.production_monitor.viewModel.CumulativeDashboardDetailViewModel
+import com.rmg.production_monitor.viewModel.CumulativeDashboardSummaryViewModel
+import com.rmg.production_monitor.viewModel.DashboardViewModel
 import com.rmg.production_monitor.viewModel.MainActivityViewModel
 import com.rmg.production_monitor.viewModel.QualityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,12 +70,18 @@ class MainActivity : AppCompatActivity() {
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
     private val qualityViewModel by viewModels<QualityViewModel>()
+    private val cumulativeDashboardSummaryViewModel by viewModels<CumulativeDashboardSummaryViewModel>()
+    private val wipViewModel by viewModels<DashboardViewModel>()
+    private val cumulativeDashboardDetailViewModel by viewModels<CumulativeDashboardDetailViewModel>()
     var lineId = 0
     private var loaderDialog: Dialog? = null
     private lateinit var prefs: AppPreferenceImpl
 
     /*Local DB*/
     private lateinit var heatmapLocalViewModel: HeatmapLocalViewModel
+    private lateinit var cumulativeDashBoardLocalViewModel: CumulativeDashBoardLocalViewModel
+    private lateinit var wipAnalyticsLocalViewModel: WIPAnalyticsLocalViewModel
+    private lateinit var pcbDashBoardDetailsLocalViewModel: PCBDashBoardDetailsLocalViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -83,10 +98,23 @@ class MainActivity : AppCompatActivity() {
 
 
         lineId = qualityViewModel.getLineId() ?: 0
+        /*Heat map api*/
         qualityViewModel.getHeatmap(lineId)
-//        val apiSchedulerService = ApiSchedulerService(applicationContext)
-//        apiSchedulerService.heatMapScheduleApiCall(lineId)
-        scheduleApiCall(this, lineId)
+        scheduleHeatMapApiCall(this, lineId)
+
+        /*cumulativeDashboard Summary*/
+        cumulativeDashboardSummaryViewModel.getCumulativeDashboardSummary(lineId)
+        scheduleCumulativeDashBoardSummaryApiCall(this,lineId)
+
+        /*WIP*/
+        mViewModel.getLineId()?.let { wipViewModel.getDashboardAnalytics(it) }
+        scheduleWIPApiCall(this,lineId)
+
+        /*DashBoard Details*/
+        cumulativeDashboardDetailViewModel.getCumulativeDashboardDetail(lineId)
+        schedulePCBDashboardDetailsApiCall(this,lineId)
+
+
 
 
         binding.btnExit.setOnClickListener {
@@ -118,14 +146,17 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        /*startApiCall*/
 
 
         setupObserver()
     }
 
+
+
+
     private fun setupObserver() {
 
+        /*Heat map*/
         qualityViewModel.heatMapLiveData.observe(this@MainActivity) {
             it?.payload?.let { payload ->
                 val insertPayload = HeatMapEntity(0, payload)
@@ -166,14 +197,46 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
         }
+
+        /*Cumulative DashBoard*/
+        cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(this@MainActivity){dashBoard->
+            lifecycleScope.launch {
+                if (dashBoard.success){
+                    val data=CumulativeDashBoardEntity(0,dashBoard.payload)
+                    cumulativeDashBoardLocalViewModel.insertCumulativeDashBoardData(data)
+                }
+            }
+        }
+
+        /*WIP*/
+        wipViewModel.dashboardAnalyticLiveData.observe(this@MainActivity){wip->
+            lifecycleScope.launch {
+                if (wip.success){
+                   val data=WIPAnalyticsEntity(0,wip.payload)
+                    wipAnalyticsLocalViewModel.insertWipAnalyticsData(data)
+                }
+            }
+        }
+
+        /*DashBoard Details*/
+        cumulativeDashboardDetailViewModel.cumulativeDashboardDetailLiveData.observe(this@MainActivity){details->
+            lifecycleScope.launch {
+                if(details.success == true){
+                    val data=PCBDashBoardDetailsEntity(0,details.payload)
+                    pcbDashBoardDetailsLocalViewModel.insertCumulativeDashBoardData(data)
+                }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         // Start auto-scrolling
         //startAutoScroll()
-        heatmapLocalViewModel =
-            ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
+        heatmapLocalViewModel = ViewModelProvider(this@MainActivity)[HeatmapLocalViewModel::class.java]
+        cumulativeDashBoardLocalViewModel = ViewModelProvider(this@MainActivity)[CumulativeDashBoardLocalViewModel::class.java]
+        wipAnalyticsLocalViewModel = ViewModelProvider(this@MainActivity)[WIPAnalyticsLocalViewModel::class.java]
+        pcbDashBoardDetailsLocalViewModel = ViewModelProvider(this@MainActivity)[PCBDashBoardDetailsLocalViewModel::class.java]
 
         if (mViewModel.getSliding()) {
             mViewModel.saveSliderValue(true)
@@ -249,8 +312,7 @@ class MainActivity : AppCompatActivity() {
     private fun cancelApiCalls() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         // Cancel API 1
-        val api1Intent =
-            Intent(this, HeatmapCallReceiver::class.java).apply { action = "heatmap_api" }
+        val api1Intent = Intent(this, HeatmapCallReceiver::class.java)
         val api1PendingIntent = PendingIntent.getBroadcast(
             this,
             0,
@@ -275,7 +337,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun scheduleApiCall(context: Context, lineId: Int) {
+    private fun scheduleHeatMapApiCall(context: Context, lineId: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, HeatmapCallReceiver::class.java).apply {
             putExtra("LINE_ID", lineId.toString())
@@ -295,4 +357,68 @@ class MainActivity : AppCompatActivity() {
             pendingIntent
         )
     }
+
+    private fun scheduleCumulativeDashBoardSummaryApiCall(context: MainActivity, lineId: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, CumulativeDashBoardSummaryCallReceiver::class.java).apply {
+            putExtra("LINE_ID", lineId.toString())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            1,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Set repeating alarm for API every 3 minutes
+        alarmManager.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(), // First trigger
+            2 * 60 * 1000, // Repeat every 3 minutes
+            pendingIntent
+        )
+    }
+
+    private fun scheduleWIPApiCall(context: MainActivity, lineId: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, WIPAnalyticsApiCallReceiver::class.java).apply {
+            putExtra("LINE_ID", lineId.toString())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            2,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Set repeating alarm for API every 3 minutes
+        alarmManager.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(), // First trigger
+            2 * 60 * 1000, // Repeat every 3 minutes
+            pendingIntent
+        )
+    }
+
+    private fun schedulePCBDashboardDetailsApiCall(context: MainActivity, lineId: Int) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, PCBDashboardDetailsApiCallReceiver::class.java).apply {
+            putExtra("LINE_ID", lineId.toString())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            3,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        // Set repeating alarm for API every 3 minutes
+        alarmManager.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(), // First trigger
+            2 * 60 * 1000, // Repeat every 3 minutes
+            pendingIntent
+        )
+    }
+
 }

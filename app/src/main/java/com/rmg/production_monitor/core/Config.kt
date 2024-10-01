@@ -36,7 +36,7 @@ object  Config {
 
     object Storage{
         const val APPLICATION_DATABASE_NAME = "QC_APP_DB.sqlite3"
-        const val APPLICATION_DATABASE_VERSION = 4
+        const val APPLICATION_DATABASE_VERSION = 5
 
         const val APPLICATION_PREFERENCE_NAME = "qc_session"
     }

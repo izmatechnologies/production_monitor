@@ -1,4 +1,4 @@
-package com.rmg.production_monitor.service.broadCastCallReceiver
+package com.rmg.production_monitor.broadCastCallReceiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
