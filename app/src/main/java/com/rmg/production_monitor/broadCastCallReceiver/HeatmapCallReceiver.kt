@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import com.google.gson.Gson
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
-import com.rmg.production_monitor.models.local.repository.HeatMapLocalRepository
 import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.repository.QualityRepositoryImpl
 import com.rmg.production_monitor.viewModelFactory.HeatmapLocalViewModelFactory

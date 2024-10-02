@@ -6,14 +6,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
-import com.rmg.production_monitor.models.local.dao.CumulativeDashBoardDao
 import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
-import com.rmg.production_monitor.models.local.repository.CumulativeDashBoardLocalRepository
 import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
-import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepositoryImpl
 import com.rmg.production_monitor.viewModelFactory.DashBoardSummaryLocalViewModelFactory
-import com.rmg.production_monitor.viewModelFactory.HeatmapLocalViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
