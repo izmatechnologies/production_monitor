@@ -3,10 +3,7 @@ package com.faisal.quc.models.local.dao
 
 
 import androidx.room.*
-import com.faisal.quc.models.local.entity.QcIssueEntity
-
-
-import kotlinx.coroutines.flow.Flow
+import com.rmg.production_monitor.models.local.entity.QcIssueEntity
 
 
 @Dao

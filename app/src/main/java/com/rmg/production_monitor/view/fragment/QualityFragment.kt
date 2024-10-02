@@ -9,6 +9,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
@@ -29,6 +30,7 @@ import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -53,7 +55,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private lateinit var qualityPayload: HeatMapEntity
     private lateinit var heatmapLocalViewModel: HeatmapLocalViewModel
     override fun getViewBinding(inflater: LayoutInflater): FragmentQualityBinding {
-
+        heatmapLocalViewModel= ViewModelProvider(this)[HeatmapLocalViewModel::class.java]
 
 
         return FragmentQualityBinding.inflate(inflater)
@@ -61,15 +63,13 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
 
     override fun callInitialApi() {
         super.callInitialApi()
-        heatmapLocalViewModel= ViewModelProvider(this)[HeatmapLocalViewModel::class.java]
+
         heatmapLocalViewModel.getHeatmapList.observe(viewLifecycleOwner){heatmap->
             if (heatmap !=null){
                 qualityPayload=heatmap
                 heatMapData()
-
-                (Gson().toJson(qualityPayload)).log()
+                (Gson().toJson(qualityPayload.payload?.stationWiseDhus)).log()
             }
-
         }
     }
 
@@ -134,7 +134,13 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                callInitialApi()
+                heatmapLocalViewModel.getHeatmapList.observe(viewLifecycleOwner){heatmap->
+                    if (heatmap !=null){
+                        qualityPayload=heatmap
+                        heatMapData()
+                        (Gson().toJson(qualityPayload.payload?.stationWiseDhus)).log()
+                    }
+                }
                 handler.postDelayed(this, 10000)
             }
         })
@@ -260,7 +266,13 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         super.onResume()
         updateData()
         (requireActivity() as MainActivity).binding.imgBtnRefresh.setOnClickListener {
-            callInitialApi()
+            heatmapLocalViewModel.getHeatmapList.observe(viewLifecycleOwner){heatmap->
+                if (heatmap !=null){
+                    qualityPayload=heatmap
+                    heatMapData()
+                    (Gson().toJson(qualityPayload.payload?.stationWiseDhus)).log()
+                }
+            }
         }
     }
 

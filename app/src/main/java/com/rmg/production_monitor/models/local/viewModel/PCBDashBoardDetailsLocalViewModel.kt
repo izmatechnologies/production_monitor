@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.rmg.production_monitor.core.db.ApiResponseStoreDataBase
+import com.rmg.production_monitor.core.db.AppDatabase
 import com.rmg.production_monitor.models.local.entity.PCBDashBoardDetailsEntity
 import com.rmg.production_monitor.models.local.repository.PCBDashboardDetailsLocalRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ class PCBDashBoardDetailsLocalViewModel(application: Application):AndroidViewMod
     private val getPCBDashboardDetailsLocalRepository:PCBDashboardDetailsLocalRepository
 
     init {
-        val pcbDashboardDetailsDao=ApiResponseStoreDataBase.getInstance(application).getPCBDashboardDetailsDao()
+        val pcbDashboardDetailsDao= AppDatabase.getAppDBInstance(application).getPCBDashboardDetailsDao()
         getPCBDashboardDetailsLocalRepository=PCBDashboardDetailsLocalRepository(pcbDashboardDetailsDao)
         getPCBDashBoardDetailsList=getPCBDashboardDetailsLocalRepository.inputPCBDashBoardDetailsData
 

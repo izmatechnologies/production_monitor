@@ -7,7 +7,7 @@ import com.rmg.production_monitor.models.remote.quality.QualityPayload
 
 @Entity(tableName = "HeatMap")
 data class HeatMapEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val id:Int,
     @SerializedName("Payload")
     val payload: QualityPayload?

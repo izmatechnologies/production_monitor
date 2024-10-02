@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.rmg.production_monitor.core.db.ApiResponseStoreDataBase
+import com.rmg.production_monitor.core.db.AppDatabase
 import com.rmg.production_monitor.models.local.entity.WIPAnalyticsEntity
 import com.rmg.production_monitor.models.local.repository.WIPAnalyticsRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,7 @@ class WIPAnalyticsLocalViewModel(application: Application) : AndroidViewModel(ap
     private val wipAnalyticsRepository: WIPAnalyticsRepository
 
     init {
-        val wipAnalyticsDao = ApiResponseStoreDataBase.getInstance(application).getWIPAnalyticsDao()
+        val wipAnalyticsDao =  AppDatabase.getAppDBInstance(application).getWIPAnalyticsDao()
         wipAnalyticsRepository = WIPAnalyticsRepository(wipAnalyticsDao)
         getWIPListData = wipAnalyticsRepository.inputWIPData
     }

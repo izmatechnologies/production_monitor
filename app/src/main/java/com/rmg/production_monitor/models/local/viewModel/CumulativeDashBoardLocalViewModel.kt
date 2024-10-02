@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.rmg.production_monitor.core.db.ApiResponseStoreDataBase
+import com.rmg.production_monitor.core.db.AppDatabase
 import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
 import com.rmg.production_monitor.models.local.repository.CumulativeDashBoardLocalRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ class CumulativeDashBoardLocalViewModel(application: Application):AndroidViewMod
     private val getCumulativeDashBoardLocalRepository:CumulativeDashBoardLocalRepository
 
     init {
-        val cumulativeDashBoardDao=ApiResponseStoreDataBase.getInstance(application).getCumulativeDashBoardDao()
+        val cumulativeDashBoardDao= AppDatabase.getAppDBInstance(application).getCumulativeDashBoardDao()
         getCumulativeDashBoardLocalRepository=CumulativeDashBoardLocalRepository(cumulativeDashBoardDao)
          getCumulativeDashBoardList=getCumulativeDashBoardLocalRepository.inputCumulativeDashboardData
 
