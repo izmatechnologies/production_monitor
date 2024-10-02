@@ -1,11 +1,19 @@
 package com.rmg.production_monitor.broadCastCallReceiver
 
+import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import com.rmg.production_monitor.models.local.dao.CumulativeDashBoardDao
 import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
+import com.rmg.production_monitor.models.local.repository.CumulativeDashBoardLocalRepository
+import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
+import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.repository.CumulativeDashboardSummaryRepositoryImpl
+import com.rmg.production_monitor.viewModelFactory.DashBoardSummaryLocalViewModelFactory
+import com.rmg.production_monitor.viewModelFactory.HeatmapLocalViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,18 +24,24 @@ import javax.inject.Inject
 class CumulativeDashBoardSummaryCallReceiver :BroadcastReceiver(){
     @Inject
     lateinit var cumulativeDashboardSummaryRepositoryImpl: CumulativeDashboardSummaryRepositoryImpl
-    @Inject
-    lateinit var CumulativeDashBoardDao: CumulativeDashBoardDao
     override fun onReceive(context: Context?, intent: Intent?) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val lineId=intent?.getStringExtra("LINE_ID")
+        if (context != null){
+            val application = context.applicationContext as Application
 
-            val response=cumulativeDashboardSummaryRepositoryImpl.getCumulativeDashboardSummary(lineId?.toInt()?:-1)
+            // Create ViewModel using factory
+            val viewModelFactory = DashBoardSummaryLocalViewModelFactory(application)
+            val cumulativeDashBoardViewModel = ViewModelProvider(ViewModelStore(), viewModelFactory)[CumulativeDashBoardLocalViewModel::class.java]
 
-            if (response.success){
-                CumulativeDashBoardDao.insertDashBoardData(CumulativeDashBoardEntity(0,response.payload))
+            CoroutineScope(Dispatchers.IO).launch {
+                val lineId=intent?.getStringExtra("LINE_ID")
+
+                val response=cumulativeDashboardSummaryRepositoryImpl.getCumulativeDashboardSummary(lineId?.toInt()?:-1)
+
+                if (response.success){
+                    cumulativeDashBoardViewModel.insertCumulativeDashBoardData(CumulativeDashBoardEntity(0,response.payload))
+                }
+
             }
-
         }
 
     }

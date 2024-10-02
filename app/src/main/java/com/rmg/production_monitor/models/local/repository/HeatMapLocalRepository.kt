@@ -10,7 +10,7 @@ class HeatMapLocalRepository @Inject constructor(
 ) {
     val inputHeatmapData:LiveData<HeatMapEntity> = heatMapDao.getHeatMapList()
 
-    fun insertHeatMapData(heatMapEntity: HeatMapEntity){
+    suspend fun insertHeatMapData(heatMapEntity: HeatMapEntity){
         heatMapDao.insertHeatMapData(heatMapEntity)
     }
 
