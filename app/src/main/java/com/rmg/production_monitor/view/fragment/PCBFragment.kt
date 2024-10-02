@@ -11,8 +11,10 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
+import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.extention.toast
 import com.rmg.production_monitor.databinding.FragmentPCBBinding
 import com.rmg.production_monitor.models.local.entity.PCBDashBoardDetailsEntity
@@ -40,7 +42,7 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
     private lateinit var handler: Handler
 
     /*Local DB*/
-    private lateinit var cumulativeDashboardDetailPayload: PCBDashBoardDetailsEntity
+//    private lateinit var cumulativeDashboardDetailPayload: PCBDashBoardDetailsEntity
     private lateinit var pcbDashBoardDetailsLocalViewModel: PCBDashBoardDetailsLocalViewModel
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentPCBBinding {
@@ -53,9 +55,71 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
             ViewModelProvider(this)[PCBDashBoardDetailsLocalViewModel::class.java]
         pcbDashBoardDetailsLocalViewModel.getPCBDashBoardDetailsList.observe(viewLifecycleOwner){
             if (it !=null){
-                cumulativeDashboardDetailPayload=it
+//                cumulativeDashboardDetailPayload=it
+                (Gson().toJson(it.payload)).log()
+
+                setData(it.payload)
             }
         }
+
+
+    }
+
+    private fun setData(payload: CumulativeDashboardDetailPayload?) {
+        hourlyDetailList = mutableListOf()
+        columnName = mutableListOf()
+        columnName.addAll(
+            mutableListOf(
+                ColumnName("Hour"),
+                ColumnName("HOURLY [PCS] ACTUAL / PLAN"),
+                ColumnName("CUM. [PCS] ACTUAL / PLAN"),
+                ColumnName("VARIANCE [PCS] HOURLY / CUM."),
+                ColumnName("CUM.SAH [PCS] ACTUAL / CUM."),
+                ColumnName("DHU"),
+                ColumnName("ACTUAL EFF%"),
+                ColumnName("EFF.VARIANCE%"),
+            )
+        )
+        pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
+        binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
+
+        pcbAdapter = PCBAdapter(hourlyDetailList.sortedBy { it?.hour })
+        binding.recyclerView.apply {
+            setHasFixedSize(true)
+            adapter = pcbAdapter
+        }
+
+        binding.apply {
+            textViewStyle.text = changeEndTextColor(
+                "Style - ${payload?.styleName ?: ""}",
+                6
+            )
+            textViewColor.text = changeEndTextColor(
+                "Color - ${payload?.colorName ?: ""}",
+                6
+            )
+            textViewBuyer.text = changeEndTextColor(
+                "Buyer - ${payload?.buyerName ?: ""}",
+                6
+            )
+            tvRunDay.text = changeEndTextColor(
+                "Run Day - ${payload?.runDay ?: ""}",
+                9
+            )
+            tvRunningHour.text = changeEndTextColor(
+                "Running Hour - ${payload?.runningHour ?:""}",
+                13
+            )
+            if (payload?.poNumber?.isNotEmpty() == true) {
+                textViewPO.text = changeEndTextColor("PO-${payload?.poNumber?:""}", 2)
+            }
+
+            if (hourlyDetailList.isNotEmpty())hourlyDetailList.clear()
+            payload?.hourlyDetails?.let { hourlyDetailList.addAll(it) }
+            pcbAdapter.submit(hourlyDetailList.sortedBy { it?.hour })
+
+        }
+
 
 
     }
@@ -106,64 +170,11 @@ class PCBFragment : BaseFragment<FragmentPCBBinding>() {
 
     override fun initializeData() {
         super.initializeData()
-        if (::cumulativeDashboardDetailPayload.isInitialized) {
-
-            binding.apply {
-                textViewStyle.text = changeEndTextColor(
-                    "Style - ${cumulativeDashboardDetailPayload.payload?.styleName ?: ""}",
-                    6
-                )
-                textViewColor.text = changeEndTextColor(
-                    "Color - ${cumulativeDashboardDetailPayload.payload?.colorName ?: ""}",
-                    6
-                )
-                textViewBuyer.text = changeEndTextColor(
-                    "Buyer - ${cumulativeDashboardDetailPayload.payload?.buyerName ?: ""}",
-                    6
-                )
-                tvRunDay.text = changeEndTextColor(
-                    "Run Day - ${cumulativeDashboardDetailPayload.payload?.runDay ?: ""}",
-                    9
-                )
-                tvRunningHour.text = changeEndTextColor(
-                    "Running Hour - ${cumulativeDashboardDetailPayload.payload?.runningHour ?:""}",
-                    13
-                )
-                if (cumulativeDashboardDetailPayload.payload?.poNumber?.isNotEmpty() == true) {
-                    textViewPO.text = changeEndTextColor("PO-${cumulativeDashboardDetailPayload.payload?.poNumber?:""}", 2)
-                }
-
-                if (hourlyDetailList.isNotEmpty())hourlyDetailList.clear()
-                cumulativeDashboardDetailPayload.payload?.hourlyDetails?.let { hourlyDetailList.addAll(it) }
-                pcbAdapter.submit(hourlyDetailList.sortedBy { it?.hour })
-
-            }
-
-
-            hourlyDetailList = mutableListOf()
-            columnName = mutableListOf()
-            columnName.addAll(
-                mutableListOf(
-                    ColumnName("Hour"),
-                    ColumnName("HOURLY [PCS] ACTUAL / PLAN"),
-                    ColumnName("CUM. [PCS] ACTUAL / PLAN"),
-                    ColumnName("VARIANCE [PCS] HOURLY / CUM."),
-                    ColumnName("CUM.SAH [PCS] ACTUAL / CUM."),
-                    ColumnName("DHU"),
-                    ColumnName("ACTUAL EFF%"),
-                    ColumnName("EFF.VARIANCE%"),
-                )
-            )
-            pcbTopColumnNameAdapter=PCBTopColumnNameAdapter(columnName)
-            binding.recyclerViewTop.adapter=pcbTopColumnNameAdapter
-
-            pcbAdapter = PCBAdapter(hourlyDetailList.sortedBy { it?.hour })
-            binding.recyclerView.apply {
-                setHasFixedSize(true)
-                adapter = pcbAdapter
-            }
-
-        }
+//        if (::cumulativeDashboardDetailPayload.isInitialized) {
+//
+//
+//
+//        }
 
     }
 

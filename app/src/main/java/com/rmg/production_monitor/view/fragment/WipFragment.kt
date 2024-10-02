@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.rmg.production_monitor.core.base.BaseFragment
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.log
@@ -54,6 +55,8 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
                 wipAnalyticsEntity=it
 
                 setUpRecyclerView(wipAnalyticsEntity.payload?.wipPos)
+
+                (Gson().toJson(wipAnalyticsEntity)).log()
 
             }
         }
@@ -108,10 +111,8 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
 
 
     private fun setUpRecyclerView(payload: List<WipPo?>?) {
-
         payload?.apply {
             WIPAdapter.differ.submitList(toList())
-
         }
 
         binding.recyclerView.apply {

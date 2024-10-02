@@ -11,13 +11,14 @@ import android.os.Looper
 import android.os.SystemClock
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.gson.Gson
 import com.rmg.production_monitor.R
 import com.rmg.production_monitor.broadCastCallReceiver.CumulativeDashBoardSummaryCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.HeatmapCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.PCBDashboardDetailsApiCallReceiver
+import com.rmg.production_monitor.broadCastCallReceiver.WIPAnalyticsApiCallReceiver
 import com.rmg.production_monitor.core.Config
 import com.rmg.production_monitor.core.adapter.DisplayFragment
 import com.rmg.production_monitor.core.adapter.ScreenSlidePagerAdapter
@@ -27,13 +28,10 @@ import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.databinding.ActivityMainBinding
 import com.rmg.production_monitor.models.local.entity.CumulativeDashBoardEntity
 import com.rmg.production_monitor.models.local.entity.HeatMapEntity
-import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
-import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
-import com.rmg.production_monitor.broadCastCallReceiver.HeatmapCallReceiver
-import com.rmg.production_monitor.broadCastCallReceiver.PCBDashboardDetailsApiCallReceiver
-import com.rmg.production_monitor.broadCastCallReceiver.WIPAnalyticsApiCallReceiver
 import com.rmg.production_monitor.models.local.entity.PCBDashBoardDetailsEntity
 import com.rmg.production_monitor.models.local.entity.WIPAnalyticsEntity
+import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLocalViewModel
+import com.rmg.production_monitor.models.local.viewModel.HeatmapLocalViewModel
 import com.rmg.production_monitor.models.local.viewModel.PCBDashBoardDetailsLocalViewModel
 import com.rmg.production_monitor.models.local.viewModel.WIPAnalyticsLocalViewModel
 import com.rmg.production_monitor.view.fragment.DashBoardFragment
@@ -200,31 +198,28 @@ class MainActivity : AppCompatActivity() {
 
         /*Cumulative DashBoard*/
         cumulativeDashboardSummaryViewModel.cumulativeDashboardSummaryLiveData.observe(this@MainActivity){dashBoard->
-            lifecycleScope.launch {
-                if (dashBoard.success){
-                    val data=CumulativeDashBoardEntity(0,dashBoard.payload)
-                    cumulativeDashBoardLocalViewModel.insertCumulativeDashBoardData(data)
-                }
+            if (dashBoard.success){
+                val data=CumulativeDashBoardEntity(0,dashBoard.payload)
+                cumulativeDashBoardLocalViewModel.insertCumulativeDashBoardData(data)
+                (Gson().toJson(data)).log()
             }
         }
 
         /*WIP*/
         wipViewModel.dashboardAnalyticLiveData.observe(this@MainActivity){wip->
-            lifecycleScope.launch {
-                if (wip.success){
-                   val data=WIPAnalyticsEntity(0,wip.payload)
-                    wipAnalyticsLocalViewModel.insertWipAnalyticsData(data)
-                }
+            if (wip.success){
+                val data=WIPAnalyticsEntity(0,wip.payload)
+                wipAnalyticsLocalViewModel.insertWipAnalyticsData(data)
+                (Gson().toJson(data)).log()
             }
         }
 
         /*DashBoard Details*/
         cumulativeDashboardDetailViewModel.cumulativeDashboardDetailLiveData.observe(this@MainActivity){details->
-            lifecycleScope.launch {
-                if(details.success == true){
-                    val data=PCBDashBoardDetailsEntity(0,details.payload)
-                    pcbDashBoardDetailsLocalViewModel.insertCumulativeDashBoardData(data)
-                }
+            if(details.success == true){
+                val data=PCBDashBoardDetailsEntity(0,details.payload)
+                pcbDashBoardDetailsLocalViewModel.insertCumulativeDashBoardData(data)
+                (Gson().toJson(data)).log()
             }
         }
     }
