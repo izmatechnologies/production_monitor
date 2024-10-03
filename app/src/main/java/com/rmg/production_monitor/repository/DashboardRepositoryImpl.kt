@@ -3,12 +3,12 @@ package com.rmg.production_monitor.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.service.ApiService
+import com.rmg.production_monitor.core.service.WipApiService
 import com.rmg.production_monitor.models.remote.dasboard.DashboardAnalyticsResponse
 import javax.inject.Inject
 
 class DashboardRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: WipApiService
 ) : DashboardRepository {
 
     private val _dashboardAnalyticsData =

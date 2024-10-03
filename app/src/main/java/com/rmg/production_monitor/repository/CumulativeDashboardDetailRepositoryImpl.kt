@@ -4,14 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rmg.production_monitor.core.data.NetworkResult
-import com.rmg.production_monitor.core.service.ApiService
+import com.rmg.production_monitor.core.service.PcbApiService
 import com.rmg.production_monitor.models.remote.cumulativeDashboardDetail.CumulativeDashboardDetailModel
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryModel
 import org.json.JSONObject
 import javax.inject.Inject
 
 class CumulativeDashboardDetailRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: PcbApiService
 ) : CumulativeDashboardDetailRepository {
 
     // Cumulative Dashboard Detail

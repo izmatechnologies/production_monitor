@@ -7,14 +7,14 @@ import com.faisal.quc.models.remote.authentication.AuthenticationRequest
 import com.rmg.production_monitor.core.data.NetworkResult
 import com.rmg.production_monitor.core.extention.log
 import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
-import com.rmg.production_monitor.core.service.ApiService
+import com.rmg.production_monitor.core.service.GeneralApiService
 import com.rmg.production_monitor.models.remote.authentication.AuthenticateModel
 
 import org.json.JSONObject
 import javax.inject.Inject
 
 class AuthenticationRepositoryImpl @Inject constructor(
-    private val apiService: ApiService,
+    private val apiService: GeneralApiService,
     private val appPreference: AppPreferenceImpl,
 ) : AuthenticationRepository {
 
