@@ -22,12 +22,18 @@ import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.WIPAdapter
 import com.rmg.production_monitor.viewModel.DashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable.isActive
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class WipFragment : BaseFragment<FragmentWipBinding>() {
-
-    private lateinit var handler: Handler
+    private var updateJob: Job? = null
+  //  private lateinit var handler: Handler
     @Inject
     lateinit var WIPAdapter: WIPAdapter
 
@@ -120,17 +126,28 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
         }
 }
 
+//    private fun updateData() {
+//        handler = Handler(Looper.getMainLooper())
+//        handler.post(object : Runnable {
+//            override fun run() {
+//                callInitialApi()
+//                handler.postDelayed(this, 10000)
+//            }
+//        })
+//    }
+
     private fun updateData() {
-        handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
+        updateJob?.cancel()
+        // Start a new coroutine in the main thread (UI)
+        updateJob = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                // Call your initial API function
                 callInitialApi()
-                handler.postDelayed(this, 10000)
+                // Suspend for 10 seconds (non-blocking)
+                delay(10000)
             }
-        })
+        }
     }
-
-
 
     override fun onResume() {
         super.onResume()
@@ -140,11 +157,14 @@ class WipFragment : BaseFragment<FragmentWipBinding>() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacksAndMessages(null)
+//    override fun onPause() {
+//        super.onPause()
+//       // handler.removeCallbacksAndMessages(null)
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        updateJob?.cancel()
     }
-
-
 
 }

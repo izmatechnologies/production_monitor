@@ -30,11 +30,17 @@ import com.rmg.production_monitor.view.activity.MainActivity
 import com.rmg.production_monitor.view.adapter.StationWiseDHUAdapter
 import com.rmg.production_monitor.view.adapter.TopProductionsIssueAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable.isActive
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class QualityFragment : BaseFragment<FragmentQualityBinding>() {
+    private var updateJob: Job? = null
     private var imagePath: String? = null
     private var finalHeight: Float = 0.0f
     private var finalWidth: Float = 0.0f
@@ -46,7 +52,7 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     private lateinit var issuesAdapter:TopProductionsIssueAdapter
     private lateinit var operationsAdapter:TopProductionsIssueAdapter
     var lineId =  0
-    private lateinit var handler: Handler
+   // private lateinit var handler: Handler
 
     // The list of coordinates for the dots
     // Declare dotCoordinates globally
@@ -130,10 +136,15 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
         }
     }
 
+
+
     private fun updateData() {
-        handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
+        updateJob?.cancel()
+
+        // Start a new coroutine in the main thread (UI)
+        updateJob = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                // Call your initial API function
                 heatmapLocalViewModel.getHeatmapList.observe(viewLifecycleOwner){heatmap->
                     if (heatmap !=null){
                         qualityPayload=heatmap
@@ -141,10 +152,26 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
                         (Gson().toJson(qualityPayload.payload?.stationWiseDhus)).log()
                     }
                 }
-                handler.postDelayed(this, 10000)
+                // Suspend for 10 seconds (non-blocking)
+                delay(10000)
             }
-        })
+        }
     }
+//    private fun updateData() {
+//        handler = Handler(Looper.getMainLooper())
+//        handler.post(object : Runnable {
+//            override fun run() {
+//                heatmapLocalViewModel.getHeatmapList.observe(viewLifecycleOwner){heatmap->
+//                    if (heatmap !=null){
+//                        qualityPayload=heatmap
+//                        heatMapData()
+//                        (Gson().toJson(qualityPayload.payload?.stationWiseDhus)).log()
+//                    }
+//                }
+//                handler.postDelayed(this, 10000)
+//            }
+//        })
+//    }
 
     private fun heatMapData(){
         if (::qualityPayload.isInitialized) {
@@ -277,11 +304,15 @@ class QualityFragment : BaseFragment<FragmentQualityBinding>() {
     }
 
 
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacksAndMessages(null)
-    }
+//    override fun onPause() {
+//        super.onPause()
+//     //   handler.removeCallbacksAndMessages(null)
+//    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        updateJob?.cancel()
+    }
 
 
 

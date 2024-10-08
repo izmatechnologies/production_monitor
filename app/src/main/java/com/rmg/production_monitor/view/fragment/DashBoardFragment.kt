@@ -20,15 +20,21 @@ import com.rmg.production_monitor.models.local.viewModel.CumulativeDashBoardLoca
 import com.rmg.production_monitor.models.remote.cumulativeDashboardSummary.CumulativeDashboardSummaryPayload
 import com.rmg.production_monitor.view.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable.isActive
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
 
-
+    private var updateJob: Job? = null
 //    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashboardSummaryPayload
     var lineId = 0
-    private lateinit var handler: Handler
+ //   private lateinit var handler: Handler
     private lateinit var spannableStringBuilder: SpannableStringBuilder
     /*Local DB*/
 //    private lateinit var cumulativeDashboardSummaryPayload: CumulativeDashBoardEntity
@@ -160,20 +166,39 @@ class DashBoardFragment : BaseFragment<FragmentDashBoardBinding>() {
         }
     }
 
+//    private fun updateData() {
+//        handler = Handler(Looper.getMainLooper())
+//        handler.post(object : Runnable {
+//            override fun run() {
+//                callInitialApi()
+//                handler.postDelayed(this, 10000)
+//            }
+//        })
+//    }
+
     private fun updateData() {
-        handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
+        updateJob?.cancel()
+
+        // Start a new coroutine in the main thread (UI)
+        updateJob = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                // Call your initial API function
                 callInitialApi()
-                handler.postDelayed(this, 10000)
+                // Suspend for 10 seconds (non-blocking)
+                delay(10000)
             }
-        })
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacksAndMessages(null)
-    }
 
+//    override fun onPause() {
+//        super.onPause()
+//       // handler.removeCallbacksAndMessages(null)
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        updateJob?.cancel()
+    }
 
 }
