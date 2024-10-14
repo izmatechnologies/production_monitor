@@ -1,8 +1,9 @@
 package com.rmg.production_monitor.core.di
 
 import com.rmg.production_monitor.core.Config
-import com.rmg.production_monitor.core.service.GeneralApiService
+import com.rmg.production_monitor.core.managers.preference.AppPreferenceImpl
 import com.rmg.production_monitor.core.service.AuthInterceptor
+import com.rmg.production_monitor.core.service.GeneralApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,9 +61,11 @@ class GeneralNetworkModule {
     @Provides
     @Singleton
     @RetrofitDefault
-    fun provideRetrofitInstance(@DefaultClient defaultHttpClient: OkHttpClient): Retrofit =
+    fun provideRetrofitInstance(@DefaultClient defaultHttpClient: OkHttpClient,
+                                preferenceManager: AppPreferenceImpl
+    ): Retrofit =
         Retrofit.Builder()
-            .baseUrl(Config.BASE_URL)
+            .baseUrl(preferenceManager.baseUrl?:Config.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(defaultHttpClient)
             .build()

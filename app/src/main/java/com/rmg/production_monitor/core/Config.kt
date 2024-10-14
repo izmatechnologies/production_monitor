@@ -26,6 +26,7 @@ object  Config {
             BASE_URL = appPreferenceImpl.baseUrl.toString()
         }else{
             BASE_URL = Stataging_URL
+            appPreferenceImpl.baseUrl= Stataging_URL
         }
         "BASE_URL to show $BASE_URL".log("192_dim")
     }
