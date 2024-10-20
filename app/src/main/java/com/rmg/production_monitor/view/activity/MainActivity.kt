@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private var currentPage = 0
     private val delayMS: Long = Config.SCREEN_ROTATION_INTERVAL
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
+//    private lateinit var handler: Handler
+//    private lateinit var runnable: Runnable
     private var fragmentList: ArrayList<DisplayFragment> = ArrayList<DisplayFragment>()
     private var job: Job? = null
     private val mViewModel by viewModels<MainActivityViewModel>()
@@ -255,9 +255,9 @@ class MainActivity : AppCompatActivity() {
         fragmentList.add(DisplayFragment("Quality", QualityFragment()))
         fragmentList.add(DisplayFragment("PCB", PCBFragment()))
         fragmentList.add(DisplayFragment("Swing..", DashBoardFragment()))
-        fragmentList.add(DisplayFragment("WIP", WipFragment()))
+//        fragmentList.add(DisplayFragment("WIP", WipFragment()))
 
-        handler = Handler(Looper.getMainLooper())
+//        handler = Handler(Looper.getMainLooper())
 
     }
 
@@ -267,15 +267,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startAutoScroll() {
-        runnable = Runnable {
-            binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
-            //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
-            currentPage++
-            handler.postDelayed(runnable, delayMS)
-
+        job = CoroutineScope(Dispatchers.IO).launch {
+            while (isActive) {
+                binding.viewPager.currentItem = currentPage % binding.viewPager.adapter!!.itemCount
+                //  binding.tvPageTitle.text= fragmentList[currentPage].fragmentTitle
+                currentPage++
+                delay(30000) // 1000 ms = 1 second
+            }
         }
-
-        handler.postDelayed(runnable, delayMS)
+//        runnable = Runnable {
+//
+//            handler.postDelayed(runnable, delayMS)
+//
+//        }
+//
+//        handler.postDelayed(runnable, delayMS)
     }
 
     private fun startCounter() {
@@ -300,7 +306,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         job?.cancel()
-        handler.removeCallbacksAndMessages(null)
+//        handler.removeCallbacksAndMessages(null)
         cancelApiCalls()
     }
 
@@ -318,7 +324,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopScrolling() {
-        handler.removeCallbacksAndMessages(null)
+//        handler.removeCallbacksAndMessages(null)
+        job?.cancel()
     }
 
     private fun hideLoader() {
@@ -349,6 +356,7 @@ class MainActivity : AppCompatActivity() {
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(), // First trigger
             1 * 60 * 1000, // Repeat every 3 minutes
+//            5000, // Repeat every 3 minutes
             pendingIntent
         )
     }
@@ -369,7 +377,7 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(), // First trigger
-            2 * 60 * 1000, // Repeat every 3 minutes
+            1 * 60 * 1000, // Repeat every 3 minutes
             pendingIntent
         )
     }
@@ -390,7 +398,7 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(), // First trigger
-            2 * 60 * 1000, // Repeat every 3 minutes
+            1 * 60 * 1000, // Repeat every 3 minutes
             pendingIntent
         )
     }
@@ -411,7 +419,7 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(), // First trigger
-            2 * 60 * 1000, // Repeat every 3 minutes
+            1 * 60 * 1000, // Repeat every 3 minutes
             pendingIntent
         )
     }
